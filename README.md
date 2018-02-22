@@ -1,3 +1,3 @@
-# Proyecto.NET
+# PlayYourCV
 
 Portada del proyecto
