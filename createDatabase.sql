@@ -1,5 +1,6 @@
+
 -- MySQL Workbench Synchronization
--- Generated: 2018-02-22 16:52
+-- Generated: 2018-02-23 13:55
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -179,14 +180,14 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `playyourcvdatabase`.`DialogosMascota` (
-  `idDialogosMascota` INT(11) NOT NULL,
+  `idDialogosMascota` INT(11) NOT NULL AUTO_INCREMENT,
   `ContenidoSpanish` VARCHAR(280) NULL DEFAULT NULL,
   PRIMARY KEY (`idDialogosMascota`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `playyourcvdatabase`.`PreguntasObjetivo` (
-  `idPreguntasObjetivo` INT(11) NOT NULL,
+  `idPreguntasObjetivo` INT(11) NOT NULL AUTO_INCREMENT,
   `ContenidoSpanish` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idPreguntasObjetivo`))
 ENGINE = InnoDB
