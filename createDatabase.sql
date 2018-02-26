@@ -1,6 +1,5 @@
-
 -- MySQL Workbench Synchronization
--- Generated: 2018-02-23 13:55
+-- Generated: 2018-02-26 18:01
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -182,14 +181,35 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `playyourcvdatabase`.`DialogosMascota` (
   `idDialogosMascota` INT(11) NOT NULL AUTO_INCREMENT,
   `ContenidoSpanish` VARCHAR(280) NULL DEFAULT NULL,
-  PRIMARY KEY (`idDialogosMascota`))
+  `CategoriaPreguntas_idCategoriaPreguntas` INT(11) NOT NULL,
+  PRIMARY KEY (`idDialogosMascota`),
+  INDEX `fk_DialogosMascota_CategoriaPreguntas1_idx` (`CategoriaPreguntas_idCategoriaPreguntas` ASC),
+  CONSTRAINT `fk_DialogosMascota_CategoriaPreguntas1`
+    FOREIGN KEY (`CategoriaPreguntas_idCategoriaPreguntas`)
+    REFERENCES `playyourcvdatabase`.`CategoriaPreguntas` (`idCategoriaPreguntas`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `playyourcvdatabase`.`PreguntasObjetivo` (
   `idPreguntasObjetivo` INT(11) NOT NULL AUTO_INCREMENT,
   `ContenidoSpanish` VARCHAR(45) NULL DEFAULT NULL,
-  PRIMARY KEY (`idPreguntasObjetivo`))
+  `CategoriaPreguntas_idCategoriaPreguntas` INT(11) NOT NULL,
+  PRIMARY KEY (`idPreguntasObjetivo`),
+  INDEX `fk_PreguntasObjetivo_CategoriaPreguntas1_idx` (`CategoriaPreguntas_idCategoriaPreguntas` ASC),
+  CONSTRAINT `fk_PreguntasObjetivo_CategoriaPreguntas1`
+    FOREIGN KEY (`CategoriaPreguntas_idCategoriaPreguntas`)
+    REFERENCES `playyourcvdatabase`.`CategoriaPreguntas` (`idCategoriaPreguntas`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+CREATE TABLE IF NOT EXISTS `playyourcvdatabase`.`CategoriaPreguntas` (
+  `idCategoriaPreguntas` INT(11) NOT NULL AUTO_INCREMENT,
+  `CategoriaDePregunta` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`idCategoriaPreguntas`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
