@@ -8,10 +8,24 @@ using PlayYourCV.Models;
 
 namespace PlayYourCV.Controllers
 {
-    public class HomeController : Controller
+    public class EducacionController : Controller
     {
         public IActionResult Index()
         {
+            return View();
+        }
+
+        public IActionResult Create()
+        {
+            ViewData["Message"] = "Your application description page.";
+
+            return View();
+        }
+
+        public IActionResult Edit()
+        {
+            ViewData["Message"] = "Your contact page.";
+
             return View();
         }
 
