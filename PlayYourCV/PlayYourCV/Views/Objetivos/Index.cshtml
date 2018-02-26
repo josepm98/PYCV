@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<h1>Hello world</h1>
+
+<ul>
+    <li>Mi Objetivo</li>
+    <ul id="list">
+        <li>Educación</li>
+        <li>Experiencia</li>
+        <li>Habilidades</li>
+        <li>Idiomas</li>
+        <li class="add" data-toggle="modal" data-target="#myModal" style="cursor:pointer">Add +</li>
+    </ul>
+</ul>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Añade un objetivo</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+                <div class="form-inline">
+                    <input value="" placeholder="Añadir Objetivo" id="entrada" class="form-control">
+                    <button id="botonOK" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+    var index;
+    var valorEntrada;
+
+    //Coge la posición donde añadir el li
+    $(".add").click(function() {
+		index = $(this).index() - 1;
+    });
+
+    $("#botonOK").click(function () {
+        valorEntrada = document.getElementById('entrada').value;
+        $('#list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
+    });
+
+</script>
+
