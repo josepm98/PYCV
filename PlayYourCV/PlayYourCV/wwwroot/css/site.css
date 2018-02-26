@@ -33,3 +33,30 @@
         display: none;
     }
 }
+/*Diseño logo menu*/
+.logo {
+    width: 150px;
+}
+.navbar-inverse {
+    background-color: #fff;
+    border-color: #0D6EAB;
+    height: 60px;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #0D6EAB;
+    background-color: transparent;
+}
+/*Diseño home*/
+.container.body-content {
+    margin-top: 30px;
+}
+.home {
+    text-align: center;
+    position: inherit;
+    /* float: left; */
+    display: inline-block;
+}
+article {
+    text-align: center;
+    margin-bottom: 50px;
+}
