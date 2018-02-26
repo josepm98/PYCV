@@ -8,19 +8,19 @@ using PlayYourCV.Models;
 
 namespace PlayYourCV.Controllers
 {
-    public class HomeController : Controller
+    public class HobbiesController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Create()
         {
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Edit()
         {
             return View();
         }

@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Mvc;
 using PlayYourCV.Models;
 
 namespace PlayYourCV.Controllers
 {
-    public class HomeController : Controller
+    public class DatosAdicionalesController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Create()
         {
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Edit()
         {
             return View();
         }
