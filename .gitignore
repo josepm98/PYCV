@@ -270,3 +270,6 @@ PlayYourCV/.vs/PlayYourCV/v15/Server/sqlite3/storage.ide
 >>>>>>> Joshua
 PlayYourCV/.vs/PlayYourCV/v15/.suo
 PlayYourCV/PlayYourCV/obj/Debug/netcoreapp2.0/PlayYourCV.csproj.CoreCompileInputs.cache
+PlayYourCV/.vs/PlayYourCV/v15/.suo
+*.ide
+*.cache
