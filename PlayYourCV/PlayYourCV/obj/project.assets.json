@@ -13125,6 +13125,7 @@
   "packageFolders": {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "C:\\Users\\Grupo 2 Java\\.nuget\\packages\\": {},
 =======
     "C:\\Users\\Almudena-PC\\.nuget\\packages\\": {},
@@ -13132,6 +13133,9 @@
 =======
     "C:\\Users\\admin\\.nuget\\packages\\": {},
 >>>>>>> josepm
+=======
+    "C:\\Users\\Grupo 2 Java\\.nuget\\packages\\": {},
+>>>>>>> Roger
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
@@ -13143,11 +13147,15 @@
     "restore": {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Roger
       "projectUniqueName": "C:\\Users\\Grupo 2 Java\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
       "projectName": "PlayYourCV",
       "projectPath": "C:\\Users\\Grupo 2 Java\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
       "packagesPath": "C:\\Users\\Grupo 2 Java\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Grupo 2 Java\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\",
+<<<<<<< HEAD
 =======
       "projectUniqueName": "C:\\Users\\Almudena-PC\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
       "projectName": "PlayYourCV",
@@ -13162,12 +13170,15 @@
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\admin\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\",
 >>>>>>> josepm
+=======
+>>>>>>> Roger
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         "C:\\Users\\Grupo 2 Java\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -13177,6 +13188,9 @@
 =======
         "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> josepm
+=======
+        "C:\\Users\\Grupo 2 Java\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> Roger
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
