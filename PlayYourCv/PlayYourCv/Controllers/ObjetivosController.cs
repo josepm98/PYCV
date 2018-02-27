@@ -3,31 +3,27 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 using PlayYourCV.Models;
 
 namespace PlayYourCV.Controllers
 {
     public class ObjetivosController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             ViewData["Mensage"] = "Index";
             return View();
         }
 
-        public IActionResult Create() {
+        public ActionResult Create() {
             ViewData["Mensage"] = "Create";
             return View();
         }
 
-        public IActionResult Editar() {
+        public ActionResult Editar() {
             ViewData["Mensage"] = "Editar";
             return View();
-        }
-
-        public IActionResult Error() {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

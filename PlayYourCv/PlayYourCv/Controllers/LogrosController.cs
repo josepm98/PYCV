@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 
 namespace PlayYourCV.Controllers
 {
     public class LogrosController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }

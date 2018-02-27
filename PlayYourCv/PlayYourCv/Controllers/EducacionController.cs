@@ -3,35 +3,30 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 using PlayYourCV.Models;
 
 namespace PlayYourCV.Controllers
 {
     public class EducacionController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             ViewData["Titulo"] = "Educacion";
             //TODO realizar con bbdd
             return View();
         }
 
-        public IActionResult Create()
+        public ActionResult Create()
         {
             ViewData["Titulo"] = "Educacion";
             return View();
         }
 
-        public IActionResult Edit()
+        public ActionResult Edit()
         {
             ViewData["Titulo"] = "Educacion";
             return View();
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

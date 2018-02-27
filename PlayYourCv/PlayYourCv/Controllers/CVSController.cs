@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 
 namespace PlayYourCV.Controllers
 {
     public class CVSController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
-        public IActionResult Create()
+        public ActionResult Create()
         {
             ViewData["Message"] = "Creacion form.";
 
             return View();
         }
-        public IActionResult Edit()
+        public ActionResult Edit()
         {
             ViewData["Message"] = "Edicion form.";
 

@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 
 
 namespace PlayYourCV.Controllers
 {
     public class SkillsController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
             return View();
         }
-        public IActionResult Create()
+        public ActionResult Create()
         {
             ViewData["Message"] = "Your application description page.";
 
             return View();
         }
-        public IActionResult Edit()
+        public ActionResult Edit()
         {
             ViewData["Message"] = "Your application description page.";
 
