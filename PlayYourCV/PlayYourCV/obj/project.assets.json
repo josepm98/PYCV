@@ -13123,19 +13123,7 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "C:\\Users\\Grupo 2 Java\\.nuget\\packages\\": {},
-=======
-    "C:\\Users\\Almudena-PC\\.nuget\\packages\\": {},
->>>>>>> NyanHorse
-=======
-    "C:\\Users\\admin\\.nuget\\packages\\": {},
->>>>>>> josepm
-=======
-    "C:\\Users\\Grupo 2 Java\\.nuget\\packages\\": {},
->>>>>>> Roger
+    "E:\\Users\\joshu\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
@@ -13145,52 +13133,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Roger
-      "projectUniqueName": "C:\\Users\\Grupo 2 Java\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
+      "projectUniqueName": "E:\\Users\\joshu\\OneDrive\\Documentos\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
       "projectName": "PlayYourCV",
-      "projectPath": "C:\\Users\\Grupo 2 Java\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
-      "packagesPath": "C:\\Users\\Grupo 2 Java\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Grupo 2 Java\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\",
-<<<<<<< HEAD
-=======
-      "projectUniqueName": "C:\\Users\\Almudena-PC\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
-      "projectName": "PlayYourCV",
-      "projectPath": "C:\\Users\\Almudena-PC\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
-      "packagesPath": "C:\\Users\\Almudena-PC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Almudena-PC\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\",
->>>>>>> NyanHorse
-=======
-      "projectUniqueName": "C:\\Users\\admin\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
-      "projectName": "PlayYourCV",
-      "projectPath": "C:\\Users\\admin\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
-      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\",
->>>>>>> josepm
-=======
->>>>>>> Roger
+      "projectPath": "E:\\Users\\joshu\\OneDrive\\Documentos\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
+      "packagesPath": "E:\\Users\\joshu\\.nuget\\packages\\",
+      "outputPath": "E:\\Users\\joshu\\OneDrive\\Documentos\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "C:\\Users\\Grupo 2 Java\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-        "C:\\Users\\Almudena-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> NyanHorse
-=======
-        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> josepm
-=======
-        "C:\\Users\\Grupo 2 Java\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> Roger
+        "E:\\Users\\joshu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
@@ -13236,5 +13190,13 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file E:\\Users\\joshu\\OneDrive\\Documentos\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\PlayYourCV.csproj.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
