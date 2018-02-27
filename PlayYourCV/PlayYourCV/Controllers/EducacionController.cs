@@ -12,20 +12,20 @@ namespace PlayYourCV.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["Titulo"] = "Educacion";
+            //TODO realizar con bbdd
             return View();
         }
 
         public IActionResult Create()
         {
-            ViewData["Message"] = "Your application description page.";
-
+            ViewData["Titulo"] = "Educacion";
             return View();
         }
 
         public IActionResult Edit()
         {
-            ViewData["Message"] = "Your contact page.";
-
+            ViewData["Titulo"] = "Educacion";
             return View();
         }
 
