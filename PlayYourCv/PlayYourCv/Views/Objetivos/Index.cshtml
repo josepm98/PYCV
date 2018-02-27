@@ -5,3 +5,48 @@
 
 <h2>Index</h2>
 
+<ul>
+    <li>Mi Objetivo</li>
+    <ul id="list">
+        <li>Educación</li>
+        <li>Experiencia</li>
+        <li>Habilidades</li>
+        <li>Idiomas</li>
+        <li class="add" data-toggle="modal" data-target="#myModal">Add +</li>
+    </ul>
+</ul>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Añade un objetivo</p>
+                <input placeholder="Introduce un objetivo" id="entrada"/>
+                <button class="btn btn-success" data-dismiss="modal" id="botonOK">Aceptar</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(".add").click(function () {
+        index = $(this).index() - 1;
+    });
+
+    $("#botonOK").click(function () {
+        valorEntrada = document.getElementById('entrada').value;
+        $('#list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
+    });
+</script>
+
