@@ -13124,10 +13124,14 @@
   },
   "packageFolders": {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "C:\\Users\\Grupo 2 Java\\.nuget\\packages\\": {},
 =======
     "C:\\Users\\Almudena-PC\\.nuget\\packages\\": {},
 >>>>>>> NyanHorse
+=======
+    "C:\\Users\\admin\\.nuget\\packages\\": {},
+>>>>>>> josepm
     "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
@@ -13137,6 +13141,7 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
+<<<<<<< HEAD
 <<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Grupo 2 Java\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
       "projectName": "PlayYourCV",
@@ -13150,6 +13155,13 @@
       "packagesPath": "C:\\Users\\Almudena-PC\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Almudena-PC\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\",
 >>>>>>> NyanHorse
+=======
+      "projectUniqueName": "C:\\Users\\admin\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
+      "projectName": "PlayYourCV",
+      "projectPath": "C:\\Users\\admin\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\PlayYourCV.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\admin\\Documents\\GitHub\\PlayYourCV\\PlayYourCV\\PlayYourCV\\obj\\",
+>>>>>>> josepm
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
@@ -13157,10 +13169,14 @@
       ],
       "configFilePaths": [
 <<<<<<< HEAD
+<<<<<<< HEAD
         "C:\\Users\\Grupo 2 Java\\AppData\\Roaming\\NuGet\\NuGet.Config",
 =======
         "C:\\Users\\Almudena-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
 >>>>>>> NyanHorse
+=======
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> josepm
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
