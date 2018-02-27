@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
 
 
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/playyourcvlogo1.png" type="image/x-icon">
 
     <!-- style -->
 
@@ -48,7 +48,13 @@
 
     <link href="~/css/effects/component.css" rel="stylesheet" type="text/css">
 </head>
-
+<style>
+    img {
+        text-align: center;
+        content-aling: center;
+        display: inline-block;
+    }
+</style>
 <body>
     <!-- header -->
 
@@ -60,7 +66,7 @@
 
             <h1>
                 
-                <a href="" title="PlayYourCV"><img src="~/images/playyourcvlogo.png" title="PlayYourCV" alt="PlayYourCV" /></a>
+                <a href="" title="PlayYourCV"><img src="~/images/playyourcvlogo.png" title="PlayYourCV" alt="PlayYourCV" width="400px" /></a>
 
             </h1>
 
@@ -104,31 +110,18 @@
 
             <ul>
 
-                <li><a href="index.html" title="Work">Work</a></li>
-
-                <li><a href="about.html" title="About">About</a></li>
-
-                <li><a href="blog.html" title="Blog">Blog</a></li>
-
-                <li><a href="contact.html" title="Contact">Contact</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-area="" asp-controller="DatosPersonales" asp-action="Index">Mi perfil</a></li>
+                <li><a asp-area="" asp-controller="Cvs" asp-action="Index">Mis cvs</a></li>
+                <li><a asp-area="" asp-controller="Objetivos" asp-action="Index">Mis Objetivos</a></li>
+                <li><a asp-area="" asp-controller="Logros" asp-action="Index">Mis logros</a></li>
+                <li><a asp-area="" asp-controller="Login" asp-action="">Logout</a></li>
 
             </ul>
 
         </nav>
 
         <!-- nav -->
-
-        <ul role="social-icons">
-
-            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-
-            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-
-            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-
-            <li><a href="#"><i class="fa fa-flickr" aria-hidden="true"></i></a></li>
-
-        </ul>
 
         <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
 
