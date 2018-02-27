@@ -275,3 +275,8 @@ PlayYourCV/.vs/PlayYourCV/v15/.suo
 *.cache
 PlayYourCV/.vs/PlayYourCV/v15/.suo
 *.ide
+PlayYourCV/.vs/PlayYourCV/v15/.suo
+*.cache
+PlayYourCV/PlayYourCV/obj/PlayYourCV.csproj.nuget.cache
+PlayYourCV/PlayYourCV/obj/PlayYourCV.csproj.nuget.g.props
+PlayYourCV/PlayYourCV/obj/project.assets.json
