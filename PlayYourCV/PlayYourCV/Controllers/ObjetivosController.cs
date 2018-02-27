@@ -8,16 +8,25 @@ using PlayYourCV.Models;
 
 namespace PlayYourCV.Controllers
 {
-    public class HomeController : Controller
+    public class ObjetivosController : Controller
     {
         public IActionResult Index()
         {
+            ViewData["Mensage"] = "Index";
             return View();
         }
 
+        public IActionResult Create() {
+            ViewData["Mensage"] = "Create";
+            return View();
+        }
 
-        public IActionResult Error()
-        {
+        public IActionResult Editar() {
+            ViewData["Mensage"] = "Editar";
+            return View();
+        }
+
+        public IActionResult Error() {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
