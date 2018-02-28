@@ -24,5 +24,11 @@ namespace PlayYourCV.Controllers
 
             return View();
         }
+        public ActionResult Moduloscv()
+        {
+            ViewData["Message"] = "Edicion form.";
+
+            return View();
+        }
     }
 }
