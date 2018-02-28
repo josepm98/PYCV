@@ -65,6 +65,14 @@ article {
 .nav > li > a :active {
     color: blue;
 }
+.navbar-inverse {
+    background-color: White!important;
+    border-color: #0D6EAB!important;
+}
+    .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
+        color: #0D6EAB !important;
+        background-color: transparent;
+    }
 /*Diseño carrusel CVS*/
 .carousel {
     margin-bottom: 0;
@@ -76,11 +84,24 @@ article {
     height: 40px;
     width: 40px;
     background: none repeat scroll 0 0 #222222;
-    border: 4px solid #FFFFFF;
+    border: 3px solid #FFFFFF;
     border-radius: 23px 23px 23px 23px;
     margin-top: 90px;
 }
-
+.carousel-control {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 4%!important;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+    background-color: rgba(0,0,0,0);
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
     .carousel-control.right {
         right: -12px;
     }
@@ -98,4 +119,45 @@ article {
 
     .carousel-indicators .active {
         background: #428bca;
+    }
+
+/**/
+ul, ol {
+    list-style: none;
+}
+
+.nav > li {
+    float: left;
+}
+
+.nav li a {
+    text-decoration: none;
+    padding: 10px 12px;
+    display: block;
+}
+
+    .nav li a:hover {
+        background-color: #fff;
+    }
+
+.nav li ul {
+    display: none;
+    position: absolute;
+    min-width: 140px;
+}
+
+.nav li:hover > ul {
+    display: block;
+}
+
+.nav li ul li {
+    position: relative;
+    background-color: white;
+    border-bottom: 2px solid #0D6EAB;
+    border-radius: 5px;
+}
+
+    .nav li ul li ul {
+        right: -140px;
+        top: 0px;
     }

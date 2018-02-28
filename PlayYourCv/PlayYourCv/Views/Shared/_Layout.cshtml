@@ -32,12 +32,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="Home/">Home</a></li>
-                    <li><a asp-area="" asp-controller="DatosPersonales" asp-action="Index">Mi perfil</a></li>
-                    <li><a asp-area="" asp-controller="Cvs" asp-action="Index">Mis cvs</a></li>
-                    <li><a asp-area="" asp-controller="Objetivos" asp-action="Index">Mis Objetivos</a></li>
-                    <li><a asp-area="" asp-controller="Logros" asp-action="Index">Mis logros</a></li>
-                    <li><a asp-area="" asp-controller="Login" asp-action="">Logout</a></li>
+                    <li><a href="~/Home/">Home</a></li>
+                    <li><a href="~/DatosPersonales/">Mi perfil</a></li>
+                    <li><a href="~/Cvs/">Mis cvs</a>
+                    <ul>
+                        <li><a href="~/Cvs/Moduloscv">Modulos Cv</a></li>
+                        </ul></li>
+                    <li><a href="~/Objetivos/">Mis Objetivos</a></li>
+                    <li><a href="~/Logros/">Mis logros</a></li>
+                    <li><a href="~/Login/">Logout</a></li>
                 </ul>
                 <div class="progress">
                     <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
