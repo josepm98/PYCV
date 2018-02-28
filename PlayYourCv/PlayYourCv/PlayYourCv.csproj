@@ -188,6 +188,9 @@
     <Content Include="Content\images\home-images\image-4.jpg" />
     <Content Include="Content\images\home-images\image-5.jpg" />
     <Content Include="Content\images\home-images\image-6.jpg" />
+    <Content Include="Content\images\lvl.jfif" />
+    <Content Include="Content\images\lvl.png" />
+    <Content Include="Content\images\nodisp.png" />
     <Content Include="Content\images\playyourcvlogo.png" />
     <Content Include="Content\images\playyourcvlogo1.png" />
     <Content Include="Content\js\bootstrap.min.js" />
