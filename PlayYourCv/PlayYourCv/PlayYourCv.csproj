@@ -298,6 +298,7 @@
     <Content Include="Views\Cvs\Create.cshtml" />
     <Content Include="Views\Cvs\Edit.cshtml" />
     <Content Include="Views\Cvs\Index.cshtml" />
+    <Content Include="Views\Cvs\Moduloscv.cshtml" />
     <Content Include="Views\DatosAdicionales\Create.cshtml" />
     <Content Include="Views\DatosAdicionales\Edit.cshtml" />
     <Content Include="Views\DatosAdicionales\Index.cshtml" />
@@ -331,10 +332,6 @@
     <Content Include="Views\Skills\Index.cshtml" />
     <Content Include="Views\Home\layouthome.cshtml" />
     <Content Include="Views\Home\_ViewStart.cshtml" />
-<<<<<<< HEAD
-    <Content Include="Views\Cvs\Moduloscv.cshtml" />
-=======
->>>>>>> Joshua
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
