@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using MySql.Data.MySqlClient;
+using PlayYourCV.Controllers;
 using PlayYourCV.Models;
 
-namespace PlayYourCv.Models
+
+namespace PlayYourCV.Models
 {
     public class UsuarioBBDDController : BBDDController<Usuario>
     {

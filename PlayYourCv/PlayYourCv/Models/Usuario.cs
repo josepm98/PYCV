@@ -9,11 +9,15 @@ namespace PlayYourCV.Models
     public class Usuario
     {
         public int Id { get; set; }
+
         [Required]
         public string Nombre { get; set; }
         public string Apellido1 { get; set; }
         public string Apellido2 { get; set; }
+
+        [Required]
         public string Email { get; set; }
+
         [Required]
         [StringLength(50, ErrorMessage = "{0} ha de tener entre {2} y {1} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
