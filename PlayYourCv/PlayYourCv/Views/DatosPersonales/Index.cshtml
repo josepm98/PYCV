@@ -15,29 +15,22 @@
     {
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="jumbotron">
                                 <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-9">
                             <div class="jumbotron">
-                                <h1>@usuario.Nombre</h1>
-                                
+                                <h1>@usuario.Nombre @usuario.Apellido1 @usuario.Apellido2</h1>
                                 <p>
-                                    @usuario.Apellido1
+                                    Email : @usuario.Email
                                 </p>
                                 <p>
-                                    @usuario.Apellido2
+                                    Fecha de nacimiento : @usuario.FechaNacimiento
                                 </p>
                                 <p>
-                                    @usuario.Email
-                                </p>
-                                <p>
-                                    @usuario.FechaNacimiento
-                                </p>
-                                <p>
-                                    @usuario.Telefono
+                                    Telefono : @usuario.Telefono
                                 </p>
                             </div>
                         </div>
