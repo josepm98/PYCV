@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 
 
 namespace PlayYourCV.Controllers
@@ -23,27 +25,7 @@ namespace PlayYourCV.Controllers
             return View();
         }
 
-        // GET: Login/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Login/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+     
 
         // GET: Login/Edit/5
         public ActionResult Edit(int id)
@@ -107,7 +89,7 @@ namespace PlayYourCV.Controllers
             openConn();
             string email = collection["Email"].ToString();
             string pass = collection["Contrasenya"].ToString();
-           // pass = Codifica.ConverteixPassword(pass);
+            pass = Codifica.ConverteixPassword(pass);
             try
             {
                 string sql =
@@ -158,6 +140,92 @@ namespace PlayYourCV.Controllers
         public override List<Usuario> ToListModel(MySqlDataReader rdr)
         {
             throw new NotImplementedException();
+        }
+
+
+
+        public ActionResult Registro()
+        {
+            return View();
+        }
+
+        //reb les dades del formulari via POST i crea el nou registre a users
+        [HttpPost]
+        public ActionResult Registro(FormCollection collection)
+        {
+
+            // primer verifiquem que email NO existeixi
+            // si existeix, retornem a vista registre amb msg d'error
+            // cal crear mètode: bool emailExisteix(string email)
+            if (emailExisteix(collection["Email"].ToString())){
+                ViewBag.ErrorMsg = "Este email ya ha sido registrado";
+                return View();
+            }
+
+            try
+            {
+                _conn.Open();
+                MySqlCommand cmd = new MySqlCommand();
+                string sql =
+                "INSERT INTO usuarios (Nombre, contrasenya, Email) VALUES (@nom,@password,@email)";
+
+                string passwordVisible = collection["contrasenya"];
+                string passwordCodificada =
+                Codifica.ConverteixPassword(passwordVisible);
+
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@nom", collection["Nombre"].ToString());
+                cmd.Parameters.AddWithValue("@password", passwordCodificada);
+                cmd.Parameters.AddWithValue("@email", collection["Email"].ToString());
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                cmd.ExecuteNonQuery();
+
+                _conn.Close();
+                return RedirectToAction("Index","Home");
+
+            }
+            catch (Exception e)
+            {
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    _conn.Close();
+                }
+                return View();
+            }
+
+        }
+
+        private bool emailExisteix(string email)
+        {
+            bool existeix = false;
+            openConn();
+          
+            try
+            {
+                string sql = "SELECT * FROM usuarios WHERE Email=@email";
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                if (rdr.Read())
+                {
+                    existeix = true;
+                }
+
+                rdr.Close();
+                closeConn(); //método propio que cierra conexión si está abierta
+
+            }
+            catch (Exception ex)
+            {
+                closeConn(); //método propio que cierra conexión si está abierta
+            }
+
+            return existeix;
         }
     }
 
