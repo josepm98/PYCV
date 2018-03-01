@@ -2,23 +2,49 @@
 @{
     ViewData["Title"] = "Index";
 }
+@model IEnumerable<PlayYourCV.Models.Usuario>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <h1>Mis Datos Personales</h1>
-                <p>Consulta y crea tus CV.</p>
-            </div>
-        </div>
-    </div>
-</div>
+@{
+    string titulo = (string)ViewData["Titulo"];
+}
 
+<h2>@titulo</h2>
+@{
+    PlayYourCV.Models.Usuario usuario = (PlayYourCV.Models.Usuario)ViewData["usuario"];
+    if (usuario!=null)
+    {
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="jumbotron">
+                                <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="jumbotron">
+                                <h1>@usuario.Nombre</h1>
+                                
+                                <p>
+                                    @usuario.Apellido1
+                                </p>
+                                <p>
+                                    @usuario.Apellido2
+                                </p>
+                                <p>
+                                    @usuario.Email
+                                </p>
+                                <p>
+                                    @usuario.FechaNacimiento
+                                </p>
+                                <p>
+                                    @usuario.Telefono
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        }
+    }
 
 
 
