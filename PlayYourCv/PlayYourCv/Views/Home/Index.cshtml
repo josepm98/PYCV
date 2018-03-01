@@ -1,5 +1,18 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@{ 
+    if (String.IsNullOrEmpty(Session["logged"] as String))
+    {
+        ViewBag.UserIsLogged = false;
+        ViewData["Title"] = "Home Page";
+    }
+    else
+    {
+        ViewBag.UserIsLogged = true;
+        ViewBag.Logged = Session["logged"] as String;
+        ViewBag.LoggedId = Session["loggedid"] as String;
+        ViewData["Title"] = "Hola "+ViewBag.Logged;
+    }
+
+   
 }
 <div class="row">
 

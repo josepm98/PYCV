@@ -5,9 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PlayYourCv.Models
+namespace PlayYourCV.Controllers
 {
-    public abstract class BBDDController<T>
+    public abstract class BBDDController<T> : Controller
     {
         public static MySqlConnection _conn;
         public Object _model;
@@ -28,10 +28,7 @@ namespace PlayYourCv.Models
         public T getId(int id)
         {
             T obj = default(T);
-            if (_conn.State == System.Data.ConnectionState.Closed)
-            {
-                _conn.Open();
-            }
+            openConn();
             try
             {
                 string sql = string.Format("SELECT * FROM {0} WHERE id={1}", _table, id);
@@ -40,12 +37,12 @@ namespace PlayYourCv.Models
 
                 obj = ToModel(rdr);
                 rdr.Close();
-                _conn.Close();
+                closeConn();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                _conn.Close();
+                closeConn();
             }
             return obj;
         }
@@ -68,5 +65,23 @@ namespace PlayYourCv.Models
             }
             return rdr;
         }
+
+        public void openConn()
+        {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                _conn.Open();
+            }
+        }
+
+        public void closeConn()
+        {
+            if (_conn.State == System.Data.ConnectionState.Open)
+            {
+                _conn.Close();
+            }
+        }
+
+
     }
 }
