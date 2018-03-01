@@ -7,13 +7,13 @@ using System.Web.Mvc;
 
 namespace PlayYourCv.Models
 {
-    public abstract class BBDDController<T>
+    public abstract class BBDDController<T> :Controller
     {
         public static MySqlConnection _conn;
         public Object _model;
         public string _table;
         //edit for each of us user or password
-        public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="root";
+        public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="";
 
         static BBDDController()
         {

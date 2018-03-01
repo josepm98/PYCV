@@ -4,19 +4,51 @@
 }
 
 <h2>Index</h2>
+@{
+    if (ViewData["listaObjetivos"] != null) {
+        int idPrimaria = -1;
+        <ul>
+            @{List<PlayYourCV.Models.Objetivo> lista = (List<PlayYourCV.Models.Objetivo>)ViewData["listaObjetivos"];
+                foreach (PlayYourCV.Models.Objetivo o in lista) {
+                    if (o.Primaria) {
+                        idPrimaria = o.Id;
+                        <li>@o.Descripcion</li>
+                    }
+                }
+                <ul>
+                    <li>Skill</li>
+                    @{
+                        <ul>
+                            @foreach (PlayYourCV.Models.Objetivo o in lista) {
+                                if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
+                                    <li>@o.Descripcion</li>
+                                }
+                            }
+                            <li class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
+                        </ul>
+                    }
 
-<ul>
-    <li>Mi Objetivo</li>
-    <ul id="list">
-        <li>Educación</li>
-        <li>Experiencia</li>
-        <li>Habilidades</li>
-        <li>Idiomas</li>
-        <li class="add" data-toggle="modal" data-target="#myModal">Add +</li>
-    </ul>
-</ul>
+                    <li>Educacion</li>
+                    @{
+                        <ul>
+                            @foreach (PlayYourCV.Models.Objetivo o in lista) {
+                                if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
+                                    <li>@o.Descripcion</li>
+                                }
+                            }
+                            <li class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
+                        </ul>
+                    }
+                </ul>
+            }
+        </ul>
+    }
+}
 
-<!-- Modal -->
+
+<!-- ---------------- -->
+<!-- ---- Modal ----- -->
+<!-- ---------------- -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -28,7 +60,9 @@
             </div>
             <div class="modal-body">
                 <p>Añade un objetivo</p>
-                <input placeholder="Introduce un objetivo" id="entrada"/>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Introduce un objetivo" id="entrada" />
+                </div>
                 <button class="btn btn-success" data-dismiss="modal" id="botonOK">Aceptar</button>
             </div>
             <div class="modal-footer">
