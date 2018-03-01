@@ -205,6 +205,11 @@
     <Content Include="Content\images\home-images\Objetivos_1.jpg" />
     <Content Include="Content\images\lvl.jfif" />
     <Content Include="Content\images\lvl.png" />
+    <Content Include="Content\images\mascota\Robot_1.png" />
+    <Content Include="Content\images\mascota\Robot_2.png" />
+    <Content Include="Content\images\mascota\Robot_3_1.png" />
+    <Content Include="Content\images\mascota\Robot_3_3.png" />
+    <Content Include="Content\images\mascota\Robot_4.png" />
     <Content Include="Content\images\modulos-img\Datosadicionales_ss.jpg" />
     <Content Include="Content\images\modulos-img\Datospersonales_ss2.jpg" />
     <Content Include="Content\images\modulos-img\Estudios_1_ss.jpg" />
