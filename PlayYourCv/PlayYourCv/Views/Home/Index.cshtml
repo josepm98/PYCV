@@ -1,5 +1,18 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@{ 
+    if (String.IsNullOrEmpty(Session["logged"] as String))
+    {
+        ViewBag.UserIsLogged = false;
+        ViewData["Title"] = "Home Page";
+    }
+    else
+    {
+        ViewBag.UserIsLogged = true;
+        ViewBag.Logged = Session["logged"] as String;
+        ViewBag.LoggedId = Session["loggedid"] as String;
+        ViewData["Title"] = "Hola "+ViewBag.Logged;
+    }
+
+   
 }
 <div class="row">
 
@@ -27,7 +40,7 @@
 
         <figure class="effect-oscar">
 
-            <img src="~/Content/images/home-images/image-1.jpg" alt="" class="img-responsive" />
+            <img src="~/Content/images/home-images/miscvs-ss.jpg" alt="" class="img-responsive" />
 
             <figcaption>
 
@@ -57,7 +70,7 @@
 
                 <figure class="effect-oscar">
 
-                    <img src="~/Content/images/home-images/image-2.jpg" alt="" class="img-responsive" />
+                    <img src="~/Content/images/home-images/Objetivos_1.jpg" alt="" class="img-responsive" />
 
                     <figcaption>
 

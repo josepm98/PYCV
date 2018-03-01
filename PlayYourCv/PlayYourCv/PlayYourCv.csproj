@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlayYourCv</RootNamespace>
-    <AssemblyName>PlayYourCv</AssemblyName>
+    <RootNamespace>PlayYourCV</RootNamespace>
+    <AssemblyName>PlayYourCV</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -168,9 +168,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\BBDDController.cs" />
+    <Compile Include="Controllers\BBDDController.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\CategoriaPreguntas.cs" />
+    <Compile Include="Models\Codifica.cs" />
     <Compile Include="Models\Contenido.cs" />
     <Compile Include="Models\Cv.cs" />
     <Compile Include="Models\DialogoMascota.cs" />
@@ -200,8 +201,25 @@
     <Content Include="Content\images\home-images\image-4.jpg" />
     <Content Include="Content\images\home-images\image-5.jpg" />
     <Content Include="Content\images\home-images\image-6.jpg" />
+    <Content Include="Content\images\home-images\miscvs-ss.jpg" />
+    <Content Include="Content\images\home-images\Objetivos_1.jpg" />
     <Content Include="Content\images\lvl.jfif" />
     <Content Include="Content\images\lvl.png" />
+    <Content Include="Content\images\mascota\Robot_1.png" />
+    <Content Include="Content\images\mascota\Robot_2.png" />
+    <Content Include="Content\images\mascota\Robot_3_1.png" />
+    <Content Include="Content\images\mascota\Robot_3_3.png" />
+    <Content Include="Content\images\mascota\Robot_4.png" />
+    <Content Include="Content\images\modulos-img\Datosadicionales_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Datospersonales_ss2.jpg" />
+    <Content Include="Content\images\modulos-img\Estudios_1_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Estudios_3_ss-ConvertImage.jpg" />
+    <Content Include="Content\images\modulos-img\Experiencia_5_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Experiencia_5_ss_2.jpg" />
+    <Content Include="Content\images\modulos-img\Hobbies_2ss-ConvertImage.jpg" />
+    <Content Include="Content\images\modulos-img\Idiomas_2_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Idiomas_2_ss2.jpg" />
+    <Content Include="Content\images\modulos-img\skills_ss.jpg" />
     <Content Include="Content\images\nodisp.png" />
     <Content Include="Content\images\playyourcvlogo.png" />
     <Content Include="Content\images\playyourcvlogo1.png" />
@@ -332,9 +350,12 @@
     <Content Include="Views\Skills\Index.cshtml" />
     <Content Include="Views\Home\layouthome.cshtml" />
     <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Login\Registro.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

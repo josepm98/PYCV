@@ -1,19 +1,28 @@
 ﻿using MySql.Data.MySqlClient;
+using PlayYourCV.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PlayYourCv.Models
+namespace PlayYourCV.Controllers
 {
+<<<<<<< HEAD:PlayYourCv/PlayYourCv/Models/BBDDController.cs
     public abstract class BBDDController<T> :Controller
+=======
+    public abstract class BBDDController<T> : Controller
+>>>>>>> master:PlayYourCv/PlayYourCv/Controllers/BBDDController.cs
     {
         public static MySqlConnection _conn;
         public Object _model;
-        public string _table;
+        public string _table,_idCol;
         //edit for each of us user or password
+<<<<<<< HEAD:PlayYourCv/PlayYourCv/Models/BBDDController.cs
         public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="";
+=======
+        public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="seba";
+>>>>>>> master:PlayYourCv/PlayYourCv/Controllers/BBDDController.cs
 
         static BBDDController()
         {
@@ -28,24 +37,21 @@ namespace PlayYourCv.Models
         public T getId(int id)
         {
             T obj = default(T);
-            if (_conn.State == System.Data.ConnectionState.Closed)
-            {
-                _conn.Open();
-            }
+            openConn();
             try
             {
-                string sql = string.Format("SELECT * FROM {0} WHERE id={1}", _table, id);
+                string sql = string.Format("SELECT * FROM {0} WHERE {1}={2}", _table, _idCol, id);
                 MySqlCommand cmd = new MySqlCommand(sql, _conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 obj = ToModel(rdr);
                 rdr.Close();
-                _conn.Close();
+                closeConn();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                _conn.Close();
+                closeConn();
             }
             return obj;
         }
@@ -68,5 +74,23 @@ namespace PlayYourCv.Models
             }
             return rdr;
         }
+
+        public void openConn()
+        {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                _conn.Open();
+            }
+        }
+
+        public void closeConn()
+        {
+            if (_conn.State == System.Data.ConnectionState.Open)
+            {
+                _conn.Close();
+            }
+        }
+
+        
     }
 }
