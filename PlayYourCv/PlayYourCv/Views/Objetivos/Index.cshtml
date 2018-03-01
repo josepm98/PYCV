@@ -7,7 +7,7 @@
 @{
     if (ViewData["listaObjetivos"] != null) {
         int idPrimaria = -1;
-        <ul>
+        <ul class="list">
             @{List<PlayYourCV.Models.Objetivo> lista = (List<PlayYourCV.Models.Objetivo>)ViewData["listaObjetivos"];
                 foreach (PlayYourCV.Models.Objetivo o in lista) {
                     if (o.Primaria) {
@@ -15,10 +15,10 @@
                         <li>@o.Descripcion</li>
                     }
                 }
-                <ul>
+                <ul class="list">
                     <li>Skill</li>
                     @{
-                        <ul>
+                        <ul class="list">
                             @foreach (PlayYourCV.Models.Objetivo o in lista) {
                                 if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
                                     <li>@o.Descripcion</li>
@@ -30,7 +30,7 @@
 
                     <li>Educacion</li>
                     @{
-                        <ul>
+                        <ul class="list">
                             @foreach (PlayYourCV.Models.Objetivo o in lista) {
                                 if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
                                     <li>@o.Descripcion</li>
@@ -80,7 +80,7 @@
 
     $("#botonOK").click(function () {
         valorEntrada = document.getElementById('entrada').value;
-        $('#list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
+        $('.list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
     });
 </script>
 

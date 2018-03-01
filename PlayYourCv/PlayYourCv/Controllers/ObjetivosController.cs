@@ -15,6 +15,7 @@ namespace PlayYourCV.Controllers
 
         public ObjetivosController() {
             _table = "objetivos";
+            //_idCol = "idObjetivos";
         }
         public ActionResult Index()
         {
