@@ -201,8 +201,25 @@
     <Content Include="Content\images\home-images\image-4.jpg" />
     <Content Include="Content\images\home-images\image-5.jpg" />
     <Content Include="Content\images\home-images\image-6.jpg" />
+    <Content Include="Content\images\home-images\miscvs-ss.jpg" />
+    <Content Include="Content\images\home-images\Objetivos_1.jpg" />
     <Content Include="Content\images\lvl.jfif" />
     <Content Include="Content\images\lvl.png" />
+    <Content Include="Content\images\mascota\Robot_1.png" />
+    <Content Include="Content\images\mascota\Robot_2.png" />
+    <Content Include="Content\images\mascota\Robot_3_1.png" />
+    <Content Include="Content\images\mascota\Robot_3_3.png" />
+    <Content Include="Content\images\mascota\Robot_4.png" />
+    <Content Include="Content\images\modulos-img\Datosadicionales_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Datospersonales_ss2.jpg" />
+    <Content Include="Content\images\modulos-img\Estudios_1_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Estudios_3_ss-ConvertImage.jpg" />
+    <Content Include="Content\images\modulos-img\Experiencia_5_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Experiencia_5_ss_2.jpg" />
+    <Content Include="Content\images\modulos-img\Hobbies_2ss-ConvertImage.jpg" />
+    <Content Include="Content\images\modulos-img\Idiomas_2_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Idiomas_2_ss2.jpg" />
+    <Content Include="Content\images\modulos-img\skills_ss.jpg" />
     <Content Include="Content\images\nodisp.png" />
     <Content Include="Content\images\playyourcvlogo.png" />
     <Content Include="Content\images\playyourcvlogo1.png" />
@@ -339,7 +356,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\X\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,4 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@{
+    if (String.IsNullOrEmpty(Session["logged"] as String))
+    {
+        ViewBag.UserIsLogged = false;
+        ViewData["Title"] = "Home Page";
+    }
+    else
+    {
+        ViewBag.UserIsLogged = true;
+        ViewBag.Logged = Session["logged"] as String;
+        ViewBag.LoggedId = Session["loggedid"] as String;
+        ViewData["Title"] = "Hola " + ViewBag.Logged;
+    }
+
+
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -32,7 +48,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    
+
                     <li><a href="~/DatosPersonales/">Mi perfil</a></li>
                     <li>
                         <a href="~/Cvs/">Mis cvs</a>
@@ -59,6 +75,7 @@
         <footer>
             <p>&copy; 2018 - PlayYourCV</p>
         </footer>
+
     </div>
 
     <environment include="Development">
