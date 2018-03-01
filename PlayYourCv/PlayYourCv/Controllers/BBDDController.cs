@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using PlayYourCV.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +83,6 @@ namespace PlayYourCV.Controllers
             }
         }
 
-
+        
     }
 }
