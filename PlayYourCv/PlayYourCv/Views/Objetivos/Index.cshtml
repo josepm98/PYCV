@@ -42,7 +42,7 @@
                 </ul>
             }
         </ul>
-    }
+                        }
 }
 
 
@@ -63,7 +63,8 @@
                 <div class="form-group">
                     <input class="form-control" placeholder="Introduce un objetivo" id="entrada" />
                 </div>
-                <button class="btn btn-success" data-dismiss="modal" id="botonOK">Aceptar</button>
+                <button class="btn btn-success" data-dismiss="modal" id="botonOK")">Aceptar</button>
+                @Html.ActionLink("ToBBDD", "Index",new { })
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -77,10 +78,10 @@
     $(".add").click(function () {
         index = $(this).index() - 1;
     });
-
-    $("#botonOK").click(function () {
+    
+    function botonOK () {
         valorEntrada = document.getElementById('entrada').value;
         $('.list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
-    });
+    }
 </script>
 
