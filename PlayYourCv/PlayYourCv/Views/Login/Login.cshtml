@@ -1,50 +1,74 @@
 ﻿@model PlayYourCV.Models.Usuario
 
 @{
-    ViewBag.Title = "Login";
+    ViewData["Title"] = "Index";
 }
 
-<h2>Login</h2>
 
-
-@using (Html.BeginForm()) 
+<h2>Login de prueba</h2>
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Usuario</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-     
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+    <!-- LOGIN MODULE -->
+<div class="login">
+    <div class="wrap">
+        <!-- SLIDER -->
+        <div class="content">
+
+            <!-- SLIDESHOW -->
+            <div id="slideshow">
+                <div class="one">
+                    <h2><span>Marca tu futuro</span></h2>
+                    <p>Blablabla</p>
+                </div>
+                <div class="two">
+                    <h2><span>SUPERATE</span></h2>
+                    <p>Consigue tus objetivos</p>
+                </div>
+                <div class="three">
+                    <h2><span>Diseña tu CV</span></h2>
+                    <p>blablabla</p>
+                </div>
+                <div class="four">
+                    <h2><span>Conócete</span></h2>
+                    <p>Blablabla</p>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Contrasenya, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Contrasenya, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Contrasenya, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+        <!-- LOGIN FORM -->
+        <div class="user">
+            <div class="form-wrap">
+                <!-- TABS -->
+                <div class="tabs">
+                    <h3 class="login-tab"><a class="log-in active" asp-area="" asp-controller="Login" asp-action="Registro"><span>Iniciar Sesión<span></a></h3>
+                    <h3 class="signup-tab"><a class="sign-up" asp-controller="Login" asp-action="Registro"><span>Regístrate</span></a></h3>
+                </div>
+                <!-- TABS CONTENT -->
+                <div class="tabs-content">
+                    <!-- TABS CONTENT LOGIN -->
+                    <div id="login-tab-content" class="active">
+                        <form class="login-form" action="" method="post">
+                            <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email">
+                            <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Contraseña">
+                            <input type="checkbox" class="checkbox" checked id="remember_me">
+                            <label for="remember_me">Recuérdame</label>
+                            <input type="submit" class="button" value="Iniciar Sesión">
+                        </form>
+                        <div class="help-action">
+                            <p><i class="fa fa-arrow-left" aria-hidden="true"></i><a class="forgot" href="#">¿Olvidaste tu contraseña?</a></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+
+
 }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
