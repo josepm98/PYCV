@@ -31,36 +31,33 @@
                 </div>
                 <div class="col-md-9">
                     <div class="jumbotron">
-                        @using (Html.BeginForm("Edit", "DatosPersonales", FormMethod.Post))
-                        {
-                            <form action="" method="post">
+                            <form action="/DatosPersonales/Edit" method="post">
                                 <div class="form-group">
                                     <label for="Nombre">Nombre:</label>
-                                    <input type="text" class="form-control" id="Nombre" value="@usuario.Nombre" />
+                                    <input type="text" class="form-control" name="Nombre" value="@usuario.Nombre" />
                                 </div>
                                 <div class="form-group">
                                     <label for="Apellido1">Primer Apellido:</label>
-                                    <input type="text" class="form-control" id="Apellido1" value="@usuario.Apellido1" />
+                                    <input type="text" class="form-control" name="Apellido1" value="@usuario.Apellido1" />
                                 </div>
                                 <div class="form-group">
                                     <label for="Apellido2">Segundo Apellido:</label>
-                                    <input type="text" class="form-control" id="Apellido2" value="@usuario.Apellido2" />
+                                    <input type="text" class="form-control" name="Apellido2" value="@usuario.Apellido2" />
                                 </div>
                                 <div class="form-group">
                                     <label for="Telefono">Telefono:</label>
-                                    <input type="text" class="form-control" id="Telefono" value="@usuario.Telefono" />
+                                    <input type="text" class="form-control" name="Telefono" value="@usuario.Telefono" />
                                 </div>
                                 <div class="form-group">
                                     <label for="FechaNacimiento">Fecha Nacimiento:</label>
-                                    <input type="date" class="form-control" id="FechaNacimiento" value="@usuario.FechaNacimiento" />
+                                    <input type="date" class="form-control" name="FechaNacimiento" value="@usuario.FechaNacimiento" />
                                 </div>
                                 <div class="form-group">
                                     <label for="Email">Email:</label>
-                                    <input type="email" id="Email" class="form-control" value="@usuario.Email" />
+                                    <input type="email" name="Email" class="form-control" value="@usuario.Email" />
                                 </div>
-                                <button type="submit" value="Edit" class="btn btn-default">Actualizar</button>
+                                <button type="submit" class="btn btn-default">Actualizar</button>
                             </form>
-                        }
 
 
                     </div>
