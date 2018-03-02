@@ -26,6 +26,23 @@ namespace PlayYourCV.Controllers
 
         public abstract List<T> ToListModel(MySqlDataReader rdr);
 
+        public ActionResult checkLogged()
+        {
+            if (String.IsNullOrEmpty(Session["logged"] as String))
+            {
+                ViewBag.UserIsLogged = false;
+                ViewData["Title"] = "Home Page";
+                return View("Index", "Login");//return to home
+            }
+            else
+            {
+                ViewBag.UserIsLogged = true;
+                ViewBag.Logged = Session["logged"] as String;
+                ViewBag.LoggedId = Session["loggedid"] as String;
+                return null;
+            }
+        }
+
         public T getId(int id)
         {
             T obj = default(T);

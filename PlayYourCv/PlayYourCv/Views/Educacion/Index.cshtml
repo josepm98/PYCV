@@ -5,79 +5,78 @@
     List<PlayYourCV.Models.Contenido> listaEducacion = (List<PlayYourCV.Models.Contenido>)ViewData["listaEducacion"];
 }
 
-<h2>@titulo</h2>
+<div class="col-md-12">
+    <div class="col-md-10">
+        <h2>@titulo</h2>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-default" onclick="add()">Agregar Formacion</button>
+    </div>
+</div>
 @{
     if (listaEducacion != null)
     {
         foreach (PlayYourCV.Models.Contenido c in listaEducacion)
         {
             <div class="jumbotron">
-                <div class="col-sm-10">
+                <div class="col-sm-6">
                     <h3>@c.Nombre</h3>
                 </div>
-
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-danger" onclick="deleteLanguage(@c.Id)">Eliminar</button>
+                <div class="col-sm-12" style="">
+                    <button type="button" class="btn btn-danger" onclick="deleteCourse(@c.Id)">Eliminar</button>
+                    <button type="button" class="btn btn-success" onclick="editCourse(@c.Id)">Editar</button>
                 </div>
-
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-success" onclick="editLanguage(@c.Id)">Editar</button>
-                </div>
-                <table class="table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Hablado)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Escrito)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Leido)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.NivelGeneral)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@c.Hablado</td>
-                            <td>@c.Escrito</td>
-                            <td>@c.Leido</td>
-                            <td>@c.NivelGeneral</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         }
     }
 }
 
 <!--prueba visual-->
-<div class="jumbotron">
+<div class="jumbotron col-sm-12">
 
-    <div class="col-sm-10">
-        <h3>Nombre Idioma</h3>
+    <div class="col-sm-6">
+        <h3>Titulo chulo</h3>
     </div>
-
-    <div class="col-sm-1">
-        <button type="button" class="btn btn-danger" onclick="deleteLanguage(1)">Eliminar</button>
+    <div class="col-sm-3">
+        <label>Fecha Inicio : 01/01/1111</label>
     </div>
-
-    <div class="col-sm-1">
-        <button type="button" class="btn btn-success" onclick="editLanguage(1)">Editar</button>
+    <div class="col-sm-3">
+        <label>Fecha Fin : 01/10/1111</label>
     </div>
-
-    <table class="table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Hablado</th>
-                <th scope="col">Escrito</th>
-                <th scope="col">Leido</th>
-                <th scope="col">Nivel General</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Intermedio</td>
-                <td>Intermedio</td>
-                <td>Intermedio</td>
-                <td>Intermedio</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="col-md-12">
+        <p>descripcion bla bla bla bla etc etc etc etc</p>
+    </div>
+    <div class="col-md-4">
+        <p>Local : IES melaheinventado</p>
+    </div>
+    <div class="col-md-8">
+        <p>Lugar : ciudadinexistente</p>
+    </div>
+    <div class="col-sm-12" style="text-align:end">
+        <button type="button" class="btn btn-danger" onclick="deleteCourse(1)">Eliminar</button>
+        <button type="button" class="btn btn-success" onclick="editCourse(1)">Editar</button>
+    </div>
 
 </div>
+
+<script>
+    function deleteCourse(i) {
+        res = confirm('¿Estás seguro de querer eliminar esta formacion?');
+        if (res) {
+            window.location.replace("/Educacion/Delete/" + i);
+        }
+    }
+    function add(i) {
+        window.location.replace("/Educacion/Create/");
+    }
+    function editCourse(i) {
+        window.location.replace("/Educacion/Edit/" + i);
+    }
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Educacion/Index");
+        }
+    }
+</script>

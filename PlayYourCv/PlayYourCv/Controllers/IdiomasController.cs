@@ -11,28 +11,28 @@ namespace PlayYourCV.Controllers
 {
     public class IdiomasController : BBDDController<Contenido>
     {
+
         public IdiomasController()
         {
             _table = "contenidos";
             _idCol = "idContenido";
         }
+
         public ActionResult Index()
         {
-            /*if (String.IsNullOrEmpty(Session["logged"] as String))
-            {
-                ViewBag.UserIsLogged = false;
-                ViewData["Title"] = "Home Page";
-                return View("Index","Login");//return to home
-            }
-            else
+            /*if (checkLogged()!=null)
             {
                 ViewBag.UserIsLogged = true;
                 ViewBag.Logged = Session["logged"] as String;
                 ViewBag.LoggedId = Session["loggedid"] as String;
 
                 ViewData["listaIdiomas"] = GetUserLanguages(ViewBag.LoggedId);
-                ViewData["Titulo"] ="Idiomas";
-                return View();
+                ViewData["Titulo"] = "Idiomas";
+                return View("Index","Login");//return to home
+            }
+            else
+            {
+                return checkLogged();
             }*/
 
             //TODO delete after testing
@@ -42,14 +42,13 @@ namespace PlayYourCV.Controllers
 
         public ActionResult Create()
         {
-           
-
             return View();
         }
 
         // GET: Login/Edit/5
         public ActionResult Edit(int id)
         {
+
             return View();
         }
 
@@ -83,7 +82,7 @@ namespace PlayYourCV.Controllers
             try
             {
                 openConn();
-                string sql =string.Format("SELECT * FROM {0} WHERE {1}=@uid",_table,_idCol);
+                string sql =string.Format("SELECT * FROM {0} WHERE {1}=@uid AND {2}={3}", _table, _idCol, "Categorias_idCategorias", 1/*idCat idiomas*/);
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = _conn;
