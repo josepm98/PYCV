@@ -4,4 +4,83 @@
 }
 
 <h2>Index</h2>
+@{
+    if (ViewData["listaObjetivos"] != null) {
+        int idPrimaria = -1;
+        <ul class="list">
+            @{List<PlayYourCV.Models.Objetivo> lista = (List<PlayYourCV.Models.Objetivo>)ViewData["listaObjetivos"];
+                foreach (PlayYourCV.Models.Objetivo o in lista) {
+                    if (o.Primaria) {
+                        idPrimaria = o.Id;
+                        <li>@o.Descripcion</li>
+                    }
+                }
+                <ul class="list">
+                    <li>Skill</li>
+                    @{
+                        <ul class="list">
+                            @foreach (PlayYourCV.Models.Objetivo o in lista) {
+                                if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
+                                    <li>@o.Descripcion</li>
+                                }
+                            }
+                            <li class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
+                        </ul>
+                    }
+
+                    <li>Educacion</li>
+                    @{
+                        <ul class="list">
+                            @foreach (PlayYourCV.Models.Objetivo o in lista) {
+                                if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
+                                    <li>@o.Descripcion</li>
+                                }
+                            }
+                            <li class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
+                        </ul>
+                    }
+                </ul>
+            }
+        </ul>
+    }
+}
+
+
+<!-- ---------------- -->
+<!-- ---- Modal ----- -->
+<!-- ---------------- -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Añade un objetivo</p>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Introduce un objetivo" id="entrada" />
+                </div>
+                <button class="btn btn-success" data-dismiss="modal" id="botonOK">Aceptar</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(".add").click(function () {
+        index = $(this).index() - 1;
+    });
+
+    $("#botonOK").click(function () {
+        valorEntrada = document.getElementById('entrada').value;
+        $('.list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
+    });
+</script>
 
