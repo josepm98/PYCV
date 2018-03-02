@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
-using PlayYourCv.Models;
 using PlayYourCV.Models;
 
 namespace PlayYourCV.Controllers
