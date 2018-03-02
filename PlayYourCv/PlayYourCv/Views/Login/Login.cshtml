@@ -1,49 +1,90 @@
 ﻿@model PlayYourCV.Models.Usuario
 
 @{
-    ViewBag.Title = "Login";
+    ViewData["Title"] = "Index";
 }
 
-<h2>Login</h2>
 
+<h2>Login de prueba</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Usuario</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-     
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+    <!-- LOGIN MODULE -->
+    <div class="login">
+        <div class="wrap">
+
+            <!-- SLIDER -->
+            <div class="content">
+
+                <!-- SLIDESHOW -->
+                <div id="slideshow">
+                    <div class="one">
+                        <h2><span>Marca tu futuro</span></h2>
+                        <p>Blablabla</p>
+                    </div>
+                    <div class="two">
+                        <h2><span>SUPERATE</span></h2>
+                        <p>Consigue tus objetivos</p>
+                    </div>
+                    <div class="three">
+                        <h2><span>Diseña tu CV</span></h2>
+                        <p>blablabla</p>
+                    </div>
+                    <div class="four">
+                        <h2><span>Conócete</span></h2>
+                        <p>Blablabla</p>
+                    </div>
+                </div>
             </div>
-        </div>
+            <!-- LOGIN FORM -->
+            <div class="user">
+                <!-- ACTIONS
+                              <div class="actions">
+                                  <a class="help" href="#signup-tab-content">Sign Up</a><a class="faq" href="#login-tab-content">Login</a>
+                              </div>
+                              -->
+                <div class="form-wrap">
+                    <!-- TABS -->
+                    <div class="tabs">
+                        <h3 class="login-tab"><a class="log-in active" href="#login-tab-content"><span>Iniciar Sesión<span></a></h3>
+                        <h3 class="signup-tab"><a class="sign-up" href="#signup-tab-content"><span>Regístrate</span></a></h3>
+                    </div>
+                    <!-- TABS CONTENT -->
+                    <div class="tabs-content">
+                        <!-- TABS CONTENT LOGIN -->
+                        <div id="login-tab-content" class="active">
+                            <form class="login-form" action="" method="post">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Contrasenya, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Contrasenya, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Contrasenya, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                                <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email">
+                                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Contraseña">
+                                <input type="checkbox" class="checkbox" checked id="remember_me">
+                                <label for="remember_me">Recuérdame</label>
+                                <input type="submit" class="button" value="Iniciar Sesión">
+                            </form>
 
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                        <!-- TABS CONTENT SIGNUP -->
+                        <div id="signup-tab-content">
+                            <form class="signup-form" action="" method="post">
+                                <input type="text" class="input" id="user_name" autocomplete="off" placeholder=Nombre>
+                                <input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email">
+                                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Contraseña">
+                                <input type="submit" class="button" value="Registrar">
+                            </form>
+                            <div class="help-action">
+                                <p>Al registrarse, usted esta de acuerdo con nuestros</p>
+                                <p><i class="fa fa-arrow-left" aria-hidden="true"></i><a class="agree" href="#">Terminos de servicio</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

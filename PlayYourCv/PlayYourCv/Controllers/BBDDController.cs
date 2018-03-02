@@ -14,7 +14,7 @@ namespace PlayYourCV.Controllers
         public Object _model;
         public string _table,_idCol;
         //edit for each of us user or password
-        public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="seba";
+        public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="root";
 
         static BBDDController()
         {
@@ -26,23 +26,42 @@ namespace PlayYourCV.Controllers
 
         public abstract List<T> ToListModel(MySqlDataReader rdr);
 
+        public ActionResult checkLogged()
+        {
+            if (String.IsNullOrEmpty(Session["logged"] as String))
+            {
+                ViewBag.UserIsLogged = false;
+                ViewData["Title"] = "Home Page";
+                return View("Index", "Login");//return to home
+            }
+            else
+            {
+                ViewBag.UserIsLogged = true;
+                ViewBag.Logged = Session["logged"] as String;
+                ViewBag.LoggedId = Session["loggedid"] as String;
+                return null;
+            }
+        }
+
         public T getId(int id)
         {
             T obj = default(T);
-            openConn();
             try
             {
+                openConn();
                 string sql = string.Format("SELECT * FROM {0} WHERE {1}={2}", _table, _idCol, id);
                 MySqlCommand cmd = new MySqlCommand(sql, _conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 obj = ToModel(rdr);
                 rdr.Close();
-                closeConn();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
                 closeConn();
             }
             return obj;
@@ -50,19 +69,21 @@ namespace PlayYourCV.Controllers
 
         public MySqlDataReader getAll()
         {
-            _conn.Open();
             MySqlDataReader rdr = null;
             try
             {
+                openConn();
                 string sql = string.Format("SELECT * FROM {0}", _table);
                 MySqlCommand cmd = new MySqlCommand(sql, _conn);
                 rdr = cmd.ExecuteReader();
-                _conn.Close();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Console.WriteLine(ex.ToString());
-                _conn.Close();
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                closeConn();
             }
             return rdr;
         }

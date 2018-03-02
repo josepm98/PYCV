@@ -233,6 +233,7 @@
     <Content Include="Content\js\html5shiv.js" />
     <Content Include="Content\js\jquery.contact.js" />
     <Content Include="Content\js\jquery.min.js" />
+    <Content Include="Content\js\LoginJS.js" />
     <Content Include="Content\js\maps.js" />
     <Content Include="Content\js\nav.js" />
     <Content Include="Content\lib\bootstrap\dist\css\bootstrap-theme.css" />
@@ -300,7 +301,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Views\Login\Logincss.css" />
+    <Content Include="Content\css\Login\Logincss.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -330,8 +331,6 @@
     <Content Include="Views\Hobbies\Create.cshtml" />
     <Content Include="Views\Hobbies\Edit.cshtml" />
     <Content Include="Views\Hobbies\Index.cshtml" />
-    <Content Include="Views\Idiomas\Create.cshtml" />
-    <Content Include="Views\Idiomas\Edit.cshtml" />
     <Content Include="Views\Idiomas\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\LayoutLogin.cshtml" />
@@ -350,7 +349,12 @@
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Login\Registro.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Experiencia\Edit.cshtml" />
+=======
+    <Content Include="Views\Idiomas\Create.cshtml" />
+    <Content Include="Views\Idiomas\Edit.cshtml" />
+>>>>>>> master
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
