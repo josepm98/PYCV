@@ -84,7 +84,7 @@ namespace PlayYourCV.Controllers
 
         // POST: Login/Create
         [HttpPost]
-        public ActionResult Login(FormCollection collection)
+        public ActionResult Index(FormCollection collection)
         {
             openConn();
             string email = collection["Email"].ToString();
