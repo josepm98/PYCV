@@ -8,21 +8,14 @@ using System.Web.Mvc;
 
 namespace PlayYourCV.Controllers
 {
-<<<<<<< HEAD:PlayYourCv/PlayYourCv/Models/BBDDController.cs
-    public abstract class BBDDController<T> :Controller
-=======
+
     public abstract class BBDDController<T> : Controller
->>>>>>> master:PlayYourCv/PlayYourCv/Controllers/BBDDController.cs
     {
         public static MySqlConnection _conn;
         public Object _model;
         public string _table,_idCol;
         //edit for each of us user or password
-<<<<<<< HEAD:PlayYourCv/PlayYourCv/Models/BBDDController.cs
         public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="";
-=======
-        public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="seba";
->>>>>>> master:PlayYourCv/PlayYourCv/Controllers/BBDDController.cs
 
         static BBDDController()
         {
