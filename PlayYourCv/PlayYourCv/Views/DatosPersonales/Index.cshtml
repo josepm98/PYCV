@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "Index";
 }
-@model IEnumerable<PlayYourCV.Models.Usuario>
 
+@model PlayYourCV.Models.Usuario
 @{
     string titulo = (string)ViewData["Titulo"];
 }
@@ -11,40 +11,61 @@
 <h2>@titulo</h2>
 @{
     PlayYourCV.Models.Usuario usuario = (PlayYourCV.Models.Usuario)ViewData["usuario"];
-    if (usuario!=null)
+    if (usuario != null)
     {
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="jumbotron">
-                                <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="jumbotron">
-                                <h1>@usuario.Nombre</h1>
-                                
-                                <p>
-                                    @usuario.Apellido1
-                                </p>
-                                <p>
-                                    @usuario.Apellido2
-                                </p>
-                                <p>
-                                    @usuario.Email
-                                </p>
-                                <p>
-                                    @usuario.FechaNacimiento
-                                </p>
-                                <p>
-                                    @usuario.Telefono
-                                </p>
-                            </div>
-                        </div>
+        string fecha;
+        if (usuario.FechaNacimiento.Equals(default(DateTime)))
+        {
+            fecha = "";
+        }
+        else
+        {
+            fecha = String.Format("{0:d}", usuario.FechaNacimiento);
+        }
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="jumbotron">
+                        <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
                     </div>
                 </div>
-        }
+                <div class="col-md-9">
+                    <div class="jumbotron">
+                            <form action="/DatosPersonales/Edit" method="post">
+                                <div class="form-group">
+                                    <label for="Nombre">Nombre:</label>
+                                    <input type="text" class="form-control" name="Nombre" value="@usuario.Nombre" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Apellido1">Primer Apellido:</label>
+                                    <input type="text" class="form-control" name="Apellido1" value="@usuario.Apellido1" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Apellido2">Segundo Apellido:</label>
+                                    <input type="text" class="form-control" name="Apellido2" value="@usuario.Apellido2" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Telefono">Telefono:</label>
+                                    <input type="text" class="form-control" name="Telefono" value="@usuario.Telefono" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="FechaNacimiento">Fecha Nacimiento:</label>
+                                    <input type="date" class="form-control" name="FechaNacimiento" value="@usuario.FechaNacimiento" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Email">Email:</label>
+                                    <input type="email" name="Email" class="form-control" value="@usuario.Email" />
+                                </div>
+                                <button type="submit" class="btn btn-default">Actualizar</button>
+                            </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
     }
+}
 
 
 

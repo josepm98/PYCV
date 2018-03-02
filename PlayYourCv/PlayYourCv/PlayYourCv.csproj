@@ -320,8 +320,6 @@
     <Content Include="Views\DatosAdicionales\Create.cshtml" />
     <Content Include="Views\DatosAdicionales\Edit.cshtml" />
     <Content Include="Views\DatosAdicionales\Index.cshtml" />
-    <Content Include="Views\DatosPersonales\Create.cshtml" />
-    <Content Include="Views\DatosPersonales\Edit.cshtml" />
     <Content Include="Views\DatosPersonales\Index.cshtml" />
     <Content Include="Views\Educacion\Create.cshtml" />
     <Content Include="Views\Educacion\Edit.cshtml" />
@@ -352,10 +350,12 @@
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Login\Registro.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\DatosPersonales\Perfil.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Perfil\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
