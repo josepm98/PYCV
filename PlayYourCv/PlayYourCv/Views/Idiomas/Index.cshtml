@@ -1,11 +1,17 @@
-﻿@model IEnumerable<PlayYourCV.Models.Contenido>
+﻿@model PlayYourCV.Models.Contenido
 
 @{
     string titulo = (string)ViewData["Titulo"];
     List<PlayYourCV.Models.Contenido> listaIdiomas = (List<PlayYourCV.Models.Contenido>)ViewData["listaIdiomas"];
 }
-
-<h2>@titulo</h2>
+<div>
+    <div class="col-md-10">
+        <h2>@titulo</h2>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-default" onclick="add()">Agregar Idioma</button>
+    </div>
+</div>
 @{
     if (listaIdiomas != null)
     {
@@ -43,7 +49,6 @@
                 </table>
             </div>
         }
-
     }
     <!--prueba visual-->
     <div class="jumbotron">
@@ -89,6 +94,9 @@
         if (res) {
             window.location.replace("/Idiomas/Delete/" + i);
         }
+    }
+    function add(i) {
+        window.location.replace("/Idiomas/Create/");
     }
     function editLanguage(i) {
         window.location.replace("/Idiomas/Edit/" + i);
