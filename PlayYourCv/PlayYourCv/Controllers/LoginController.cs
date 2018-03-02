@@ -150,7 +150,7 @@ namespace PlayYourCV.Controllers
         }
 
         //reb les dades del formulari via POST i crea el nou registre a users
-        [HttpPost]
+    [HttpPost]
         public ActionResult Registro(FormCollection collection)
         {
 

@@ -14,7 +14,7 @@ namespace PlayYourCV.Controllers
         public Object _model;
         public string _table,_idCol;
         //edit for each of us user or password
-        public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="seba";
+        public static string _server="127.0.0.1", _database="playyourcvdatabase", _user="root", _bbddPassword="root";
 
         static BBDDController()
         {

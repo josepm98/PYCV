@@ -182,6 +182,7 @@
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\UsuarioBBDDController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Experiencia\experiencia.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -327,7 +328,6 @@
     <Content Include="Views\Educacion\Edit.cshtml" />
     <Content Include="Views\Educacion\Index.cshtml" />
     <Content Include="Views\Experiencia\Create.cshtml" />
-    <Content Include="Views\Experiencia\Edit.cshtml" />
     <Content Include="Views\Experiencia\Index.cshtml" />
     <Content Include="Views\Hobbies\Create.cshtml" />
     <Content Include="Views\Hobbies\Edit.cshtml" />
@@ -352,6 +352,7 @@
     <Content Include="Views\Home\_ViewStart.cshtml" />
     <Content Include="Views\Login\Registro.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Experiencia\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
