@@ -39,6 +39,7 @@ $(function () {
 
 // SHOW/HIDE PANEL ROUTINE (needs better methods)
 // I'll optimize when time permits.
+
 $(function () {
     $('.agree,.forgot, #toggle-terms, .log-in, .sign-up').on('click', function (event) {
         event.preventDefault();
@@ -91,12 +92,3 @@ $(function () {
     });
 });
 
-// DISABLE SUBMIT FOR DEMO
-$(function () {
-    $('.button').on('click', function (event) {
-        $(this).stop();
-        event.preventDefault();
-        return false;
-    });
-});
-//# sourceURL=pen.js
