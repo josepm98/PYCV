@@ -22,10 +22,60 @@ namespace PlayYourCV.Controllers
             return View();
         }
 
-        public ActionResult Create(int idPadre, int idCategoria, string contenido) {
-            ViewData["Mensage"] = "Create";
-            return View("Index");
+        public ActionResult Create() {
+            
+            return View();
         }
+
+        // POST: Login/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection) {
+
+            if (String.IsNullOrEmpty(Session["loggedId"] as String)) {
+                return View();
+            }
+
+            int userid = Convert.ToInt32(Session["loggedid"] as String);
+            int categoriaid = 5;
+
+            openConn();
+            string idObjetivos = collection["Id"].ToString();
+            string primaria = collection["Primaria"].ToString();
+            string descripcion = collection["Descripcion"].ToString();
+            string idPadre = collection["IdPadre"].ToString();
+            string idCategoria = collection["IdCategoria"].ToString();
+            
+            try {
+
+                string sql =
+                "INSERT INTO objetivos (idObjetivos, Primaria, Descripcion, Objetivos_idObjetivos, Usuario_idUsuario, Categorias_idCategorias) Values " +
+                " (@idObjetivos,@primaria,@descripcion,@idPadre,@userid,1)";
+
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@idObjetivos", idObjetivos);
+                cmd.Parameters.AddWithValue("@primaria", primaria);
+                cmd.Parameters.AddWithValue("@descripcion", descripcion);
+                cmd.Parameters.AddWithValue("@idPadre", idPadre);
+                cmd.Parameters.AddWithValue("@userid", userid);
+                cmd.Parameters.AddWithValue("@idCategoria", idCategoria);
+
+
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+
+                closeConn(); //método propio que cierra conexión si está abierta
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex) {
+                closeConn(); //método propio que cierra conexión si está abierta
+            }
+
+            return View();
+        }
+
 
         public ActionResult Editar() {
             ViewData["Mensage"] = "Editar";
