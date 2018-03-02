@@ -34,12 +34,7 @@ namespace PlayYourCV.Controllers
             return View();
         }
 
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        public ActionResult Edit()
+        public ActionResult Perfil()
         {
             return View();
         }
@@ -54,12 +49,49 @@ namespace PlayYourCV.Controllers
                 u.Apellido1 = rdr["Apellido1"].ToString();
                 u.Apellido2 = rdr["Apellido2"].ToString();
                 u.Email = rdr["Email"].ToString();
-                u.FechaNacimiento = Convert.ToDateTime(rdr["FechaNacimiento"]);
+                u.FechaNacimiento = (! rdr["FechaNacimiento"].ToString().Equals(""))? DateTime.Parse(rdr["FechaNacimiento"].ToString()) : default(DateTime);
                 u.Telefono = rdr["Telefono"].ToString();
             }
             return u;
         }
-
+        [HttpPost]
+        public ActionResult Edit(String Nombre, String Email)
+        {
+            openConn();
+            try
+            {
+                // TODO: Add update logic here
+                MySqlCommand cmd = new MySqlCommand();
+                string sql = "UPDATE "+_table+" " +
+                    "SET Nombre = @Nombre, " +
+                    /*"Apellido1 = @Apellido1, " +
+                    "Apellido2 = @Apellido2, " +
+                    "Telefono = @telefono, " +
+                    /*"FechaNacimiento = @FechaNacimiento," +*/
+                    " Email = @Email" +
+                    " WHERE "+_idCol+" = @uid";
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@Nombre", Nombre);
+               // cmd.Parameters.AddWithValue("@Apellido1", collection["Apellido1"].ToString());
+               // cmd.Parameters.AddWithValue("@Apellido2", collection["Apellido2"].ToString());
+                //cmd.Parameters.AddWithValue("@telefono", collection["telefono"].ToString());
+               // cmd.Parameters.AddWithValue("@FechaNacimiento", FechaNacimiento);
+                cmd.Parameters.AddWithValue("@email", Email);
+                cmd.Parameters.AddWithValue ("@uid",Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                int rowsAfected=cmd.ExecuteNonQuery();
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+            finally
+            {
+                closeConn();
+            }
+        }
         public override List<Usuario> ToListModel(MySqlDataReader rdr)
         {
             throw new NotImplementedException();

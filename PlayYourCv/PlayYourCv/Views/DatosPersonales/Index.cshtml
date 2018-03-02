@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "Index";
 }
-@model IEnumerable<PlayYourCV.Models.Usuario>
 
+@model PlayYourCV.Models.Usuario
 @{
     string titulo = (string)ViewData["Titulo"];
 }
@@ -11,33 +11,64 @@
 <h2>@titulo</h2>
 @{
     PlayYourCV.Models.Usuario usuario = (PlayYourCV.Models.Usuario)ViewData["usuario"];
-    if (usuario!=null)
+    if (usuario != null)
     {
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="jumbotron">
-                                <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="jumbotron">
-                                <h1>@usuario.Nombre @usuario.Apellido1 @usuario.Apellido2</h1>
-                                <p>
-                                    Email : @usuario.Email
-                                </p>
-                                <p>
-                                    Fecha de nacimiento : @usuario.FechaNacimiento
-                                </p>
-                                <p>
-                                    Telefono : @usuario.Telefono
-                                </p>
-                            </div>
-                        </div>
+        string fecha;
+        if (usuario.FechaNacimiento.Equals(default(DateTime)))
+        {
+            fecha = "";
+        }
+        else
+        {
+            fecha = String.Format("{0:d}", usuario.FechaNacimiento);
+        }
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="jumbotron">
+                        <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
                     </div>
                 </div>
-        }
+                <div class="col-md-9">
+                    <div class="jumbotron">
+                        @using (Html.BeginForm("Edit", "DatosPersonales", FormMethod.Post))
+                        {
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label for="Nombre">Nombre:</label>
+                                    <input type="text" class="form-control" id="Nombre" value="@usuario.Nombre" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Apellido1">Primer Apellido:</label>
+                                    <input type="text" class="form-control" id="Apellido1" value="@usuario.Apellido1" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Apellido2">Segundo Apellido:</label>
+                                    <input type="text" class="form-control" id="Apellido2" value="@usuario.Apellido2" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Telefono">Telefono:</label>
+                                    <input type="text" class="form-control" id="Telefono" value="@usuario.Telefono" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="FechaNacimiento">Fecha Nacimiento:</label>
+                                    <input type="date" class="form-control" id="FechaNacimiento" value="@usuario.FechaNacimiento" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Email">Email:</label>
+                                    <input type="email" id="Email" class="form-control" value="@usuario.Email" />
+                                </div>
+                                <button type="submit" value="Edit" class="btn btn-default">Actualizar</button>
+                            </form>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
     }
+}
 
 
 
