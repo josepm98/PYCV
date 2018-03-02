@@ -22,9 +22,9 @@ namespace PlayYourCV.Controllers
             return View();
         }
 
-        public ActionResult Create() {
+        public ActionResult Create(int idPadre, int idCategoria, string contenido) {
             ViewData["Mensage"] = "Create";
-            return View();
+            return View("Index");
         }
 
         public ActionResult Editar() {

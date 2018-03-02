@@ -293,3 +293,5 @@ PlayYourCV/.vs/PlayYourCV/v15/Server/sqlite3/storage.ide
 *.ide
 >>>>>>> Joshua
 PlayYourCV/.vs/PlayYourCV/v15/.suo
+PlayYourCv/PlayYourCv/Views/Objetivos/Index.cshtml
+PlayYourCv/PlayYourCv/Controllers/ObjetivosController.cs
