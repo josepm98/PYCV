@@ -7,9 +7,6 @@
 
 <h2>Login de prueba</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
     <!-- LOGIN MODULE -->
     <div class="login">
@@ -25,7 +22,7 @@
                         <p>Blablabla</p>
                     </div>
                     <div class="two">
-                        <h2><span>SUPERATE</span></h2>
+                        <h2><span>Superate</span></h2>
                         <p>Consigue tus objetivos</p>
                     </div>
                     <div class="three">
@@ -40,11 +37,7 @@
             </div>
             <!-- LOGIN FORM -->
             <div class="user">
-                <!-- ACTIONS
-                              <div class="actions">
-                                  <a class="help" href="#signup-tab-content">Sign Up</a><a class="faq" href="#login-tab-content">Login</a>
-                              </div>
-                              -->
+
                 <div class="form-wrap">
                     <!-- TABS -->
                     <div class="tabs">
@@ -54,36 +47,41 @@
                     <!-- TABS CONTENT -->
                     <div class="tabs-content">
                         <!-- TABS CONTENT LOGIN -->
-                        <div id="login-tab-content" class="active">
-                            <form class="login-form" action="" method="post">
 
-                                <input type="text" class="input" id="user_login" autocomplete="off" placeholder="Email">
-                                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Contraseña">
+                        <div id="login-tab-content" class="active">
+                            <form class="login-form" action="/Login/Index" method="POST">
+
+                                <input name="Email" type="text" class="input" id="user_login" autocomplete="off" placeholder="Email">
+                                <input name="Contrasenya" type="password" class="input" id="user_pass" autocomplete="off" placeholder="Contraseña">
                                 <input type="checkbox" class="checkbox" checked id="remember_me">
                                 <label for="remember_me">Recuérdame</label>
-                                <input type="submit" class="button" value="Iniciar Sesión">
+                                <input type="submit" class="button" value="Entrar">
                             </form>
 
+
                         </div>
+
                         <!-- TABS CONTENT SIGNUP -->
                         <div id="signup-tab-content">
-                            <form class="signup-form" action="" method="post">
-                                <input type="text" class="input" id="user_name" autocomplete="off" placeholder=Nombre>
-                                <input type="email" class="input" id="user_email" autocomplete="off" placeholder="Email">
-                                <input type="password" class="input" id="user_pass" autocomplete="off" placeholder="Contraseña">
+                            <form class="signup-form" action="/Login/Registro" method="post">
+                                <input name="Nombre" type="text" class="input" id="user_name" autocomplete="off" placeholder=Nombre>
+                                <input name="Email" type="email" class="input" id="user_email" autocomplete="off" placeholder="Email">
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                                <input name="Contrasenya" type="password" class="input" id="user_pass" autocomplete="off" placeholder="Contraseña">
+                                <input name="verificarcontra" type="password" class="input" id="confirm_pass" autocomplete="off" placeholder="Confirmar Contraseña">
+                                @Html.ValidationMessageFor(model => model.verificarcontra, "", new { @class = "text-danger" })
+
                                 <input type="submit" class="button" value="Registrar">
                             </form>
-                            <div class="help-action">
-                                <p>Al registrarse, usted esta de acuerdo con nuestros</p>
-                                <p><i class="fa fa-arrow-left" aria-hidden="true"></i><a class="agree" href="#">Terminos de servicio</a></p>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-}
+
 
 
 @section Scripts {
