@@ -155,6 +155,7 @@
     <Compile Include="Controllers\BBDDController.cs" />
     <Compile Include="Controllers\CVSController.cs" />
     <Compile Include="Controllers\DatosAdicionalesController.cs" />
+    <Compile Include="Controllers\DatosPersonalesController.cs" />
     <Compile Include="Controllers\EducacionController.cs" />
     <Compile Include="Controllers\ExperienciaController.cs" />
     <Compile Include="Controllers\HobbiesController.cs" />
@@ -322,7 +323,6 @@
     <Content Include="Views\DatosAdicionales\Create.cshtml" />
     <Content Include="Views\DatosAdicionales\Edit.cshtml" />
     <Content Include="Views\DatosAdicionales\Index.cshtml" />
-    <Content Include="Views\DatosPersonales\Edit.cshtml" />
     <Content Include="Views\DatosPersonales\Index.cshtml" />
     <Content Include="Views\Educacion\Create.cshtml" />
     <Content Include="Views\Educacion\Edit.cshtml" />
