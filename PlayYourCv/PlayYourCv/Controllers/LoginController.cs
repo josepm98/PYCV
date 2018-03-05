@@ -84,7 +84,7 @@ namespace PlayYourCV.Controllers
 
         // POST: Login/Create
         [HttpPost]
-        public ActionResult Login(FormCollection collection)
+        public ActionResult Index(FormCollection collection)
         {
             openConn();
             string email = collection["Email"].ToString();
@@ -150,7 +150,7 @@ namespace PlayYourCV.Controllers
         }
 
         //reb les dades del formulari via POST i crea el nou registre a users
-        [HttpPost]
+    [HttpPost]
         public ActionResult Registro(FormCollection collection)
         {
 

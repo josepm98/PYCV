@@ -1,4 +1,6 @@
 ﻿
+@model PlayYourCV.Models.Objetivo
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -28,21 +30,10 @@
                         </ul>
                     }
 
-                    <li>Educacion</li>
-                    @{
-                        <ul class="list">
-                            @foreach (PlayYourCV.Models.Objetivo o in lista) {
-                                if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
-                                    <li>@o.Descripcion</li>
-                                }
-                            }
-                            <li class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
-                        </ul>
-                    }
                 </ul>
             }
         </ul>
-    }
+                        }
 }
 
 
@@ -60,10 +51,21 @@
             </div>
             <div class="modal-body">
                 <p>Añade un objetivo</p>
-                <div class="form-group">
-                    <input class="form-control" placeholder="Introduce un objetivo" id="entrada" />
-                </div>
-                <button class="btn btn-success" data-dismiss="modal" id="botonOK">Aceptar</button>
+                <form action="/Objetivos/Create">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group" data-dismiss="modal">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Crear" class="btn btn-default" />
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -77,10 +79,10 @@
     $(".add").click(function () {
         index = $(this).index() - 1;
     });
-
-    $("#botonOK").click(function () {
+    
+    function botonOK () {
         valorEntrada = document.getElementById('entrada').value;
         $('.list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
-    });
+    }
 </script>
 
