@@ -8,10 +8,20 @@ using System.Web.Mvc;
 using System.Security.Cryptography;
 using System.Text;
 
+
 namespace PlayYourCV.Controllers {
     public class ExperienciaController : BBDDController<Contenido>
-    { 
-        // GET: Login
+    {
+
+        public ExperienciaController() : base()
+        {
+            _table = "contenidos";
+            _idCol = "idContenido";
+            _model = new Contenido();
+
+        }
+
+    // GET: Login
     public ActionResult Index()
         {
             return View();
@@ -23,28 +33,7 @@ namespace PlayYourCV.Controllers {
             return View();
         }
 
-        // GET: Login/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Login/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+       
         // GET: Login/Delete/5
         public ActionResult Delete(int id)
         {
@@ -137,94 +126,84 @@ namespace PlayYourCV.Controllers {
 
 
 
-        public ActionResult Registro()
+        public ActionResult Edit(int id)
         {
-            return View();
+            Contenido model = this.getId(id);
+            return View(model);
         }
 
-        //reb les dades del formulari via POST i crea el nou registre a users
-        /*[HttpPost]
-        public ActionResult Registro(FormCollection collection)
+       [HttpPost]
+        public ActionResult Edit(FormCollection collection)
         {
 
-            // primer verifiquem que email NO existeixi
-            // si existeix, retornem a vista registre amb msg d'error
-            // cal crear mètode: bool emailExisteix(string email)
-            if (emailExisteix(collection["Email"].ToString()))
+            if (String.IsNullOrEmpty(Session["loggedid"] as String))
             {
-                ViewBag.ErrorMsg = "Este email ya ha sido registrado";
                 return View();
             }
+
+
+            int userid = Convert.ToInt32(Session["loggedid"] as String);
+
 
             try
             {
                 _conn.Open();
-                MySqlCommand cmd = new MySqlCommand();
-                string sql =
-                "INSERT INTO usuarios (Nombre, contrasenya, Email) VALUES (@nom,@password,@email)";
+                int contenidoid = Convert.ToInt32(collection["Id"].ToString());
+                string puesto = collection["Posicion"].ToString();
+                string empresa = collection["EmpresaEscuela"].ToString();
+                string lugar = collection["Lugar"].ToString();
+                string fechaIni = collection["FechaInicio"];
+                string fechaFin = collection["FechaFin"];
+                string descripcion = collection["Descripcion"].ToString();
 
-                string passwordVisible = collection["contrasenya"];
-                string passwordCodificada =
-                Codifica.ConverteixPassword(passwordVisible);
+                string sql = "UPDATE contenidos SET Posicion=@puesto,Empresa_Escuela=@empresa," +
+                    "Lugar=@lugar,FechaInicio=@fechaIni,FechaFin=@fechaFin,Descripcion=@descripcion WHERE idContenido=@contenidoid";
 
-                cmd.CommandText = sql;
-                cmd.Parameters.AddWithValue("@nom", collection["Nombre"].ToString());
-                cmd.Parameters.AddWithValue("@password", passwordCodificada);
-                cmd.Parameters.AddWithValue("@email", collection["Email"].ToString());
-                cmd.Connection = _conn;
-                cmd.Prepare();
-                cmd.ExecuteNonQuery();
-
-                _conn.Close();
-                return RedirectToAction("Index", "Home");
-
-            }
-            catch (Exception e)
-            {
-                if (_conn.State == System.Data.ConnectionState.Open)
-                {
-                    _conn.Close();
-                }
-                return View();
-            }
-
-        }
-
-        private bool emailExisteix(string email)
-        {
-            bool existeix = false;
-            openConn();
-
-            try
-            {
-                string sql = "SELECT * FROM usuarios WHERE Email=@email";
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = _conn;
-                cmd.Parameters.AddWithValue("@email", email);
+                cmd.Parameters.AddWithValue("@contenidoid", contenidoid);
+                cmd.Parameters.AddWithValue("@puesto", puesto);
+                cmd.Parameters.AddWithValue("@empresa", empresa);
+                cmd.Parameters.AddWithValue("@lugar", lugar);
+                cmd.Parameters.AddWithValue("@fechaIni", fechaIni);
+                cmd.Parameters.AddWithValue("@fechaFin", fechaFin);
+                cmd.Parameters.AddWithValue("@descripcion", descripcion);
                 cmd.Prepare();
-                MySqlDataReader rdr = cmd.ExecuteReader();
+                int filas = cmd.ExecuteNonQuery();
 
-                if (rdr.Read())
-                {
-                    existeix = true;
-                }
+                
 
-                rdr.Close();
                 closeConn(); //método propio que cierra conexión si está abierta
+                    return RedirectToAction("Index");
 
+                
             }
+
             catch (Exception ex)
             {
+                string s = ex.Message;
                 closeConn(); //método propio que cierra conexión si está abierta
             }
 
-            return existeix;
-        }*/
+            return View();
+                        
+        }
 
         public override Contenido ToModel(MySqlDataReader rdr)
         {
-            throw new NotImplementedException();
+            Contenido c = new Contenido();
+            if (rdr.Read())
+            {
+                c.Id = Convert.ToInt32(rdr["idContenido"]);
+                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
+                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
+                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
+                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
+                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
+
+            }
+            return c;
         }
 
         public override List<Contenido> ToListModel(MySqlDataReader rdr)
