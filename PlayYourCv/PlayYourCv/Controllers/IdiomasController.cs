@@ -49,18 +49,34 @@ namespace PlayYourCV.Controllers
 
         // POST: Login/Edit/5
         [HttpPost]
-        public ActionResult Create(int id, FormCollection collection)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                MySqlCommand cmd = new MySqlCommand();
+                string sql = string.Format("INSERT INTO {0} (idUsuario, Nombre, Hablado, Escrito, Leido, NivelGeneral) VALUES  (@uid, @nombre, @hablado, @escrito, @leido, @nivelGeneral", _table);
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Parameters.AddWithValue("@nombre", collection["Nombre"].ToString());
+                cmd.Parameters.AddWithValue("@hablado", collection["Hablado"].ToString());
+                cmd.Parameters.AddWithValue("@escrito", collection["Escrito"].ToString());
+                cmd.Parameters.AddWithValue("@leido", collection["Leido"].ToString());
+                cmd.Parameters.AddWithValue("@nivelGeneral", collection["NivelGeneral"].ToString());
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                //TODO delete after succesfull update
+                int rowsAfected = cmd.ExecuteNonQuery();
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                Console.WriteLine(e.Message);
             }
+            finally
+            {
+                closeConn();
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Login/Edit/5
@@ -77,13 +93,30 @@ namespace PlayYourCV.Controllers
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                MySqlCommand cmd = new MySqlCommand();
+                string sql = string.Format("UPDATE {0} SET Nombre=@nombre, Hablado=@hablado, Escrito=@escrito, Leido=@leido, NivelGeneral=@nivelGeneral WHERE {1}=@cId", _table, _idCol);
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Parameters.AddWithValue("@nombre", collection["Nombre"].ToString());
+                cmd.Parameters.AddWithValue("@hablado", collection["Hablado"].ToString());
+                cmd.Parameters.AddWithValue("@escrito", collection["Escrito"].ToString());
+                cmd.Parameters.AddWithValue("@leido", collection["Leido"].ToString());
+                cmd.Parameters.AddWithValue("@nivelGeneral", collection["NivelGeneral"].ToString());
+                cmd.Parameters.AddWithValue("@cId",id);
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                //TODO delete after succesfull update
+                int rowsAfected = cmd.ExecuteNonQuery();
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                Console.WriteLine(e.Message);
             }
+            finally
+            {
+                closeConn();
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Login/Delete/5

@@ -48,41 +48,84 @@ namespace PlayYourCV.Controllers
 
         // POST
         [HttpPost]
-        public ActionResult Create(int id, FormCollection collection)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                MySqlCommand cmd = new MySqlCommand();
+                string sql = string.Format("INSERT INTO {0} (idUsuario, Nombre, Descripcion, Empresa_Escuela, Lugar, FechaInicio, FechaFin) VALUES  (@uid, @nombre, @descripcion, @empresaEscuela, @lugar, @fInicio, @fFin", _table);
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Parameters.AddWithValue("@nombre", collection["Nombre"].ToString());
+                cmd.Parameters.AddWithValue("@descripcion", collection["Descripcion"].ToString());
+                cmd.Parameters.AddWithValue("@empresaEscuela", collection["EmpresaEscuela"].ToString());
+                cmd.Parameters.AddWithValue("@lugar", collection["Lugar"].ToString());
+                cmd.Parameters.AddWithValue("@fInicio", collection["FechaInicio"].ToString());
+                cmd.Parameters.AddWithValue("@fFin", collection["FechaFin"].ToString());
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                //TODO delete after succesfull update
+                int rowsAfected = cmd.ExecuteNonQuery();
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                Console.WriteLine(e.Message);
             }
+            finally
+            {
+                closeConn();
+            }
+            return RedirectToAction("Index");
         }
 
         // GET: Login/Edit/5
         public ActionResult Edit(int id)
         {
-
-            return View();
+            getId(id);
+            return View(getId(id));
         }
 
         // POST: Login/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
+            openConn();
+            //TODO delete after succesfull update
+            string nombre = collection["Nombre"].ToString();
+            string descripcion = collection["Descripcion"].ToString();
+            string empresaEscuela = collection["EmpresaEscuela"].ToString();
+            string lugar = collection["Lugar"].ToString();
+            string fInicio = collection["FechaInicio"].ToString();
+            string fFin = collection["FechaFin"].ToString();
             try
             {
                 // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                MySqlCommand cmd = new MySqlCommand();
+                string sql = string.Format("UPDATE {0} SET Nombre = @nombre, Descripcion = @descripcion, Empresa_Escuela = @empresaEscuela, Lugar = @lugar, FechaInicio = @fInicio, FechaFin = @fFin WHERE {1} = @cid",_table,id);
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@nombre", nombre);
+                cmd.Parameters.AddWithValue("@descripcion", collection["Descripcion"].ToString());
+                cmd.Parameters.AddWithValue("@empresaEscuela", collection["EmpresaEscuela"].ToString());
+                cmd.Parameters.AddWithValue("@lugar", collection["Lugar"].ToString());
+                cmd.Parameters.AddWithValue("@fInicio", collection["FechaInicio"].ToString());
+                cmd.Parameters.AddWithValue("@fFin", collection["FechaFin"].ToString());
+                cmd.Parameters.AddWithValue("@cid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                //TODO delete after succesfull update
+                int rowsAfected = cmd.ExecuteNonQuery();
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                Console.WriteLine(e.Message);
             }
+            finally
+            {
+                closeConn();
+            }
+
+            return RedirectToAction("Index");
         }
 
         // GET: Login/Delete/5
