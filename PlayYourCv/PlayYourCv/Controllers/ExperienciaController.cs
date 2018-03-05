@@ -17,13 +17,15 @@ namespace PlayYourCV.Controllers {
         {
             _table = "contenidos";
             _idCol = "idContenido";
-            _model = new Contenido();
+            
 
         }
 
     // GET: Login
     public ActionResult Index()
         {
+            //TODO select all
+
             return View();
         }
 
@@ -196,11 +198,11 @@ namespace PlayYourCV.Controllers {
             if (rdr.Read())
             {
                 c.Id = Convert.ToInt32(rdr["idContenido"]);
-                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
-                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
-                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
-                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
-                c.EmpresaEscuela = rdr["empresa_escuela"].ToString();
+                c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
+                c.Posicion= rdr["Posicion"].ToString();
+                c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaInicio"].ToString()) : default(DateTime);
+                c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaFin"].ToString()) : default(DateTime);
+                c.Descripcion = rdr["Descripcion"].ToString();
 
             }
             return c;
@@ -210,5 +212,7 @@ namespace PlayYourCV.Controllers {
         {
             throw new NotImplementedException();
         }
+
+        pub
     }
 }
