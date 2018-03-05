@@ -11,11 +11,13 @@ namespace PlayYourCV.Controllers
 {
     public class EducacionController : BBDDController<Contenido>
     {
+        public string _idCat;
 
         public EducacionController()
         {
             _table = "contenidos";
             _idCol = "idContenido";
+            _idCat = "2";
         }
 
         public ActionResult Index()
@@ -42,6 +44,22 @@ namespace PlayYourCV.Controllers
         public ActionResult Create()
         {
             return View();
+        }
+
+        // POST
+        [HttpPost]
+        public ActionResult Create(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         // GET: Login/Edit/5
@@ -81,7 +99,7 @@ namespace PlayYourCV.Controllers
             try
             {
                 openConn();
-                string sql = string.Format("SELECT * FROM {0} WHERE {1}=@uid AND {2}={3}", _table, _idCol,"Categorias_idCategorias",1/*idCat educacion*/);
+                string sql = string.Format("SELECT * FROM {0} WHERE {1}=@uid AND {2}={3}", _table, _idCol,"Categorias_idCategorias",_idCat);
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = _conn;
