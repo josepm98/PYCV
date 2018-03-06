@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using PlayYourCV.Models;
@@ -69,8 +70,21 @@ namespace PlayYourCV.Controllers
             string Apellido2 = collection["Apellido2"].ToString();
             string Telefono = collection["Telefono"].ToString();
             string FechaNacimiento = collection["FechaNacimiento"].ToString();
+            HttpPostedFileBase foto = Request.Files[0];
             try
             {
+                //subida foto
+                string db_path = "";
+                if (foto != null)
+                {
+                    string pic = System.IO.Path.GetFileName(foto.FileName);
+                    string path = System.IO.Path.Combine(Server.MapPath("~/Fotoperfil"), pic);
+                    db_path = "/Fotoperfil/" + pic;
+                    //foto subida
+                    foto.SaveAs(path);
+
+                }
+
                 // TODO: Add update logic here
                 MySqlCommand cmd = new MySqlCommand();
                 string sql = "UPDATE " + _table + " " +
@@ -79,7 +93,8 @@ namespace PlayYourCV.Controllers
                     "Apellido2 = @Apellido2, " +
                     "Telefono = @telefono, " +
                     "FechaNacimiento = @FechaNacimiento," +
-                    " Email = @Email" +
+                    " Email = @Email," +
+                    " fotoURL = @fotoURL" +
                     " WHERE " + _idCol + " = @uid";
                 cmd.CommandText = sql;
                 cmd.Parameters.AddWithValue("@Nombre", Nombre);
@@ -88,14 +103,16 @@ namespace PlayYourCV.Controllers
                 cmd.Parameters.AddWithValue("@telefono", collection["telefono"].ToString());
                 cmd.Parameters.AddWithValue("@FechaNacimiento", FechaNacimiento);
                 cmd.Parameters.AddWithValue("@email", Email);
+                cmd.Parameters.AddWithValue("@fotoURL", db_path);
                 cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
                 cmd.Connection = _conn;
                 cmd.Prepare();
                 int rowsAfected = cmd.ExecuteNonQuery();
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
+                string s = e.Message;
                 return RedirectToAction("Index");
             }
             finally
