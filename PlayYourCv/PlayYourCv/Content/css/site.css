@@ -194,3 +194,7 @@ ul, ol {
     margin-bottom: 20px;
     border: 1px solid transparent;
 }
+
+.bigtext {
+    min-height: 150px;
+}

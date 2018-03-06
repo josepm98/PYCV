@@ -12,20 +12,20 @@ using System.Text;
 namespace PlayYourCV.Controllers {
     public class ExperienciaController : BBDDController<Contenido>
     {
-
+        public string _idCat;
         public ExperienciaController() : base()
         {
             _table = "contenidos";
             _idCol = "idContenido";
-            
 
+            _idCat = "7";
         }
 
     // GET: Login
     public ActionResult Index()
         {
             //TODO select all
-
+            ViewData["lista"] = GetExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -142,8 +142,7 @@ namespace PlayYourCV.Controllers {
             {
                 return View();
             }
-
-
+            
             int userid = Convert.ToInt32(Session["loggedid"] as String);
 
 
@@ -178,7 +177,6 @@ namespace PlayYourCV.Controllers {
 
                 closeConn(); //método propio que cierra conexión si está abierta
                     return RedirectToAction("Index");
-
                 
             }
 
@@ -200,6 +198,7 @@ namespace PlayYourCV.Controllers {
                 c.Id = Convert.ToInt32(rdr["idContenido"]);
                 c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
                 c.Posicion= rdr["Posicion"].ToString();
+                c.Lugar = rdr["Lugar"].ToString();
                 c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaInicio"].ToString()) : default(DateTime);
                 c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaFin"].ToString()) : default(DateTime);
                 c.Descripcion = rdr["Descripcion"].ToString();
@@ -210,8 +209,48 @@ namespace PlayYourCV.Controllers {
 
         public override List<Contenido> ToListModel(MySqlDataReader rdr)
         {
-            throw new NotImplementedException();
+            List<Contenido> Lista = new List<Contenido>();
+            while (rdr.Read())
+            {
+                Contenido c = new Contenido();
+                c.Id = Convert.ToInt32(rdr["idContenido"]);
+                c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
+                c.Posicion = rdr["Posicion"].ToString();
+                c.Lugar= rdr["Lugar"].ToString();
+                c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaInicio"].ToString()) : default(DateTime);
+                c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaFin"].ToString()) : default(DateTime);
+                c.Descripcion = rdr["Descripcion"].ToString();
+                Lista.Add(c);
+
+            }
+            return Lista;
         }
-        
+		
+        public List<Contenido> GetExp(int idUser)
+        {
+            List<Contenido> list = new List<Contenido>();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT * FROM contenidos WHERE idUsuario=@uid AND Categorias_idCategorias=7");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@uid", idUser);
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                list = ToListModel(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.GetBaseException().ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            return list;
+        }
+		
     }
 }
