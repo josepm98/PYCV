@@ -159,7 +159,7 @@ namespace PlayYourCV.Controllers
             // cal crear mètode: bool emailExisteix(string email)
             if (emailExisteix(collection["Email"].ToString())){
                 ViewBag.ErrorMsg = "Este email ya ha sido registrado";
-                return View();
+                return RedirectToAction("Index", "Login");
             }
 
             try

@@ -126,6 +126,7 @@ a.button {
         display: block;
     }
 
+
 /* USER (FORM WRAPPER) */
 .user {
     position: relative;
@@ -658,6 +659,19 @@ input {
         width: auto;
     }
 
+    /*CSS AÑADIDO ARES */
+    .form-wrap .tabs h3 a.active span:hover {
+        text-decoration: none;
+    }
+
+input[type=submit]:hover {
+    background-color: #3b7f73;
+}
+
+
+
+
+
 .help-action {
     padding: .4em 0 0;
     font-size: .93em;
@@ -1028,3 +1042,13 @@ input {
         opacity: 0.0;
         transform: scale(1) translate3d(0,0,0);
     }
+    /*CSS AÑADIDO ARES */
+.form-wrap .tabs h3 a.active span:hover {
+    text-decoration: none;
+}
+.log-in active:hover {
+    text-decoration: none;
+}
+span:hover{
+    text-decoration:none;
+}
