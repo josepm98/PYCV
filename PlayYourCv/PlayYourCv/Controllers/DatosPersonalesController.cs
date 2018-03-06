@@ -51,7 +51,6 @@ namespace PlayYourCV.Controllers
                 u.Email = rdr["Email"].ToString();
                 u.FechaNacimiento = (!rdr["FechaNacimiento"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaNacimiento"].ToString()) : default(DateTime);
                 u.Telefono = rdr["Telefono"].ToString();
-                u.FotoURL = rdr["FotoURL"].ToString();
             }
             return u;
         }
@@ -70,7 +69,6 @@ namespace PlayYourCV.Controllers
             string Apellido2 = collection["Apellido2"].ToString();
             string Telefono = collection["Telefono"].ToString();
             string FechaNacimiento = collection["FechaNacimiento"].ToString();
-            string FotoURL = collection["FotoURL"].ToString();
             try
             {
                 // TODO: Add update logic here
@@ -82,7 +80,6 @@ namespace PlayYourCV.Controllers
                     "Telefono = @telefono, " +
                     "FechaNacimiento = @FechaNacimiento," +
                     " Email = @Email" +
-                    "FotoURL = @FotoURL," +
                     " WHERE " + _idCol + " = @uid";
                 cmd.CommandText = sql;
                 cmd.Parameters.AddWithValue("@Nombre", Nombre);
@@ -91,7 +88,6 @@ namespace PlayYourCV.Controllers
                 cmd.Parameters.AddWithValue("@telefono", collection["telefono"].ToString());
                 cmd.Parameters.AddWithValue("@FechaNacimiento", FechaNacimiento);
                 cmd.Parameters.AddWithValue("@email", Email);
-                cmd.Parameters.AddWithValue("@FotoURL", FotoURL);
                 cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
                 cmd.Connection = _conn;
                 cmd.Prepare();

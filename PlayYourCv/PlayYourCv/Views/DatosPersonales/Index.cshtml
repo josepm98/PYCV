@@ -20,7 +20,7 @@
         }
         else
         {
-            fecha = String.Format("{0:d}", usuario.FechaNacimiento);
+            fecha = String.Format("{0:yyyy-MM-dd}", usuario.FechaNacimiento);
         }
         <div class="container">
             <div class="row">
@@ -28,6 +28,34 @@
                     <div class="jumbotron">
                         <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
                     </div>
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ayuda</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Datos Personales</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="img-mascota">
+                                        <img src="~/Content/images/mascota/Robot_1.png" />
+                                        <p>Recuerda que tus datos personales deben llevar información real.</p>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 </div>
                 <div class="col-md-9">
                     <div class="jumbotron">
@@ -50,15 +78,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="FechaNacimiento">Fecha Nacimiento:</label>
-                                <input type="date" class="form-control" name="FechaNacimiento" value="@usuario.FechaNacimiento" />
+                                <input type="date" class="form-control" name="FechaNacimiento" value="@fecha" />
                             </div>
                             <div class="form-group">
                                 <label for="Email">Email:</label>
                                 <input type="email" name="Email" class="form-control" value="@usuario.Email" />
-                            </div>
-                            <div class="form-group">
-                                <label for="uploadedfile">Foto:</label>
-                                <input type="file" name="Foto"  value="@usuario.FotoURL" />
                             </div>
                             <button type="submit" class="btn btn-default">Actualizar</button>
                         </form>
@@ -70,6 +94,7 @@
         </div>
     }
 }
+
 
 
 
