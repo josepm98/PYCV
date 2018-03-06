@@ -343,8 +343,6 @@
     <Content Include="Views\DatosAdicionales\Edit.cshtml" />
     <Content Include="Views\DatosAdicionales\Index.cshtml" />
     <Content Include="Views\DatosPersonales\Index.cshtml" />
-    <Content Include="Views\Educacion\Create.cshtml" />
-    <Content Include="Views\Educacion\Edit.cshtml" />
     <Content Include="Views\Educacion\Index.cshtml" />
     <Content Include="Views\Experiencia\Create.cshtml" />
     <Content Include="Views\Experiencia\Index.cshtml" />
@@ -370,6 +368,8 @@
     <Content Include="Views\Skills\Create.cshtml" />
     <Content Include="Views\Skills\Edit.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
+    <Content Include="Views\Educacion\Edit.cshtml" />
+    <Content Include="Views\Educacion\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
