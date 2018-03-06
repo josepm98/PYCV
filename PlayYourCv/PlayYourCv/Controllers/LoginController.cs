@@ -71,6 +71,13 @@ namespace PlayYourCV.Controllers
             }
         }
 
+        public ActionResult Logout()
+        {
+            this.HttpContext.Session.Remove("logged");
+            this.HttpContext.Session.Remove("loggedid");
+            return RedirectToAction("Index", "Login");
+        }
+
 
 
         // GET: Login/Create
@@ -228,6 +235,8 @@ namespace PlayYourCV.Controllers
             return existeix;
         }
     }
+
+
 
 
 }

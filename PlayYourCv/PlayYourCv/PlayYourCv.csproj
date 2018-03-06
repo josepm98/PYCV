@@ -201,6 +201,7 @@
     <Content Include="Content\images\home-images\image-4.jpg" />
     <Content Include="Content\images\home-images\image-5.jpg" />
     <Content Include="Content\images\home-images\image-6.jpg" />
+    <Content Include="Content\images\home-images\logros.jpg" />
     <Content Include="Content\images\home-images\miscvs-ss.jpg" />
     <Content Include="Content\images\home-images\Objetivos_1.jpg" />
     <Content Include="Content\images\lvl.jfif" />
@@ -219,6 +220,7 @@
     <Content Include="Content\images\modulos-img\Hobbies_2ss-ConvertImage.jpg" />
     <Content Include="Content\images\modulos-img\Idiomas_2_ss.jpg" />
     <Content Include="Content\images\modulos-img\Idiomas_2_ss2.jpg" />
+    <Content Include="Content\images\modulos-img\Presentacion_2_ss.jpg" />
     <Content Include="Content\images\modulos-img\skills_ss.jpg" />
     <Content Include="Content\images\nodisp.png" />
     <Content Include="Content\images\playyourcvlogo.png" />

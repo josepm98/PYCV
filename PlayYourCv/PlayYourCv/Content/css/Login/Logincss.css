@@ -1,4 +1,5 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300);
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
 /* GENERAL RESETS */
 * {
     margin: 0;
@@ -28,7 +29,7 @@ a {
 body {
     position: relative;
     color: #666;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Quicksand', sans-serif !important;
     font: 16px/26px;
     text-align: center;
     height: 100%;
@@ -46,7 +47,7 @@ a.button {
     top: 20px;
     height: auto;
     padding: .8rem 1.0rem;
-    font-size: .8rem;
+    font-size: 1rem;
     line-height: normal;
     text-transform: uppercase;
     font-family: 'Quicksand', sans-serif;
@@ -283,7 +284,7 @@ a.button {
         box-sizing: border-box;
         -moz-box-sizing: border-box;
         color: inherit;
-        font-family: inherit;
+        font-family: 'Quicksand', sans-serif;
         color: #666;
     }
 
@@ -296,7 +297,7 @@ a.button {
         border: none;
         color: #fff;
         cursor: pointer;
-        font-size: .8em;
+        font-size: 1em;
         border-radius: 0px;
         background: rgba(62,181,169,1) 0%;
     }
@@ -551,6 +552,7 @@ a.button {
     #slideshow p {
         color: #fff;
         display: none;
+        font-size:1.6em;
     }
 
     #slideshow div {
@@ -668,6 +670,9 @@ input[type=submit]:hover {
     background-color: #3b7f73;
 }
 
+.Login_recuerdame{
+    color:darkgrey;
+}
 
 
 
@@ -697,7 +702,7 @@ input[type=submit]:hover {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     color: inherit;
-    font-family: inherit;
+    font-family: 'Quicksand', sans-serif;
     color: #fff;
 }
 
@@ -710,7 +715,7 @@ input[type=submit]:hover {
     border: none;
     color: #fff;
     cursor: pointer;
-    font-size: .8em;
+    font-size: 1em;
     border-radius: 30px;
     background: -moz-linear-gradient(270deg, rgba(105,221,201,1) 0%, rgba(78,193,182,1) 100%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(105,221,201,1)), color-stop(100%, rgba(78,193,182,1)));
