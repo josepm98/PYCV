@@ -299,3 +299,5 @@ PlayYourCv/PlayYourCv/PlayYourCv.csproj
 PlayYourCv/PlayYourCv/Views/Objetivos/Index.cshtml
 PlayYourCv/PlayYourCv/Controllers/ObjetivosController.cs
 
+PlayYourCv/PlayYourCv/packages.config
+PlayYourCv/PlayYourCv/PlayYourCv.csproj
