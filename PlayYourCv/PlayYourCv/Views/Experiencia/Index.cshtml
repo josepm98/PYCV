@@ -1,67 +1,85 @@
 ﻿@model PlayYourCV.Models.Contenido
 
-    
+
 @{
     ViewData["Title"] = "Index";
+    List<PlayYourCV.Models.Contenido> listaExp = (List<PlayYourCV.Models.Contenido>)ViewData["lista"];
 }
 
-<div class="container">
-    <div class="row">
+<div class="container">  </div>
+<div class="row">
 
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <h1>Experiencia</h1>
-                <p>blabla</p>
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Posicion, htmlAttributes: new { @class = "control-label col-md-2" })
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="col-md-6">
 
-    <div class="row">
-        <div class="col-md-1">
-            <a href="~/Experiencia/Create" type="button" class="btn btn-default">Crear</a>
-        </div>
+        <h1>Experiencia</h1>
 
-
-
-        <div class="col-md-1">
-            <a href="~/Experiencia/Edit" type="button" class="btn btn-default">Editar</a>
-        </div>
-    </div>
-
-    <br />
-
-    <div class="jumbotron col-sm-12">
-
-        <div class="col-sm-6">
-            <h3>@Html.LabelFor(model => model.Posicion)</h3>
-        </div>
-        <div class="col-sm-3">
-            <label>Fecha Inicio : 01/01/1111</label>
-        </div>
-        <div class="col-sm-3">
-            <label>Fecha Fin : 01/10/1111</label>
-        </div>
-        <div class="col-md-12">
-            <p>descripcion bla bla bla bla etc etc etc etc</p>
-        </div>
-        <div class="col-md-4">
-            <p>Local : IES melaheinventado</p>
-        </div>
-        <div class="col-md-8">
-            <p>Lugar : ciudadinexistente</p>
-        </div>
-        <div class="col-sm-12" style="text-align:end">
-            <button type="button" class="btn" onclick="deleteCourse(1)">Eliminar</button>
-            <button type="button" class="btn btn-default" onclick="editCourse(1)">Editar</button>
-        </div>
 
     </div>
-
-
 </div>
+
+@{
+    if (listaExp != null)
+    {
+        foreach (PlayYourCV.Models.Contenido c in listaExp)
+        {
+<div class="jumbotron col-sm-12">
+
+    <div class="col-sm-12">
+        <h3><strong>@c.Posicion</strong></h3>
+    </div>
+
+    <div class="col-md-12">
+        <p>@c.EmpresaEscuela</p>
+    </div>
+    <div class="col-md-12">
+        <p>@c.Lugar</p>
+    </div>
+    <div class="col-sm-2">
+        <label>@c.FechaInicio</label>
+    </div>
+    <div class="col-sm-10">
+        <label>@c.FechaFin</label>
+    </div>
+       
+    <div class="col-md-12">
+        <p>@c.Descripcion</p>
+    </div>
+
+
+            <div class="col-sm-12" style="text-align:end">
+                <button type="button" class="btn" onclick="deleteExp(@c.Id)">Eliminar</button>
+                <button type="button" class="btn btn-default" onclick="editExp(@c.Id)">Editar</button>
+            </div>
+
+            </div>
+        }
+    }
+}
+
+<script>
+    function deleteExp(i) {
+        res = confirm('¿Estás segura de querer eliminar esta experiencia?');
+        if (res) {
+            window.location.replace("/Experiencia/Delete/" + i);
+        }
+    }
+    function add(i) {
+        window.location.replace("/Experiencia/Create/");
+    }
+    function editExp(i) {
+        window.location.replace("/Experiencia/Edit/" + i);
+    }
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Experiencia/Index");
+        }
+    }
+</script>
+
+
+
 
 
 

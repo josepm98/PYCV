@@ -1,7 +1,80 @@
-﻿
+﻿@model PlayYourCV.Models.Contenido
+
+
 @{
     ViewData["Title"] = "Index";
+    List<PlayYourCV.Models.Contenido> listaPre = (List<PlayYourCV.Models.Contenido>)ViewData["lista"];
 }
 
-<h2>Index</h2>
+<div class="container">  </div>
+<div class="row">
 
+    <div class="col-md-6">
+
+        <h1>Presentación</h1>
+
+
+    </div>
+</div>
+<!--
+     <div class="row">
+         <div class="col-md-1">
+             <a href="~/Experiencia/Create" type="button" class="btn btn-default">Crear</a>
+         </div>
+
+
+
+         <div class="col-md-1">
+             <a href="~/Experiencia/Edit" type="button" class="btn btn-default">Editar</a>
+         </div>
+     </div>
+
+     -->
+@{
+
+    if (listaPre != null)
+    {
+        foreach (PlayYourCV.Models.Contenido c in listaPre)
+        {
+            <div class="jumbotron col-sm-12">
+
+                <div class="col-md-12">
+                    <h2><strong>@c.Nombre</strong></h2>
+                </div>
+
+                <div class="col-md-12">
+                    <p>@c.Descripcion</p>
+                </div>
+
+
+                <div class="col-sm-12" style="text-align:end">
+                    <button type="button" class="btn" onclick="deleteExp(@c.Id)">Eliminar</button>
+                    <button type="button" class="btn btn-default" onclick="editExp(@c.Id)">Editar</button>
+                </div>
+
+            </div>
+        }
+    }
+}
+
+<script>
+    function deleteExp(i) {
+        res = confirm('¿Estás segura de querer eliminar esta presentación?');
+        if (res) {
+            window.location.replace("/Presentacion/Delete/" + i);
+        }
+    }
+    function add(i) {
+        window.location.replace("/Presentacion/Create/");
+    }
+    function editExp(i) {
+        window.location.replace("/Presentacion/Edit/" + i);
+    }
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Presentacion/Index");
+        }
+    }
+</script>

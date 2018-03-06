@@ -12,6 +12,8 @@ namespace PlayYourCV.Models
         public int IdUsuario { get; set; }
         public int IdCategoria { get; set; }
         public string Nombre { get; set; }
+
+        [StringLength(500, ErrorMessage = "{0} ha de tener entre {2} y {1} caracteres.", MinimumLength = 6)]
         public string Descripcion { get; set; }
         [Required]
         public string EmpresaEscuela { get; set; }
