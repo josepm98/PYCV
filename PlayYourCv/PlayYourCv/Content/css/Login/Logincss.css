@@ -1,4 +1,5 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300);
+@import url(https://fonts.googleapis.com/css?family=Quicksand);
 /* GENERAL RESETS */
 * {
     margin: 0;
@@ -551,6 +552,7 @@ a.button {
     #slideshow p {
         color: #fff;
         display: none;
+        font-size:1.6em;
     }
 
     #slideshow div {
@@ -668,6 +670,9 @@ input[type=submit]:hover {
     background-color: #3b7f73;
 }
 
+.Login_recuerdame{
+    color:darkgrey;
+}
 
 
 
