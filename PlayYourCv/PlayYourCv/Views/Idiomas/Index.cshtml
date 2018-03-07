@@ -17,7 +17,7 @@
     {
         foreach (PlayYourCV.Models.Contenido c in listaIdiomas)
         {
-            <div class="jumbotron">
+            <div class="jumbotron col-md-12">
                 <div class="col-sm-10">
                     <h3>@c.Nombre</h3>
                 </div>
@@ -29,64 +29,29 @@
                 <div class="col-sm-1">
                     <button type="button" class="btn btn-success" onclick="editLanguage(@c.Id)">Editar</button>
                 </div>
-                <table class="table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Hablado)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Escrito)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Leido)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.NivelGeneral)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@c.Hablado</td>
-                            <td>@c.Escrito</td>
-                            <td>@c.Leido</td>
-                            <td>@c.NivelGeneral</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div>
+                    <table class="table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Hablado)</th>
+                                <th>@Html.DisplayNameFor(model => model.Escrito)</th>
+                                <th>@Html.DisplayNameFor(model => model.Leido)</th>
+                                <th>@Html.DisplayNameFor(model => model.NivelGeneral)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@c.Hablado</td>
+                                <td>@c.Escrito</td>
+                                <td>@c.Leido</td>
+                                <td>@c.NivelGeneral</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         }
     }
-    <!--prueba visual-->
-    <div class="jumbotron col-sm-12">
-
-        <div class="col-sm-10">
-            <h3>Nombre Idioma</h3>
-        </div>
-
-        <div class="col-sm-1">
-            <button type="button" class="btn btn-danger" onclick="deleteLanguage(1)">Eliminar</button>
-        </div>
-
-        <div class="col-sm-1">
-            <button type="button" class="btn btn-success" onclick="editLanguage(1)">Editar</button>
-        </div>
-
-        <table class="table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Hablado</th>
-                    <th scope="col">Escrito</th>
-                    <th scope="col">Leido</th>
-                    <th scope="col">Nivel General</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Intermedio</td>
-                    <td>Intermedio</td>
-                    <td>Intermedio</td>
-                    <td>Intermedio</td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-    <!--boton agregar-->
-
 }
 <script>
     function deleteLanguage(i) {

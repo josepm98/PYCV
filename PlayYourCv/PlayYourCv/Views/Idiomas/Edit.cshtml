@@ -1,74 +1,42 @@
 ﻿@model PlayYourCV.Models.Contenido
 
 @{
-    ViewBag.Title = "Edit";
+    string titulo = (string)ViewData["Titulo"];
+    PlayYourCV.Models.Contenido c = (PlayYourCV.Models.Contenido)ViewData["Educacion"];
 }
 
-<h2>Edit</h2>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
+<h2>@titulo</h2>
+<form action="/Idiomas/Edit" method="post">
     <div class="form-horizontal">
-        <h4>Contenido</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
+        <input type="text" class="form-control" style="display:none" name="Id" value="@c.Id" />
         <div class="form-group">
-            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-            </div>
+            <label for="Nombre">Nombre:</label>
+            <input type="text" class="form-control" name="Nombre" value="@c.Nombre" />
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Hablado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Hablado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Hablado, "", new { @class = "text-danger" })
-            </div>
+            <label for="Hablado">Nivel Hablado:</label>
+            <input type="text" class="form-control" name="Hablado" value="@c.Hablado" />
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Escrito, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Escrito, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Escrito, "", new { @class = "text-danger" })
-            </div>
+            <label for="Escrito">Nivel Escrito:</label>
+            <input type="text" class="form-control" name="Escrito" value="@c.Escrito" />
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Leido, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Leido, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Leido, "", new { @class = "text-danger" })
-            </div>
+            <label for="Leido">Nivel Leido:</label>
+            <input type="text" class="form-control" name="Leido" value="@c.Leido" />
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.NivelGeneral, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NivelGeneral, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NivelGeneral, "", new { @class = "text-danger" })
-            </div>
+            <label for="NivelGeneral">Nivel General:</label>
+            <input type="text" class="form-control" name="NivelGeneral" value="@c.NivelGeneral" />
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar cambios" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+</form>
