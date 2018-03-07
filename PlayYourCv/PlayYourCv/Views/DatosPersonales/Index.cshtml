@@ -25,10 +25,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="jumbotron">
-                        <img src="~/Content/images/nodisp.png" title="PlayYourCV" alt="PlayYourCV" width="100px" />
+                    <div class="fotoperfil">
+                        <img src="@usuario.FotoURL" title="PlayYourCV" alt="PlayYourCV" width="100%" />
                     </div>
+
                     <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Ayuda</button>
+
 
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
@@ -62,11 +64,11 @@
                         <form action="/DatosPersonales/Edit" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="Nombre">Nombre:</label>
-                                <input type="text" class="form-control" name="Nombre" value="@usuario.Nombre" />
+                                <input type="text" class="form-control" name="Nombre" value="@usuario.Nombre" required />
                             </div>
                             <div class="form-group">
                                 <label for="Apellido1">Primer Apellido:</label>
-                                <input type="text" class="form-control" name="Apellido1" value="@usuario.Apellido1" />
+                                <input type="text" class="form-control" name="Apellido1" value="@usuario.Apellido1" required />
                             </div>
                             <div class="form-group">
                                 <label for="Apellido2">Segundo Apellido:</label>
@@ -78,22 +80,27 @@
                             </div>
                             <div class="form-group">
                                 <label for="FechaNacimiento">Fecha Nacimiento:</label>
-                                <input type="date" class="form-control" name="FechaNacimiento" value="@fecha" />
+                                <input type="date" class="form-control" name="FechaNacimiento" value="@fecha" required />
                             </div>
                             <div class="form-group">
                                 <label for="Email">Email:</label>
-                                <input type="email" name="Email" class="form-control" value="@usuario.Email" />
+                                <input type="email" name="Email" class="form-control" value="@usuario.Email" required />
                             </div>
 
                             <div class="form-group">
-                                <label for="foto">Subir foto:</label>
-                                <input type="file" name="foto" id="foto" class="form-control"  />
+                                <label for="foto">Subir foto: (Válido solo formato .jpg)</label>
+                                <input type="file" name="foto" id="foto" class="inputfile" style="height:auto;" />
                             </div>
-
+                            <p style="font-family:Quicksand sans-serif; font-size:0.8em;">Valido solo formato .jpg</p>
 
                             <button type="submit" class="btn btn-default">Actualizar</button>
                         </form>
 
+                        <!--mostrar imagen
+                            <img src="@Html.DisplayFor(Model => usuario.FotoURL)" width="100" name="foto" />
+
+                             <img src="~/Fotoperfil/@usuario.FotoURL" width="200" name="foto" />
+        -->
 
                     </div>
                 </div>
