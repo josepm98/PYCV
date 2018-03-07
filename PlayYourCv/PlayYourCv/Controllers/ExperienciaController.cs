@@ -225,9 +225,6 @@ namespace PlayYourCV.Controllers {
             }
             return Lista;
         }
-<<<<<<< HEAD
-        
-=======
 
         public List<Contenido> GetExp(int idUser)
         {
@@ -254,6 +251,5 @@ namespace PlayYourCV.Controllers {
             }
             return list;
         }
->>>>>>> origin/Ares
     }
 }
