@@ -1,7 +1,23 @@
-﻿
+﻿@model PlayYourCV.Models.Contenido
+
 @{
-    ViewData["Title"] = "Edit";
+    string titulo = (string)ViewData["Titulo"];
+    PlayYourCV.Models.Contenido c = (PlayYourCV.Models.Contenido)ViewData["Hobbie"];
 }
 
-<h2>Edit</h2>
+<h2>@titulo</h2>
+<form action="/Hobbies/Edit" method="post">
+    <div class="form-horizontal">
+        <input type="text" class="form-control" style="display:none" name="Id" value="@c.Id" />
+        <div class="form-group">
+            <label for="Nombre">Nombre:</label>
+            <input type="text" class="form-control" name="Nombre" value="@c.Nombre" />
+        </div>
 
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Guardar cambios" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
