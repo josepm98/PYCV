@@ -189,6 +189,9 @@ namespace PlayYourCV.Controllers
                 cmd.ExecuteNonQuery();
 
                 _conn.Close();
+
+                this.HttpContext.Session.Add("logged", collection["Nombre"].ToString());
+                this.HttpContext.Session.Add("loggedid", 2);
                 return RedirectToAction("Index","Home");
 
             }
