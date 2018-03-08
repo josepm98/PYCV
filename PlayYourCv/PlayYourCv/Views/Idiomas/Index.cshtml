@@ -9,7 +9,7 @@
         <h2>@titulo</h2>
     </div>
     <div class="col-md-2">
-        <button type="button" class="btn btn-default" onclick="add()">Agregar Idioma</button>
+        <button type="button" class="btn btn-default" onclick="add()" data-toggle="modal" data-target="#editModal">Agregar Idioma</button>
     </div>
 </div>
 @{
@@ -17,7 +17,7 @@
     {
         foreach (PlayYourCV.Models.Contenido c in listaIdiomas)
         {
-            <div class="jumbotron">
+            <div class="jumbotron col-md-12">
                 <div class="col-sm-10">
                     <h3>@c.Nombre</h3>
                 </div>
@@ -27,80 +27,108 @@
                 </div>
 
                 <div class="col-sm-1">
-                    <button type="button" class="btn btn-success" onclick="editLanguage(@c.Id)">Editar</button>
+                    <button type="button" class="btn btn-success" onclick="editLanguage(@c.Id,'@c.Nombre','@c.Hablado','@c.Escrito','@c.Leido','@c.NivelGeneral')" data-toggle="modal" data-target="#editModal">Editar</button>
                 </div>
-                <table class="table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Hablado)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Escrito)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.Leido)</th>
-                            <th scope="col">@Html.DisplayNameFor(model => model.NivelGeneral)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@c.Hablado</td>
-                            <td>@c.Escrito</td>
-                            <td>@c.Leido</td>
-                            <td>@c.NivelGeneral</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div>
+                    <table class="table-striped">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.Hablado)</th>
+                                <th>@Html.DisplayNameFor(model => model.Escrito)</th>
+                                <th>@Html.DisplayNameFor(model => model.Leido)</th>
+                                <th>@Html.DisplayNameFor(model => model.NivelGeneral)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@c.Hablado</td>
+                                <td>@c.Escrito</td>
+                                <td>@c.Leido</td>
+                                <td>@c.NivelGeneral</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         }
     }
-    <!--prueba visual-->
-    <div class="jumbotron col-sm-12">
-
-        <div class="col-sm-10">
-            <h3>Nombre Idioma</h3>
-        </div>
-
-        <div class="col-sm-1">
-            <button type="button" class="btn btn-danger" onclick="deleteLanguage(1)">Eliminar</button>
-        </div>
-
-        <div class="col-sm-1">
-            <button type="button" class="btn btn-success" onclick="editLanguage(1)">Editar</button>
-        </div>
-
-        <table class="table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Hablado</th>
-                    <th scope="col">Escrito</th>
-                    <th scope="col">Leido</th>
-                    <th scope="col">Nivel General</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Intermedio</td>
-                    <td>Intermedio</td>
-                    <td>Intermedio</td>
-                    <td>Intermedio</td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-    <!--boton agregar-->
-
 }
+
+<!-- Modal Edit -->
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal Edit content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edita tu habilidad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <form id="editModalForm" name="editForm" action="/Hobbies/Edit" method="post">
+                        <div>
+                            <input type="text" style="display:none" class="form-control" id="idInput" name="Id" value="" />
+                            <label for="Nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombreInput" name="Nombre" value="" />
+                        </div>
+                        <div>
+                            <label for="Hablado">Nivel Hablado:</label>
+                            <input type="text" class="form-control" id="habladoInput" name="Hablado" value="" />
+                        </div>
+                        <div>
+                            <label for="Escrito">Nivel Escrito:</label>
+                            <input type="text" class="form-control" id="escritoInput" name="Escrito" value="" />
+                        </div>
+                        <div>
+                            <label for="Leido">Nivel Leido:</label>
+                            <input type="text" class="form-control" id="leidoInput" name="Leido" value="" />
+                        </div>
+                        <div>
+                            <label for="NivelGeneral">Nivel General:</label>
+                            <input type="text" class="form-control" id="generalInput" name="NivelGeneral" value="" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div data-dismiss="modal">
+                    <input id="btnEditForm" type="submit" value="Guardar cambios" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+
     function deleteLanguage(i) {
         res = confirm('¿Estás seguro de querer eliminar este idioma?');
         if (res) {
             window.location.replace("/Idiomas/Delete/" + i);
         }
     }
-    function add(i) {
-        window.location.replace("/Idiomas/Create/");
+
+    function add() {
+        document.editForm.action = "/Idiomas/Create";
+        document.getElementById("idInput").value = "";
+        document.getElementById("nombreInput").value = "";
+        document.getElementById("habladoInput").value = "";
+        document.getElementById("escritoInput").value = "";
+        document.getElementById("leidoInput").value = "";
+        document.getElementById("generalInput").value = "";
     }
-    function editLanguage(i) {
-        window.location.replace("/Idiomas/Edit/" + i);
+
+    function editLanguage(id,nombre,hablado,escrito,leido,general) {
+        document.editForm.action = "/Idiomas/Edit";
+        document.getElementById("idInput").value = id;
+        document.getElementById("nombreInput").value = nombre;
+        document.getElementById("habladoInput").value = hablado;
+        document.getElementById("escritoInput").value = escrito;
+        document.getElementById("leidoInput").value = leido;
+        document.getElementById("generalInput").value = general;
     }
+
     window.onload = function () {
         if (
             window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
@@ -108,4 +136,10 @@
             window.location.replace("/Idiomas/Index");
         }
     }
+
+    form = document.getElementById("editModalForm");
+    document.getElementById("btnEditForm").addEventListener("click", function () {
+        form.submit();
+    });
+
 </script>

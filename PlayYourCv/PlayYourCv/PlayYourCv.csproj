@@ -341,8 +341,6 @@
     <Content Include="Views\Cvs\Edit.cshtml" />
     <Content Include="Views\Cvs\Index.cshtml" />
     <Content Include="Views\Cvs\Moduloscv.cshtml" />
-    <Content Include="Views\DatosAdicionales\Create.cshtml" />
-    <Content Include="Views\DatosAdicionales\Edit.cshtml" />
     <Content Include="Views\DatosAdicionales\Index.cshtml" />
     <Content Include="Views\DatosPersonales\Index.cshtml" />
     <Content Include="Views\Educacion\Index.cshtml" />

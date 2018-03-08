@@ -10,7 +10,7 @@
         <h2>@titulo</h2>
     </div>
     <div class="col-md-2">
-        <button type="button" class="btn btn-default" onclick="add()">Agregar Formacion</button>
+        <button type="button" class="btn btn-default" onclick="add()" data-toggle="modal" data-target="#editModal">Agregar Formacion</button>
     </div>
 </div>
 @{
@@ -18,60 +18,134 @@
     {
         foreach (PlayYourCV.Models.Contenido c in listaEducacion)
         {
-            <div class="jumbotron">
+            string fechaI, fechaF;
+            if (c.FechaInicio.Equals(default(DateTime)))
+            {
+                fechaI = "";
+            }
+            else
+            {
+                fechaI = c.FechaInicio.ToString("yyyy-MM-dd");
+            }
+            if (c.FechaFin.Equals(default(DateTime)))
+            {
+                fechaF = "";
+            }
+            else
+            {
+                fechaF = c.FechaFin.ToString("yyyy-MM-dd");
+            }
+            <div class="jumbotron col-sm-12">
+
                 <div class="col-sm-6">
                     <h3>@c.Nombre</h3>
                 </div>
-                <div class="col-sm-12" style="">
-                    <button type="button" class="btn btn-danger" onclick="deleteCourse(@c.Id)">Eliminar</button>
-                    <button type="button" class="btn btn-success" onclick="editCourse(@c.Id)">Editar</button>
+                <div class="col-sm-3">
+                    <label>Fecha Inicio : @String.Format("{0:d}", c.FechaInicio)</label>
                 </div>
+                <div class="col-sm-3">
+                    <label>Fecha Fin : @String.Format("{0:d}", c.FechaFin)</label>
+                </div>
+                <div class="col-md-12">
+                    <p>@c.Descripcion</p>
+                </div>
+                <div class="col-md-4">
+                    <p>Local : @c.EmpresaEscuela</p>
+                </div>
+                <div class="col-md-8">
+                    <p>Lugar : @c.Lugar</p>
+                </div>
+                <div class="col-sm-12" style="text-align:end">
+                    <button type="button" class="btn btn-danger" onclick="deleteCourse(@c.Id)">Eliminar</button>
+                    <button type="button" class="btn btn-success" onclick="editCourse(@c.Id,'@c.Nombre','@c.Descripcion','@c.EmpresaEscuela','@c.Lugar','@fechaI','@fechaF')"  data-toggle="modal" data-target="#editModal">Editar</button>
+                </div>
+
             </div>
         }
     }
 }
 
-<!--prueba visual-->
-<div class="jumbotron col-sm-12">
+<!-- Modal Edit -->
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-    <div class="col-sm-6">
-        <h3>Titulo chulo</h3>
+        <!-- Modal Edit content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edita tu habilidad</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <form id="editModalForm" name="editForm" action="/Hobbies/Edit" method="post">
+                        <div>
+                            <input type="text" style="display:none" class="form-control" id="idInput" name="Id" value="" />
+                            <label for="Nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombreInput" name="Nombre" value="" />
+                        </div>
+                        <div>
+                            <label for="Descripcion">Descripcion:</label>
+                            <input type="text" class="form-control" id="descripcionInput" name="Descripcion" value="" />
+                        </div>
+                        <div>
+                            <label for="EmpresaEscuela">Escuela:</label>
+                            <input type="text" class="form-control" id="escuelaInput" name="EmpresaEscuela" value="" />
+                        </div>
+                        <div>
+                            <label for="Lugar">Lugar:</label>
+                            <input type="text" class="form-control" id="lugarInput" name="Lugar" value="" />
+                        </div>
+                        <div>
+                            <label for="FechaInicio">Fecha Inicio:</label>
+                            <input type="date" class="form-control" id="fechaIniInput" name="FechaInicio" value="" />
+                        </div>
+                        <div>
+                            <label for="FechaFin">Fecha Fin:</label>
+                            <input type="date" class="form-control" id="fechaFinInput" name="FechaFin" value="" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div data-dismiss="modal">
+                    <input id="btnEditForm" type="submit" value="Guardar cambios" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-3">
-        <label>Fecha Inicio : 01/01/1111</label>
-    </div>
-    <div class="col-sm-3">
-        <label>Fecha Fin : 01/10/1111</label>
-    </div>
-    <div class="col-md-12">
-        <p>descripcion bla bla bla bla etc etc etc etc</p>
-    </div>
-    <div class="col-md-4">
-        <p>Local : IES melaheinventado</p>
-    </div>
-    <div class="col-md-8">
-        <p>Lugar : ciudadinexistente</p>
-    </div>
-    <div class="col-sm-12" style="text-align:end">
-        <button type="button" class="btn btn-danger" onclick="deleteCourse(1)">Eliminar</button>
-        <button type="button" class="btn btn-success" onclick="editCourse(1)">Editar</button>
-    </div>
-
 </div>
 
 <script>
+
     function deleteCourse(i) {
         res = confirm('¿Estás seguro de querer eliminar esta formacion?');
         if (res) {
             window.location.replace("/Educacion/Delete/" + i);
         }
     }
-    function add(i) {
-        window.location.replace("/Educacion/Create/");
+
+    function add() {
+        document.editForm.action = "/Educacion/Create";
+        document.getElementById("idInput").value = "";
+        document.getElementById("nombreInput").value = "";
+        document.getElementById("descripcionInput").value = "";
+        document.getElementById("escuelaInput").value = "";
+        document.getElementById("lugarInput").value = "";
+        document.getElementById("fechaIniInput").value = "";
+        document.getElementById("fechaFinInput").value = "";
     }
-    function editCourse(i) {
-        window.location.replace("/Educacion/Edit/" + i);
+
+    function editCourse(id,nombre,des,escuela,lugar,fechai,fechaf) {
+        document.editForm.action = "/Educacion/Edit";
+        document.getElementById("idInput").value = id;
+        document.getElementById("nombreInput").value = nombre;
+        document.getElementById("descripcionInput").value = des;
+        document.getElementById("escuelaInput").value = escuela;
+        document.getElementById("lugarInput").value = lugar;
+        document.getElementById("fechaIniInput").value = fechai;
+        document.getElementById("fechaFinInput").value = fechaf;
     }
+
     window.onload = function () {
         if (
             window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
@@ -79,4 +153,10 @@
             window.location.replace("/Educacion/Index");
         }
     }
+
+    form = document.getElementById("editModalForm");
+    document.getElementById("btnEditForm").addEventListener("click", function () {
+        form.submit();
+    });
+
 </script>
