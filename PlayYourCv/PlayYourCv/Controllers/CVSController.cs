@@ -37,7 +37,11 @@ namespace PlayYourCV.Controllers
             EducacionController edu = new EducacionController();
             ViewData["listaEducacion2"] = edu.GetUserCourses(idAux);
             PresentacionController pres = new PresentacionController();
-            //ViewData["listapre"] = pres.GetPre(idAux);
+            ViewData["listapre"] = pres.GetPre(idAux);
+            HobbiesController hobb = new HobbiesController();
+            ViewData["listaHobbies"] = hobb.GetUserHobbies(idAux);
+            SkillsController ski = new SkillsController();
+            ViewData["listaskil"] = ski.GetSki(idAux);
 
 
             // Usuario u = getUser(idAux);
