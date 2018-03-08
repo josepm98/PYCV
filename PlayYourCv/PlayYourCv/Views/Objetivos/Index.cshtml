@@ -6,40 +6,21 @@
 }
 
 <h2>Index</h2>
-@{
-    if (ViewData["listaObjetivos"] != null) {
-        int idPrimaria = -1;
-        <ul class="list">
-            @{List<PlayYourCV.Models.Objetivo> lista = (List<PlayYourCV.Models.Objetivo>)ViewData["listaObjetivos"];
-                foreach (PlayYourCV.Models.Objetivo o in lista) {
-                    if (o.Primaria) {
-                        idPrimaria = o.Id;
-                        <li>@o.Descripcion</li>
-                    }
-                }
-                <ul class="list">
-                    <li>Skill</li>
-                    @{
-                        <ul class="list">
-                            @foreach (PlayYourCV.Models.Objetivo o in lista) {
-                                if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
-                                    <li>@o.Descripcion</li>
-                                }
-                            }
-                            <li class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
-                        </ul>
-                    }
 
-                </ul>
-            }
-        </ul>
-                        }
+@{
+    PlayYourCV.Models.Objetivo objetivo = (PlayYourCV.Models.Objetivo)ViewData["listaObjetivos"];
 }
 
+<form id="elform" action="/Objetivos/Editar" method="post">
+    <input name="__llista" type="hidden" id="ocult">
+</form>
 
-<!-- ---------------- -->
-<!-- ---- Modal ----- -->
-<!-- ---------------- -->
+<div id="lista">
+    @Html.Raw(objetivo.Descripcion)
+</div>
+<button id="guardar" class="btn btn-primary">Guardar</button>
+
+<!-- Modal añadir -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -50,25 +31,35 @@
                 <h4 class="modal-title">Modal Header</h4>
             </div>
             <div class="modal-body">
-                <p>Añade un objetivo</p>
-                <form action="/Objetivos/Create">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group" data-dismiss="modal">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Crear" class="btn btn-default" />
-                        </div>
-                    </div>
-                </form>
+                <p>Entra un objetivo</p>
+                <input placeholder="Entra un objetivo" class="form-control" id="textoEntrado">
+                <button id="botonOK" class="btn btn-success" data-dismiss="modal">Aceptar</button>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Edita tú objetivo</p>
+                <input placeholder="Edita tú objetivo" class="form-control" id="textoEditado">
+                <button id="botonOKEdit" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
 
@@ -76,13 +67,66 @@
 </div>
 
 <script>
-    $(".add").click(function () {
-        index = $(this).index() - 1;
-    });
-    
-    function botonOK () {
-        valorEntrada = document.getElementById('entrada').value;
-        $('.list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
-    }
-</script>
+    var index;
+    var valorEntrada;
+    var idPadre;
+    var idPropio;
 
+    //Registra el click en el botó add per saber on afegir l'element
+    $(document).on("click", ".add", function () {
+        //posició on està el botó
+        index = $(this).index();
+        idPadre = $(this).parent().parent().attr('id');
+    });
+
+    //Click en el botó aceptar i s'afageix l'element a la llista
+    $(document).on("click", "#botonOK", function () {
+        valorEntrada = document.getElementById('textoEntrado').value;
+        $('#' + idPadre + ' li:eq(' + index + ')').before('<li id=' + RandomID() + '>' + '<span>' + valorEntrada + '</span>' + '<button class="editar btn btn-warning" data-toggle="modal" data-target="#editModal">Editar</button><button class="eliminar btn btn-danger">Eliminar</button> <ul id=' + RandomID() + '> <li> <button class="add btn btn-success" data-toggle="modal" data-target="#myModal"> +Añadir </button></li> </ul> </li>');
+    });
+
+    //Registra el click en el botó editar per saber quin element editar
+    $(document).on("click", ".editar", function () {
+        //posició on està el botó
+        index = $(this).index();
+        //Posició
+        idPadre = $(this).parent().attr('id');
+        console.log(idPadre);
+    });
+
+    //Registra els canvis y els escriu en el HTML
+    $(document).on("click", "#botonOKEdit", function () {
+        valorEntrada = document.getElementById('textoEditado').value;
+        $('#' + idPadre + '>span').text(valorEntrada);
+    });
+
+    //Registra el click en el botó editar per saber quin element editar
+    $(document).on("click", ".eliminar", function () {
+        //posició on està el botó
+        index = $(this).index();
+        //Posició
+        idPadre = $(this).parent().attr('id');
+        $('#' + idPadre).remove();
+    });
+
+    //Guarda l'estat de la llista per pujar-ho a la BBDD
+    $(document).on("click", "#guardar", function () {
+        $("#ocult").val($("#lista").html());
+        $("#lista").empty();
+        $("#elform").submit();
+    });
+
+    //Genera un id aleatori
+    function RandomID() {
+        var ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var ID_LENGTH = 8;
+        var idPropio = '';
+
+        for (var i = 0; i < ID_LENGTH; i++) {
+            idPropio += ALPHABET.charAt(Math.floor(Math.random() * ALPHABET.length));
+        }
+
+        return idPropio;
+    }
+
+</script>
