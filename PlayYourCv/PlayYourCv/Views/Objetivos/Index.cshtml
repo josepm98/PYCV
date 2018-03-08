@@ -2,47 +2,84 @@
 @model PlayYourCV.Models.Objetivo
 
 @{
-    ViewData["Title"] = "Index";
+    string titulo = (string)ViewData["Titulo"];
+    List<PlayYourCV.Models.Objetivo> listaObjetivos = (List<PlayYourCV.Models.Objetivo>)ViewData["listaObjetivos"];
+    List<PlayYourCV.Models.Categoria> listaCategorias = (List<PlayYourCV.Models.Categoria>)ViewData["listaCategorias"];
 }
 
-<h2>Index</h2>
-@{
-    if (ViewData["listaObjetivos"] != null) {
-        int idPrimaria = -1;
+@helper ifchildhelper(int idCaller, List<PlayYourCV.Models.Objetivo> listaObjetivos, List<PlayYourCV.Models.Categoria> listaCategorias)
+{
+    bool hasChilds = false;
+    foreach (PlayYourCV.Models.Objetivo o in listaObjetivos)
+    {
+        if (o.IdPadre == idCaller)
+        {
+            hasChilds = true;
+        }
+    }
+    if (hasChilds)
+    {
         <ul class="list">
-            @{List<PlayYourCV.Models.Objetivo> lista = (List<PlayYourCV.Models.Objetivo>)ViewData["listaObjetivos"];
-                foreach (PlayYourCV.Models.Objetivo o in lista) {
-                    if (o.Primaria) {
-                        idPrimaria = o.Id;
-                        <li>@o.Descripcion</li>
-                    }
-                }
-                <ul class="list">
-                    <li>Skill</li>
-                    @{
-                        <ul class="list">
-                            @foreach (PlayYourCV.Models.Objetivo o in lista) {
-                                if (o.IdPadre == idPrimaria/*&& o.IdCateoria==(numero de categoria)*/) {
-                                    <li>@o.Descripcion</li>
-                                }
+            @{foreach (PlayYourCV.Models.Categoria c in listaCategorias)
+                {
+                    <li>@c.Nombre</li>
+                    <ul class="list">
+                        @foreach (PlayYourCV.Models.Objetivo o in listaObjetivos)
+                        {
+                            if (o.IdPadre == idCaller && o.IdCategoria == c.Id)
+                            {
+                                <li>@o.Descripcion</li>
+                                @ifchildhelper(o.Id, listaObjetivos, listaCategorias);
                             }
-                            <li class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
-                        </ul>
-                    }
-
-                </ul>
+                        }
+                        <li onclick="showModal(@idCaller,@c.Id)" class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
+                    </ul>
+                }
             }
         </ul>
-                        }
+    }
 }
 
+@{
+    if (listaObjetivos.Count>0 && listaCategorias != null)
+    {
+        int idPrimaria = -1;
+        <ul class="list">
+        @{
+            foreach (PlayYourCV.Models.Objetivo o in listaObjetivos)
+            {
+                if (o.Primaria)
+                {
+                    idPrimaria = o.Id;
+                    <li>@o.Descripcion</li>
+                    <ul class="list">
+                    @{foreach (PlayYourCV.Models.Categoria c in listaCategorias)
+                    {
+                        <li>@c.Nombre</li>
+                        <ul class="list">
+                            @foreach (PlayYourCV.Models.Objetivo oChild in listaObjetivos)
+                            {
+                                if (oChild.IdPadre == idPrimaria && oChild.IdCategoria == c.Id)
+                                {
+                                    <li>@oChild.Descripcion</li>
+                                    @ifchildhelper(oChild.Id, listaObjetivos, listaCategorias);
+                                }
+                            }
+                            <li onclick="showModal(@idPrimaria,@c.Id)" class="add" data-toggle="modal" data-target="#myModal" style="cursor: pointer">Add +</li>
+                        </ul>
+                    }
+                    }
+                    </ul>
+                }
+            }
+        }
+        </ul>
+    }
+}
 
-<!-- ---------------- -->
-<!-- ---- Modal ----- -->
-<!-- ---------------- -->
+<!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -51,24 +88,20 @@
             </div>
             <div class="modal-body">
                 <p>Añade un objetivo</p>
-                <form action="/Objetivos/Create">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
-                        </div>
+                <div class="form-group">
+                    <div>
+                        <form id="modalForm" action="/Objetivos/AddSubobjetive" method="post">
+                            <input type="text" class="form-control" id="padre" name="IdPadre" value="" />
+                            <input type="text" class="form-control" id="cat" name="IdCategoria" value="" />
+                            <input type="text" class="form-control" name="Descripcion" value="" />
+                        </form>
                     </div>
-
-                    <div class="form-group" data-dismiss="modal">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Crear" class="btn btn-default" />
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <div data-dismiss="modal">
+                    <input id="btnForm" type="submit" value="Crear" class="btn btn-default" />
+                </div>
             </div>
         </div>
 
@@ -76,13 +109,15 @@
 </div>
 
 <script>
-    $(".add").click(function () {
-        index = $(this).index() - 1;
-    });
-    
-    function botonOK () {
-        valorEntrada = document.getElementById('entrada').value;
-        $('.list li:eq(' + index + ')').after('<li>' + valorEntrada + '</li>');
+    function showModal(idPadre, idCategoria) {
+        document.getElementById("padre").value = idPadre;
+        document.getElementById("cat").value = idCategoria;
+        modal = document.getElementById('myModal');
     }
+
+    form = document.getElementById("modalForm");
+    document.getElementById("btnForm").addEventListener("click", function () {
+        form.submit();
+    });
 </script>
 

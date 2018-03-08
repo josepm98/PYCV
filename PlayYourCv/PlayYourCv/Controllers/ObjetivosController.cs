@@ -18,62 +18,54 @@ namespace PlayYourCV.Controllers
         }
         public ActionResult Index()
         {
-            ViewData["listaObjetivos"] = select();
-            return View();
-        }
+            if (checkLogged() == null)
+            {
+                ViewBag.UserIsLogged = true;
+                ViewBag.Logged = Session["logged"] as String;
+                ViewBag.LoggedId = Session["loggedid"] as String;
 
-        public ActionResult Create() {
-            
-            return View();
+                ViewData["listaObjetivos"] = GetUserObjetives(Convert.ToInt32(Session["loggedid"] as String));
+                ViewData["listaCategorias"] = GetCategories();
+                ViewData["Titulo"] = "Objetivo Principal";
+                return View();
+            }
+            else
+            {
+                return checkLogged();//return to home
+            }
         }
 
         // POST: Login/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection) {
-
-            if (String.IsNullOrEmpty(Session["loggedId"] as String)) {
-                return View();
-            }
-
-            int userid = Convert.ToInt32(Session["loggedid"] as String);
-            int categoriaid = 5;
-
-            openConn();
-            string idObjetivos = collection["Id"].ToString();
-            string primaria = collection["Primaria"].ToString();
-            string descripcion = collection["Descripcion"].ToString();
-            string idPadre = collection["IdPadre"].ToString();
-            string idCategoria = collection["IdCategoria"].ToString();
-            
+        public ActionResult AddSubobjetive(FormCollection collection)
+        {
+            //delete after test VALUES PASS
+            string aux1 = collection["Descripcion"].ToString();
+            string aux2 = collection["IdPadre"].ToString();
+            string aux3 = collection["IdCategoria"].ToString();
             try {
-
-                string sql =
-                "INSERT INTO objetivos (idObjetivos, Primaria, Descripcion, Objetivos_idObjetivos, Usuario_idUsuario, Categorias_idCategorias) Values " +
-                " (@idObjetivos,@primaria,@descripcion,@idPadre,@userid,1)";
-
+                openConn();
+                string sql =string.Format("INSERT INTO {0} (Primaria, Descripcion, Objetivos_idObjetivos, Usuario_idUsuario, Categorias_idCategorias) VALUES (@primaria, @descripcion, @idPadre, @uid, @idCategoria)",_table);
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = _conn;
-                cmd.Parameters.AddWithValue("@idObjetivos", idObjetivos);
-                cmd.Parameters.AddWithValue("@primaria", primaria);
-                cmd.Parameters.AddWithValue("@descripcion", descripcion);
-                cmd.Parameters.AddWithValue("@idPadre", idPadre);
-                cmd.Parameters.AddWithValue("@userid", userid);
-                cmd.Parameters.AddWithValue("@idCategoria", idCategoria);
-
-
+                cmd.Parameters.AddWithValue("@primaria", 0);
+                cmd.Parameters.AddWithValue("@descripcion", collection["Descripcion"].ToString());
+                cmd.Parameters.AddWithValue("@idPadre", collection["IdPadre"].ToString());
+                cmd.Parameters.AddWithValue("@idCategoria", collection["IdCategoria"].ToString());
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
                 cmd.Prepare();
-                int filas = cmd.ExecuteNonQuery();
-
-                closeConn(); //método propio que cierra conexión si está abierta
-                return RedirectToAction("Index");
-
+                int rowsAfected = cmd.ExecuteNonQuery();
             }
-            catch (Exception ex) {
-                closeConn(); //método propio que cierra conexión si está abierta
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
-
-            return View();
+            finally
+            {
+                closeConn();
+            }
+            return RedirectToAction("Index");
         }
 
 
@@ -82,58 +74,125 @@ namespace PlayYourCV.Controllers
             return View();
         }
 
-        public override Objetivo ToModel(MySqlDataReader rdr) {
-            Objetivo objetivo = new Objetivo();
-            if (rdr.Read()) {
-                objetivo.Id=Int32.Parse(rdr["idObjetivos"].ToString());
-                objetivo.Descripcion = rdr["Descripcion"].ToString();
-                objetivo.Primaria = (rdr["Primaria"].ToString().Equals("True")) ?true:false;
-                objetivo.IdPadre = (!rdr["Objetivos_idObjetivos"].ToString().Equals("")) ?Int32.Parse(rdr["Objetivos_idObjetivos"].ToString()):-1;
+        //BBDD methods
+        public List<Objetivo> GetUserObjetives(int idUser)
+        {
+            List<Objetivo> list = new List<Objetivo>();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT * FROM {0} WHERE {1}=@uid", _table, "Usuario_idUsuario");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@uid", idUser);
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                list = ToListModel(rdr);
             }
-            return objetivo;
+            catch (Exception e)
+            {
+                Console.WriteLine(e.GetBaseException().ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            return list;
+        }
+
+        public List<Objetivo> GetUserObjetives(int idUser, int idObjetivoPadre)
+        {
+            List<Objetivo> list = new List<Objetivo>();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT * FROM {0} WHERE {1}=@uid AND {2}=@idPadre", _table, "Usuario_idUsuario", "Objetivos_idObjetivos");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@uid", idUser);
+                cmd.Parameters.AddWithValue("@idPadre", idObjetivoPadre);
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                list = ToListModel(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.GetBaseException().ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            return list;
+        }
+
+        public List<Categoria> GetCategories()
+        {
+            List<Categoria> list = new List<Categoria>();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT * FROM {0} WHERE {1} in (2,3,6,7,8)", "categorias", "idCategorias");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                list = ToListModelC(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.GetBaseException().ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            return list;
+        }
+
+        public override Objetivo ToModel(MySqlDataReader rdr) {
+            Objetivo o = new Objetivo();
+            if (rdr.Read())
+            {
+                o = singleContenidoReader(rdr);
+            }
+            return o;
         }
 
         public override List<Objetivo> ToListModel(MySqlDataReader rdr) {
             List<Objetivo> list = new List<Objetivo>();
             while (rdr.Read()) {
-                Objetivo objetivo = new Objetivo();
-                objetivo.Id = Int32.Parse(rdr["idObjetivos"].ToString());
-                objetivo.Descripcion = rdr["Descripcion"].ToString();
-                string aux = rdr["Primaria"].ToString();
-                objetivo.Primaria = (rdr["Primaria"].ToString().Equals("True")) ? true : false;
-                objetivo.IdPadre = (! rdr["Objetivos_idObjetivos"].ToString().Equals("")) ? Int32.Parse(rdr["Objetivos_idObjetivos"].ToString()) : -1;
-                list.Add(objetivo);
+                list.Add(singleContenidoReader(rdr));
             }
             return list;
         }
 
-        public List<Objetivo> select() {
-            List<Objetivo> infoObjetivos = new List<Objetivo>();
-            if (_conn.State == System.Data.ConnectionState.Closed) {
-                _conn.Open();
+        private Objetivo singleContenidoReader(MySqlDataReader rdr)
+        {
+            Objetivo o = new Objetivo();
+            o.Id = Int32.Parse(rdr["idObjetivos"].ToString());
+            o.IdCategoria = Int32.Parse(rdr["Categorias_idCategorias"].ToString());
+            o.Primaria = (rdr["Primaria"].ToString().Equals("True")) ? true : false;
+            o.IdPadre = (!rdr["Objetivos_idObjetivos"].ToString().Equals("")) ? Int32.Parse(rdr["Objetivos_idObjetivos"].ToString()) : -1;
+            o.Descripcion = rdr["Descripcion"].ToString();
+            return o;
+        }
+
+        public List<Categoria> ToListModelC(MySqlDataReader rdr)
+        {
+            List<Categoria> list = new List<Categoria>();
+            while (rdr.Read())
+            {
+                Categoria c = new Categoria();
+                c.Id = Int32.Parse(rdr["idCategorias"].ToString());
+                c.Nombre = rdr["Nombre"].ToString();
+                c.Experiencia = Int32.Parse(rdr["Experiencia"].ToString());
+                list.Add(c);
             }
-
-            // You sql command
-            MySqlCommand selectData;
-
-            // Create the sql command
-            selectData = _conn.CreateCommand();
-
-            // Declare the sript of sql command
-            selectData.CommandText = string.Format("SELECT * from {0} where Usuario_idUsuario = 1", _table);
-
-            // Declare a reader, through which we will read the data.
-            MySqlDataReader rdr = selectData.ExecuteReader();
-
-            // Read the data
-            infoObjetivos = ToListModel(rdr);
-
-            rdr.Close();
-            if (_conn.State == System.Data.ConnectionState.Open) {
-                _conn.Close();
-            }
-
-            return infoObjetivos;
+            return list;
         }
 
     }
