@@ -76,8 +76,9 @@ namespace PlayYourCV.Controllers
             HttpPostedFileBase foto = Request.Files[0];
             try
             {
+                string fotoanterior = collection["fotoanterior"].ToString();
                 //subida foto
-                string db_path = "/Content/images/nodisp.png";
+                string db_path = "";
                 if (foto != null && foto.FileName.Length>0)
                 {
                     
@@ -87,6 +88,12 @@ namespace PlayYourCV.Controllers
                     db_path = "/Fotoperfil/" + pic ;
                     //foto subida
                     foto.SaveAs(path);
+                }
+
+                if (db_path.Equals(""))
+                {
+                    db_path = (fotoanterior.Equals("")) ?
+                        "/Content/images/nodisp.png" : fotoanterior;
                 }
 
                 // TODO: Add update logic here
