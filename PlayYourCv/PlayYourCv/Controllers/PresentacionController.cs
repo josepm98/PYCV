@@ -144,24 +144,31 @@ namespace PlayYourCV.Controllers
         // GET: Presentacion/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Presentacion/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
+                int userid = Convert.ToInt32(Session["loggedid"] as String);
 
-                return RedirectToAction("Index");
+                openConn();
+
+                string sql = "DELETE FROM contenidos WHERE idContenido = @id";
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+
+                closeConn(); //método propio que cierra conexión si está abierta
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                string s = ex.Message;
+                closeConn(); //método propio que cierra conexión si está abierta
             }
+            return View("Index");
         }
+
+
 
         public override Contenido ToModel(MySqlDataReader rdr)
         {

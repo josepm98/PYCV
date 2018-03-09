@@ -181,7 +181,6 @@
     <Compile Include="Models\PreguntaObjetivo.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Experiencia\experiencia.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -320,16 +319,11 @@
     <Content Include="Views\Cvs\Edit.cshtml" />
     <Content Include="Views\Cvs\Index.cshtml" />
     <Content Include="Views\Cvs\Moduloscv.cshtml" />
-    <Content Include="Views\DatosAdicionales\Create.cshtml" />
-    <Content Include="Views\DatosAdicionales\Edit.cshtml" />
     <Content Include="Views\DatosAdicionales\Index.cshtml" />
     <Content Include="Views\DatosPersonales\Index.cshtml" />
     <Content Include="Views\Educacion\Index.cshtml" />
     <Content Include="Views\Educacion\Edit.cshtml" />
     <Content Include="Views\Educacion\Create.cshtml" />
-    <Content Include="Views\Experiencia\Create.cshtml" />
-    <Content Include="Views\Experiencia\Index.cshtml" />
-    <Content Include="Views\Experiencia\Edit.cshtml" />
     <Content Include="Views\Hobbies\Create.cshtml" />
     <Content Include="Views\Hobbies\Edit.cshtml" />
     <Content Include="Views\Hobbies\Index.cshtml" />
@@ -345,11 +339,8 @@
     <Content Include="Views\Objetivos\Create.cshtml" />
     <Content Include="Views\Objetivos\Editar.cshtml" />
     <Content Include="Views\Objetivos\Index.cshtml" />
-    <Content Include="Views\Presentacion\Create.cshtml" />
-    <Content Include="Views\Presentacion\Edit.cshtml" />
+    <Content Include="Views\Experiencia\Index.cshtml" />
     <Content Include="Views\Presentacion\Index.cshtml" />
-    <Content Include="Views\Skills\Create.cshtml" />
-    <Content Include="Views\Skills\Edit.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

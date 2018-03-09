@@ -1,7 +1,160 @@
-﻿
+﻿@model PlayYourCV.Models.Contenido
+
 @{
     ViewData["Title"] = "Index";
+    List<PlayYourCV.Models.Contenido> listaSki = (List<PlayYourCV.Models.Contenido>)ViewData["lista"];
 }
 
-<h2>Index</h2>
+<div class="container">  </div>
+<div class="row">
+    <div class="col-md-6">
+        <h1>Skills</h1>
+    </div>
+</div>
 
+@{
+    if (listaSki != null)
+    {
+        foreach (PlayYourCV.Models.Contenido c in listaSki)
+        {
+            <div class="jumbotron col-sm-12">
+
+                <div class="col-md-12">
+                    <h2 class="nomeditable"><strong>@c.Nombre</strong></h2>
+                    <input type="hidden" class="ideditable" value="@c.Id" />
+                </div>
+
+                <div class="col-sm-12" style="text-align:end">
+                    <button type="button" class="btn btn-default" onclick="deleteExp(@c.Id)">Eliminar</button>
+                    <button type="button" class="btn btn-info btn-lg mostraedit" data-toggle="modal" data-target="#myEdit">Editar</button>
+                </div>
+
+            </div>
+
+        }
+    }
+}
+
+
+<!-- Modal Edit -->
+<div id="myEdit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal Edit content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edita tu habilidad</h4>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("Edit", "Skills", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id, htmlAttributes: new { @id = "id_objectiu" })
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Skill</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @id = "nom_objectiu" } })
+                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Guardar" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Trigger the modal with a button-->
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myCreate">Añadir nueva</button>
+
+<!-- Modal Create -->
+<div id="myCreate" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal Create content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Nueva habilidad</h4>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("Create", "Skills", FormMethod.Post))
+                {
+                     @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Skill</label>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Crear" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+                       
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    function deleteExp(i) {
+        res = confirm('¿Estás segura de querer eliminar esta habilidad?');
+        if (res) {
+            window.location.replace("/Skills/Delete/" + i);
+        }
+    }
+    function add(i) {
+        window.location.replace("/Skills/Create/");
+    }
+    function editExp(i) {
+        window.location.replace("/Skills/Edit/" + i);
+    }
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Skills/Index");
+        }
+    }
+
+    $(document).on("click", ".mostraedit", function () {
+        $("#nom_objectiu").val($(this).closest(".jumbotron").find(".nomeditable").text());
+        $("#id_objectiu").val($(this).closest(".jumbotron").find(".ideditable").val());
+    });
+
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

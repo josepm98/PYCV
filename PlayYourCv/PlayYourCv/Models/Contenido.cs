@@ -17,14 +17,21 @@ namespace PlayYourCV.Models
         public string Descripcion { get; set; }
         [Required]
         public string EmpresaEscuela { get; set; }
+
         [Required]
+        [Display(Name = "Lugar")]
         public string Lugar { get; set; }
         [Required]
         public string Posicion { get; set; }
+
         [Required]
+        [Display(Name = "Fecha inicio")]
         public DateTime FechaInicio { get; set; }
+
         [Required]
+        [Display(Name = "Fecha fin")]
         public DateTime FechaFin { get; set; }
+
         public string Hablado { get; set; }
         public string Escrito { get; set; }
         public string Leido { get; set; }
