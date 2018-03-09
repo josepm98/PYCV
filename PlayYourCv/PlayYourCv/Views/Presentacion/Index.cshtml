@@ -72,8 +72,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Presentación</label>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", @id = "nom_target2" } })
-                                @Html.ValidationMessageFor(model => model.Posicion, "", new { @class = "text-danger" })
+                                <textarea class="input pretextarea" id="nom_target2" name="Descripcion" type="text"></textarea>
                             </div>
                         </div>
 
@@ -121,8 +120,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-2">Presentación</label>
                                 <div class="col-md-10">
-                                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.Posicion, "", new { @class = "text-danger" })
+                                    <textarea class="input pretextarea" name="Descripcion" type="text"></textarea>
+
                                 </div>
                             </div>
                         </div>

@@ -210,6 +210,7 @@
     <Content Include="Content\css\effects\normalize.css" />
     <Content Include="Content\css\effects\set2.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\Varios\StylesAres.css" />
     <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\site.min.css" />
