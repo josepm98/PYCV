@@ -21,31 +21,114 @@ namespace PlayYourCV.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection collection)
+        {
+            //create cv
+            try
+            {
+                // TODO: Add update logic here
+                openConn();
+                MySqlCommand cmd = new MySqlCommand();
+                string sql = string.Format("INSERT INTO cv (Titulo, Usuario_idUsuario) VALUES (@nombre, @uid)");
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Parameters.AddWithValue("@nombre", collection["Nombre"].ToString());
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                //TODO delete after succesfull update
+                int rowsAfected = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                closeConn();
+            }
+            //pass id cv created
+            Cv cvs = new Cv();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT max(idCV) FROM cv WHERE {0}=@uid", "idUsuario");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                cvs = ToModelCv(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.GetBaseException().ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            return Create(cvs);
+        }
         public ActionResult prueba()
         {
             return View();
         }
-        public ActionResult Create()
+        public ActionResult Create(Cv cvs)
         {
             int idAux = Convert.ToInt32(Session["loggedid"] as String);
             ViewData["usuario"] = getUser(idAux);
-
-            ExperienciaController expc = new ExperienciaController();
-            ViewData["lista"] = expc.GetExp(idAux);
-            IdiomasController idio = new IdiomasController();
-            ViewData["listaIdiomas"] = idio.GetUserLanguages(idAux);
-            EducacionController edu = new EducacionController();
-            ViewData["listaEducacion2"] = edu.GetUserCourses(idAux);
-            PresentacionController pres = new PresentacionController();
-            ViewData["listapre"] = pres.GetPre(idAux);
-            HobbiesController hobb = new HobbiesController();
-            ViewData["listaHobbies"] = hobb.GetUserHobbies(idAux);
-            SkillsController ski = new SkillsController();
-            ViewData["listaskil"] = ski.GetSki(idAux);
-
-
+            ViewData["Contenido"] = GetContenidoUser();
+            ViewData["Cv"]= cvs;
             // Usuario u = getUser(idAux);
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            List<Contenido> contenidos = GetContenidoUser();
+            List<int> formChecks = new List<int>();
+            foreach (Contenido c in contenidos)
+            {
+                if(collection["name"+c.Id]==null)
+                {
+                    formChecks.Add(Convert.ToInt32(collection["input" + c.Id].ToString()));
+                }
+            }
+            string vals = "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "" +
+                "";
+
+            try
+            {
+                openConn();
+                string sql = string.Format("INSERT INTO cv_has_not_contenido ");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                //cmd.Parameters.AddWithValue("@userid", userid);
+                //cmd.Parameters.AddWithValue("@categoriaid", categoriaid);
+                //cmd.Parameters.AddWithValue("@nombre", nombre);
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            return View("Index","CVS");
         }
 
         public ActionResult Edit()
@@ -60,17 +143,18 @@ namespace PlayYourCV.Controllers
 
             return View();
         }
+
+        //BBDD methods
         public Usuario getUser(int id)
         {
-            Usuario obj = default(Usuario);
+            Usuario u = default(Usuario);
             try
             {
                 openConn();
                 string sql = string.Format("SELECT * FROM {0} WHERE {1}={2}", "usuarios", "idUsuario", id);
                 MySqlCommand cmd = new MySqlCommand(sql, _conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
-
-                obj = ToModelU(rdr);
+                u = ToModelU(rdr);
                 rdr.Close();
             }
             catch (Exception e)
@@ -81,7 +165,7 @@ namespace PlayYourCV.Controllers
             {
                 closeConn();
             }
-            return obj;
+            return u;
         }
 
         public Usuario ToModelU(MySqlDataReader rdr)
@@ -100,19 +184,38 @@ namespace PlayYourCV.Controllers
             return u;
         }
 
+        public List<Contenido> GetContenidoUser()
+        {
+            List<Contenido> list = new List<Contenido>();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT * FROM {0} WHERE {1} = @uid", _table, "idUsuario");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                list = ToListModel(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                closeConn();
+            }
+            return list;
+        }
+
         public override Contenido ToModel(MySqlDataReader rdr)
         {
             Contenido c = new Contenido();
             if (rdr.Read())
             {
-                c.Id = Convert.ToInt32(rdr["idContenido"]);
-                c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
-                c.Posicion = rdr["Posicion"].ToString();
-                c.Lugar = rdr["Lugar"].ToString();
-                c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaInicio"].ToString()) : default(DateTime);
-                c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaFin"].ToString()) : default(DateTime);
-                c.Descripcion = rdr["Descripcion"].ToString();
-
+                c = singleContenidoReader(rdr);
             }
             return c;
         }
@@ -122,16 +225,7 @@ namespace PlayYourCV.Controllers
             List<Contenido> Lista = new List<Contenido>();
             while (rdr.Read())
             {
-                Contenido c = new Contenido();
-                c.Id = Convert.ToInt32(rdr["idContenido"]);
-                c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
-                c.Posicion = rdr["Posicion"].ToString();
-                c.Lugar = rdr["Lugar"].ToString();
-                c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaInicio"].ToString()) : default(DateTime);
-                c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaFin"].ToString()) : default(DateTime);
-                c.Descripcion = rdr["Descripcion"].ToString();
-                Lista.Add(c);
-
+                Lista.Add(singleContenidoReader(rdr));
             }
             return Lista;
         }
@@ -141,9 +235,9 @@ namespace PlayYourCV.Controllers
         {
             Contenido c = new Contenido();
             c.Id = Convert.ToInt32(rdr[_idCol].ToString());
-            c.IdUsuario = Convert.ToInt32(Session["loggedid"] as String);
-            c.IdCategoria = Convert.ToInt32(rdr["Categorias_idCategorias"] as String);
-            c.EmpresaEscuela = rdr["EmpresaEscuela"].ToString();
+            c.IdUsuario = Convert.ToInt32(rdr["idUsuario"].ToString());
+            c.IdCategoria = Convert.ToInt32(rdr["Categorias_idCategorias"].ToString());
+            c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
             c.Nombre = rdr["Nombre"].ToString();
             c.Descripcion = rdr["Descripcion"].ToString();
             c.Lugar = rdr["Lugar"].ToString();
@@ -155,6 +249,19 @@ namespace PlayYourCV.Controllers
             c.Escrito = rdr["Escrito"].ToString();
             c.NivelGeneral = rdr["NivelGeneral"].ToString();
             return c;
+        }
+
+        public Cv ToModelCv(MySqlDataReader rdr)
+        {
+            Cv cv = new Cv();
+            if (rdr.Read())
+            {
+                cv.Id = Convert.ToInt32(rdr["idCV"].ToString());
+                cv.Nombre = rdr["Nombre"].ToString();
+                cv.IdUsuario = Convert.ToInt32(rdr["Usuario_idUsuario"].ToString());
+                cv.URL = rdr["URL"].ToString();
+            }
+            return cv;
         }
 
     }
