@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PlayYourCV</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/Content/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="shortcut icon" href="~/Content/images/playyourcvlogo1.png" type="image/x-icon">
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/Content/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+    </environment>
+    <!-- style -->
+    <link href="~/Content/css/Login/Logincss.css" rel="stylesheet" type="text/css">
+
+
+    <!-- bootstrap -->
+
+    <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <!-- responsive -->
+
+    <link href="~/Content/css/responsive.css" rel="stylesheet" type="text/css">
+
+    <!-- font-awesome -->
+
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Google Fonts -->
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+    <script src="Content/js/jquery.min.js" type="text/javascript"></script>
+
+    <!-- JAVASCRIPT LOGIN-->
+
+    <script src="~/Content/js/LoginJS.js" type="text/javascript"></script>
+</head>
+<body>
+
+        @RenderBody()
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
