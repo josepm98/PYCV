@@ -1,3 +1,0 @@
-# PlayYourCV
-
-Portada del proyecto
