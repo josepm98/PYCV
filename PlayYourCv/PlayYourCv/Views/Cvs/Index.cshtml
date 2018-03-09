@@ -1,0 +1,45 @@
+﻿@model IEnumerable<PlayYourCV.Models.Cv>
+@{
+    /**/
+
+    string titulo = (string)ViewData["Titulo"];
+    List<PlayYourCV.Models.Cv> listaCv = (List<PlayYourCV.Models.Cv>)ViewData["listaCv"];
+}
+<h2>@titulo</h2>
+@{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                @if (listaCv != null)
+                {
+
+                    foreach (PlayYourCV.Models.Cv c in listaCv)
+                    {
+
+                        <div class="col-md-3">
+                            <div class="jumbotron">
+                                <h3>@c.Nombre</h3>
+                            </div>
+                        </div>
+
+                    }
+
+                }
+                <div class="col-md-3">
+                    <a href="~/Cvs/Create">
+                        <div class="jumbotron">
+                            <h2>+</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
