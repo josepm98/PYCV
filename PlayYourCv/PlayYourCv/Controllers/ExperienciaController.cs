@@ -9,7 +9,8 @@ using System.Security.Cryptography;
 using System.Text;
 
 
-namespace PlayYourCV.Controllers {
+namespace PlayYourCV.Controllers
+{
     public class ExperienciaController : BBDDController<Contenido>
     {
         public string _idCat;
@@ -21,11 +22,11 @@ namespace PlayYourCV.Controllers {
             _idCat = "7";
         }
 
-    // GET: Login
-    public ActionResult Index()
+        // GET: Login
+        public ActionResult Index()
         {
             //TODO select all
-            ViewData["lista"] = GetExp(Convert.ToInt32(Session["loggedid"] as String));
+            ViewData["Lista"] = GetExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -35,29 +36,34 @@ namespace PlayYourCV.Controllers {
             return View();
         }
 
-       
+
         // GET: Login/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Login/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
             try
             {
-                // TODO: Add delete logic here
+                int userid = Convert.ToInt32(Session["loggedid"] as String);
 
-                return RedirectToAction("Index");
+                openConn();
+
+                string sql = "DELETE FROM contenidos WHERE idContenido = @id";
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+
+                closeConn(); //método propio que cierra conexión si está abierta
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                string s = ex.Message;
+                closeConn(); //método propio que cierra conexión si está abierta
             }
+            return View("Index");
         }
-        
+
         // GET: Login/Create
         public ActionResult Create()
         {
@@ -69,11 +75,11 @@ namespace PlayYourCV.Controllers {
         public ActionResult Create(FormCollection collection)
         {
 
-            
-                if (String.IsNullOrEmpty(Session["loggedId"] as String))
-                {
-                    return View();
-                }
+
+            if (String.IsNullOrEmpty(Session["loggedId"] as String))
+            {
+                return View();
+            }
 
 
             int userid = Convert.ToInt32(Session["loggedid"] as String);
@@ -81,7 +87,7 @@ namespace PlayYourCV.Controllers {
 
 
 
-                openConn();
+            openConn();
             string puesto = collection["Posicion"].ToString();
             string empresa = collection["EmpresaEscuela"].ToString();
             string lugar = collection["Lugar"].ToString();
@@ -101,9 +107,9 @@ namespace PlayYourCV.Controllers {
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = _conn;
-                cmd.Parameters.AddWithValue("@userid", userid); 
-                cmd.Parameters.AddWithValue("@categoriaid", categoriaid); 
-                cmd.Parameters.AddWithValue("@puesto", puesto); 
+                cmd.Parameters.AddWithValue("@userid", userid);
+                cmd.Parameters.AddWithValue("@categoriaid", categoriaid);
+                cmd.Parameters.AddWithValue("@puesto", puesto);
                 cmd.Parameters.AddWithValue("@empresa", empresa);
                 cmd.Parameters.AddWithValue("@lugar", lugar);
                 cmd.Parameters.AddWithValue("@fechaIni", fechaIni);
@@ -124,7 +130,7 @@ namespace PlayYourCV.Controllers {
             return View();
         }
 
-        
+
 
 
 
@@ -134,7 +140,7 @@ namespace PlayYourCV.Controllers {
             return View(model);
         }
 
-       [HttpPost]
+        [HttpPost]
         public ActionResult Edit(FormCollection collection)
         {
 
@@ -142,9 +148,8 @@ namespace PlayYourCV.Controllers {
             {
                 return View();
             }
-            
-            int userid = Convert.ToInt32(Session["loggedid"] as String);
 
+            int userid = Convert.ToInt32(Session["loggedid"] as String);
 
             try
             {
@@ -153,8 +158,11 @@ namespace PlayYourCV.Controllers {
                 string puesto = collection["Posicion"].ToString();
                 string empresa = collection["EmpresaEscuela"].ToString();
                 string lugar = collection["Lugar"].ToString();
-                string fechaIni = collection["FechaInicio"];
-                string fechaFin = collection["FechaFin"];
+
+                // string fechaIni = collection["FechaInicio"];
+                // string fechaFin = collection["FechaFin"];
+                DateTime fechaIni = Convert.ToDateTime(collection["FechaInicio"]);
+                DateTime fechaFin = Convert.ToDateTime(collection["FechaFin"]);
                 string descripcion = collection["Descripcion"].ToString();
 
                 string sql = "UPDATE contenidos SET Posicion=@puesto,Empresa_Escuela=@empresa," +
@@ -173,11 +181,11 @@ namespace PlayYourCV.Controllers {
                 cmd.Prepare();
                 int filas = cmd.ExecuteNonQuery();
 
-                
+
 
                 closeConn(); //método propio que cierra conexión si está abierta
-                    return RedirectToAction("Index");
-                
+                return RedirectToAction("Index");
+
             }
 
             catch (Exception ex)
@@ -187,7 +195,7 @@ namespace PlayYourCV.Controllers {
             }
 
             return View();
-                        
+
         }
 
         public override Contenido ToModel(MySqlDataReader rdr)
@@ -197,10 +205,12 @@ namespace PlayYourCV.Controllers {
             {
                 c.Id = Convert.ToInt32(rdr["idContenido"]);
                 c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
-                c.Posicion= rdr["Posicion"].ToString();
+                c.Posicion = rdr["Posicion"].ToString();
                 c.Lugar = rdr["Lugar"].ToString();
                 c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaInicio"].ToString()) : default(DateTime);
                 c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaFin"].ToString()) : default(DateTime);
+                /*c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? Convert.ToDateTime(rdr["FechaInicio"]) : default(DateTime);
+                c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? Convert.ToDateTime(rdr["FechaFin"]) : default(DateTime);*/
                 c.Descripcion = rdr["Descripcion"].ToString();
 
             }
@@ -216,9 +226,11 @@ namespace PlayYourCV.Controllers {
                 c.Id = Convert.ToInt32(rdr["idContenido"]);
                 c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
                 c.Posicion = rdr["Posicion"].ToString();
-                c.Lugar= rdr["Lugar"].ToString();
+                c.Lugar = rdr["Lugar"].ToString();
                 c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaInicio"].ToString()) : default(DateTime);
                 c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaFin"].ToString()) : default(DateTime);
+                /*c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? Convert.ToDateTime(rdr["FechaInicio"]) : default(DateTime);
+                c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? Convert.ToDateTime(rdr["FechaFin"]) : default(DateTime);*/
                 c.Descripcion = rdr["Descripcion"].ToString();
                 Lista.Add(c);
 

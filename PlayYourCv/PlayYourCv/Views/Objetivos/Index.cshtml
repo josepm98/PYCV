@@ -2,16 +2,11 @@
 @model PlayYourCV.Models.Objetivo
 
 @{
-    ViewData["Title"] = "Index";
+    PlayYourCV.Models.Objetivo objetivo = (PlayYourCV.Models.Objetivo)ViewData["listaObjetivos"];
 }
 <div class="container containerObjetivos">
     <div class="row">
         <div class="col-md-12">
-            <h2>Index</h2>
-
-            @{
-                PlayYourCV.Models.Objetivo objetivo = (PlayYourCV.Models.Objetivo)ViewData["listaObjetivos"];
-            }
 
             <form id="elform" action="/Objetivos/Editar" method="post">
                 <input name="__llista" type="hidden" id="ocult">
@@ -28,28 +23,32 @@
     </div>
 </div>
 
-    <!-- Modal añadir -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
+<div class="buttom">
+    <button id="guardar" class="guardar btn btn-primary">Guardar</button>
+</div>
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Entra un objetivo</p>
-                    <input placeholder="Entra un objetivo" class="form-control" id="textoEntrado">
-                    <button id="botonOK" class="btn btn-success" data-dismiss="modal">Aceptar</button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+<!-- Modal añadir -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
             </div>
-
+            <div class="modal-body">
+                <p>Entra un objetivo</p>
+                <input placeholder="Entra un objetivo" class="form-control" id="textoEntrado">
+                <button id="botonOK" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
+
     </div>
+</div>
 
 <!-- Modal Editar -->
 <div class="modal fade" id="editModal" role="dialog">

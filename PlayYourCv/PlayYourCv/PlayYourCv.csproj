@@ -200,7 +200,6 @@
     <Compile Include="Models\PreguntaObjetivo.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\Experiencia\experiencia.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -210,6 +209,7 @@
     <Content Include="Content\css\effects\normalize.css" />
     <Content Include="Content\css\effects\set2.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\Varios\StylesAres.css" />
     <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\site.min.css" />
@@ -230,7 +230,7 @@
     <Content Include="Content\images\mascota\Robot_3_1.png" />
     <Content Include="Content\images\mascota\Robot_3_3.png" />
     <Content Include="Content\images\mascota\Robot_4.png" />
-    <Content Include="Content\images\modulos-img\Datosadicionales_ss.jpg" />
+    <Content Include="Content\images\modulos-img\Datosadicionales_ss2.jpg" />
     <Content Include="Content\images\modulos-img\Datospersonales_ss2.jpg" />
     <Content Include="Content\images\modulos-img\Estudios_1_ss.jpg" />
     <Content Include="Content\images\modulos-img\Estudios_3_ss-ConvertImage.jpg" />
@@ -341,40 +341,24 @@
     <Content Include="Views\Cvs\Edit.cshtml" />
     <Content Include="Views\Cvs\Index.cshtml" />
     <Content Include="Views\Cvs\Moduloscv.cshtml" />
-    <Content Include="Views\DatosAdicionales\Create.cshtml" />
-    <Content Include="Views\DatosAdicionales\Edit.cshtml" />
     <Content Include="Views\DatosAdicionales\Index.cshtml" />
     <Content Include="Views\DatosPersonales\Index.cshtml" />
     <Content Include="Views\Educacion\Index.cshtml" />
-    <Content Include="Views\Educacion\Edit.cshtml" />
-    <Content Include="Views\Educacion\Create.cshtml" />
-    <Content Include="Views\Experiencia\Create.cshtml" />
     <Content Include="Views\Experiencia\Index.cshtml" />
-    <Content Include="Views\Experiencia\Edit.cshtml" />
-    <Content Include="Views\Hobbies\Create.cshtml" />
-    <Content Include="Views\Hobbies\Edit.cshtml" />
     <Content Include="Views\Hobbies\Index.cshtml" />
     <Content Include="Views\Idiomas\Index.cshtml" />
-    <Content Include="Views\Idiomas\Create.cshtml" />
-    <Content Include="Views\Idiomas\Edit.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\LayoutLogin.cshtml" />
     <Content Include="Views\Login\_ViewStart.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Logros\Index.cshtml" />
     <Content Include="Views\Objetivos\Index.cshtml" />
-    <Content Include="Views\Presentacion\Create.cshtml" />
-    <Content Include="Views\Presentacion\Edit.cshtml" />
     <Content Include="Views\Presentacion\Index.cshtml" />
-    <Content Include="Views\Skills\Create.cshtml" />
-    <Content Include="Views\Skills\Edit.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Fotoperfil\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\TestMongoDB\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using PlayYourCV.Models;
 
+
 namespace PlayYourCV.Controllers
 {
     public class DatosPersonalesController : BBDDController<Usuario>
@@ -52,6 +53,8 @@ namespace PlayYourCV.Controllers
                 u.Email = rdr["Email"].ToString();
                 u.FechaNacimiento = (!rdr["FechaNacimiento"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaNacimiento"].ToString()) : default(DateTime);
                 u.Telefono = rdr["Telefono"].ToString();
+                u.FotoURL = rdr["fotoURL"].ToString();
+
             }
             return u;
         }
@@ -73,16 +76,24 @@ namespace PlayYourCV.Controllers
             HttpPostedFileBase foto = Request.Files[0];
             try
             {
+                string fotoanterior = collection["fotoanterior"].ToString();
                 //subida foto
                 string db_path = "";
-                if (foto != null)
+                if (foto != null && foto.FileName.Length>0)
                 {
-                    string pic = System.IO.Path.GetFileName(foto.FileName);
+                    
+                    //string pic = System.IO.Path.GetFileName(foto.FileName);
+                    string pic = Guid.NewGuid().ToString() +".jpg";
                     string path = System.IO.Path.Combine(Server.MapPath("~/Fotoperfil"), pic);
-                    db_path = "/Fotoperfil/" + pic;
+                    db_path = "/Fotoperfil/" + pic ;
                     //foto subida
                     foto.SaveAs(path);
+                }
 
+                if (db_path.Equals(""))
+                {
+                    db_path = (fotoanterior.Equals("")) ?
+                        "/Content/images/nodisp.png" : fotoanterior;
                 }
 
                 // TODO: Add update logic here
@@ -120,6 +131,10 @@ namespace PlayYourCV.Controllers
                 closeConn();
             }
         }
+
+
+
+       
         public override List<Usuario> ToListModel(MySqlDataReader rdr)
         {
             throw new NotImplementedException();

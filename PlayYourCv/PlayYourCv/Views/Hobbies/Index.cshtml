@@ -1,7 +1,97 @@
-﻿
+﻿@model PlayYourCV.Models.Contenido
+
 @{
-    ViewData["Title"] = "Index";
+    string titulo = (string)ViewData["Titulo"];
+    List<PlayYourCV.Models.Contenido> listaHobbies = (List<PlayYourCV.Models.Contenido>)ViewData["listaHobbies"];
+}
+<div class="col-md-12">
+    <div class="col-md-10">
+        <h2>@titulo</h2>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-default" onclick="add()" data-toggle="modal" data-target="#editModal">Agregar Hobbie</button>
+    </div>
+</div>
+@{
+    if (listaHobbies != null)
+    {
+        foreach (PlayYourCV.Models.Contenido c in listaHobbies)
+        {
+            <div class="jumbotron col-md-12">
+                <div class="col-sm-10">
+                    <h3>@c.Nombre</h3>
+                </div>
+
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-danger" onclick="deleteHobbie(@c.Id)">Eliminar</button>
+                    <button type="button" class="btn btn-success" onclick="editHobbie(@c.Id,'@c.Nombre')" data-toggle="modal" data-target="#editModal">Editar</button>
+                </div>
+            </div>
+        }
+    }
 }
 
-<h2>Index</h2>
+<!-- Modal Edit -->
+<div id="editModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal Edit content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Agrega un nuevo Hobbie</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <form id="editModalForm" name="editForm" action="/Hobbies/Edit" method="post">
+                        <div>
+                            <input type="text" style="display:none" class="form-control" id="idInput" name="Id" value="" />
+                            <input type="text" class="form-control" id="nombreInput"name="Nombre" value="" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div data-dismiss="modal">
+                    <input id="btnEditForm" type="submit" value="Guardar cambios" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function deleteHobbie(i) {
+        res = confirm('¿Estás seguro de querer eliminar este Hobbie?');
+        if (res) {
+            window.location.replace("/Hobbies/Delete/" + i);
+        }
+    }
+
+    function add() {
+        document.editForm.action = "/Hobbies/Create";
+        document.getElementById("idInput").value = "";
+        document.getElementById("nombreInput").value = "";
+    }
+
+    function editHobbie(id, content) {
+        document.editForm.action = "/Hobbies/Edit";
+        document.getElementById("idInput").value = id;
+        document.getElementById("nombreInput").value = content;
+    }
+
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Hobbies/Index");
+        }
+    }
+
+    form = document.getElementById("editModalForm");
+    document.getElementById("btnEditForm").addEventListener("click", function () {
+        form.submit();
+    });
+
+</script>

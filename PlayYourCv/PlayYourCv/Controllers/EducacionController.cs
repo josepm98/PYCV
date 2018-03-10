@@ -22,27 +22,25 @@ namespace PlayYourCV.Controllers
 
         public ActionResult Index()
         {
-            /*if (checkLogged()!=null)
+            if (checkLogged()==null)
             {
                 ViewBag.UserIsLogged = true;
                 ViewBag.Logged = Session["logged"] as String;
                 ViewBag.LoggedId = Session["loggedid"] as String;
 
-                ViewData["listaEducacion"] = GetUserCourses(ViewBag.LoggedId);
-                ViewData["Titulo"] = "Idiomas";
-                return View("Index","Login");//return to home
+                ViewData["listaEducacion"] = GetUserCourses(Convert.ToInt32(Session["loggedid"] as String));
+                ViewData["Titulo"] = "Educacion";
+                return View();
             }
             else
             {
-                return checkLogged();
-            }*/
-            //TODO delete after testing
-            ViewData["Titulo"] = "Educacion";
-            return View();
+                return checkLogged();//return to home
+            }
         }
 
         public ActionResult Create()
         {
+            ViewData["Titulo"] = "Agregar Estudio";
             return View();
         }
 
@@ -53,8 +51,9 @@ namespace PlayYourCV.Controllers
             try
             {
                 // TODO: Add update logic here
+                openConn();
                 MySqlCommand cmd = new MySqlCommand();
-                string sql = string.Format("INSERT INTO {0} (idUsuario, Nombre, Descripcion, Empresa_Escuela, Lugar, FechaInicio, FechaFin) VALUES  (@uid, @nombre, @descripcion, @empresaEscuela, @lugar, @fInicio, @fFin", _table);
+                string sql = string.Format("INSERT INTO {0} (idUsuario, Categorias_idCategorias, Nombre, Descripcion, Empresa_Escuela, Lugar, FechaInicio, FechaFin) VALUES  (@uid, {1}, @nombre, @descripcion, @empresaEscuela, @lugar, @fInicio, @fFin)", _table,_idCat);
                 cmd.CommandText = sql;
                 cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
                 cmd.Parameters.AddWithValue("@nombre", collection["Nombre"].ToString());
@@ -82,35 +81,29 @@ namespace PlayYourCV.Controllers
         // GET: Login/Edit/5
         public ActionResult Edit(int id)
         {
-            getId(id);
-            return View(getId(id));
+            ViewData["Titulo"] = "Editar Estudio";
+            ViewData["Educacion"] = getId(id);
+            return View();
         }
 
         // POST: Login/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(FormCollection collection)
         {
-            openConn();
-            //TODO delete after succesfull update
-            string nombre = collection["Nombre"].ToString();
-            string descripcion = collection["Descripcion"].ToString();
-            string empresaEscuela = collection["EmpresaEscuela"].ToString();
-            string lugar = collection["Lugar"].ToString();
-            string fInicio = collection["FechaInicio"].ToString();
-            string fFin = collection["FechaFin"].ToString();
             try
             {
                 // TODO: Add update logic here
+                openConn();
                 MySqlCommand cmd = new MySqlCommand();
-                string sql = string.Format("UPDATE {0} SET Nombre = @nombre, Descripcion = @descripcion, Empresa_Escuela = @empresaEscuela, Lugar = @lugar, FechaInicio = @fInicio, FechaFin = @fFin WHERE {1} = @cid",_table,id);
+                string sql = string.Format("UPDATE {0} SET Nombre = @nombre, Descripcion = @descripcion, Empresa_Escuela = @empresaEscuela, Lugar = @lugar, FechaInicio = @fInicio, FechaFin = @fFin WHERE {1} = @cid",_table,_idCol);
                 cmd.CommandText = sql;
-                cmd.Parameters.AddWithValue("@nombre", nombre);
+                cmd.Parameters.AddWithValue("@cid", collection["Id"].ToString());
+                cmd.Parameters.AddWithValue("@nombre", collection["Nombre"].ToString());
                 cmd.Parameters.AddWithValue("@descripcion", collection["Descripcion"].ToString());
                 cmd.Parameters.AddWithValue("@empresaEscuela", collection["EmpresaEscuela"].ToString());
                 cmd.Parameters.AddWithValue("@lugar", collection["Lugar"].ToString());
                 cmd.Parameters.AddWithValue("@fInicio", collection["FechaInicio"].ToString());
                 cmd.Parameters.AddWithValue("@fFin", collection["FechaFin"].ToString());
-                cmd.Parameters.AddWithValue("@cid", Convert.ToInt32(Session["loggedid"] as String));
                 cmd.Connection = _conn;
                 cmd.Prepare();
                 //TODO delete after succesfull update
@@ -131,7 +124,27 @@ namespace PlayYourCV.Controllers
         // GET: Login/Delete/5
         public ActionResult Delete(int id)
         {
-            // TODO: Add update logic here
+            try
+            {
+                // TODO: Add update logic here
+                openConn();
+                MySqlCommand cmd = new MySqlCommand();
+                string sql = string.Format("DELETE FROM {0} WHERE {1}=@cId", _table, _idCol);
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@cId", id);
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                //TODO delete after succesfull update
+                int rowsAfected = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                closeConn();
+            }
             return RedirectToAction("Index");
         }
 
@@ -142,7 +155,7 @@ namespace PlayYourCV.Controllers
             try
             {
                 openConn();
-                string sql = string.Format("SELECT * FROM {0} WHERE {1}=@uid AND {2}={3}", _table, _idCol,"Categorias_idCategorias",_idCat);
+                string sql = string.Format("SELECT * FROM {0} WHERE {1}=@uid AND {2}={3}", _table, "idUsuario","Categorias_idCategorias",_idCat);
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = _conn;
@@ -179,7 +192,7 @@ namespace PlayYourCV.Controllers
             {
                 list.Add(singleContenidoReader(rdr));
             }
-            return null;
+            return list;
         }
 
         private Contenido singleContenidoReader(MySqlDataReader rdr)
@@ -191,8 +204,8 @@ namespace PlayYourCV.Controllers
             c.Descripcion = rdr["Descripcion"].ToString();
             c.EmpresaEscuela = rdr["Empresa_Escuela"].ToString();
             c.Lugar = rdr["Lugar"].ToString();
-            c.FechaInicio = DateTime.Parse(rdr["FechaInicio"].ToString());
-            c.FechaFin = DateTime.Parse(rdr["FechaFin"].ToString());
+            c.FechaInicio = (!rdr["FechaInicio"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaInicio"].ToString()) : default(DateTime);
+            c.FechaFin = (!rdr["FechaFin"].ToString().Equals("")) ? DateTime.Parse(rdr["FechaFin"].ToString()) : default(DateTime);
             return c;
         }
     }

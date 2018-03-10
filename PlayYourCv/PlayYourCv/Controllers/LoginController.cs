@@ -184,15 +184,17 @@ namespace PlayYourCV.Controllers
                 cmd.Parameters.AddWithValue("@nom", collection["Nombre"].ToString());
                 cmd.Parameters.AddWithValue("@password", passwordCodificada);
                 cmd.Parameters.AddWithValue("@email", collection["Email"].ToString());
+                //para coger el id del logueado que se acaba de registrar
+                //last_insert_id() as ultimo
+
                 cmd.Connection = _conn;
                 cmd.Prepare();
                 cmd.ExecuteNonQuery();
-
                 _conn.Close();
 
-                this.HttpContext.Session.Add("logged", collection["Nombre"].ToString());
-                this.HttpContext.Session.Add("loggedid", 2);
-                return RedirectToAction("Index","Home");
+                //this.HttpContext.Session.Add("logged", collection["Nombre"].ToString());
+                //this.HttpContext.Session.Add("loggedid", 2);
+                return RedirectToAction("Index","Login");
 
             }
             catch (Exception e)
