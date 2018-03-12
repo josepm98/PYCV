@@ -19,3 +19,15 @@
 .modalfooter.{
 
 }
+
+
+.tablath {
+    padding:20px !important;
+    font-family:quicksand;
+}
+
+.tablatd {
+    padding: 20px;
+    font-family: quicksand;
+    text-align: center;
+}
