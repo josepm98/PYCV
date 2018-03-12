@@ -18,24 +18,82 @@
 
                         <div class="col-md-3">
                             <div class="jumbotron">
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-danger" onclick="deleteCv(@c.Id)">Eliminar</button>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-success" onclick="editCv(@c.Id)">Editar</button>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-info" onclick="showCv(@c.Id)">Editar</button>
+                                </div>
                                 <h3>@c.Nombre</h3>
                             </div>
                         </div>
-
                     }
-
                 }
                 <div class="col-md-3">
-                    <a href="~/Cvs/Create">
-                        <div class="jumbotron">
-                            <h2>+</h2>
+                    <div class="jumbotron"data-toggle="modal" data-target="#myEdit" >
+                        <h2 >+</h2>
+                    </div>
+                </div>
+                <div id="myEdit" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal Edit content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edita tus datos</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <form id="editModalForm" name="editForm" action="/Cvs/Index" method="post">
+                                        <div>
+                                            <input type="text" style="display:none" class="form-control" id="idInput" name="Id" value="" />
+                                            <input type="text" class="form-control" id="nombreInput" name="Nombre" value="" />
+                                            <input id="btnEditForm" type="submit" value="Guardar cambios" class="btn btn-default" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 }
+<script>
+
+    function showCv(id) {
+        window.location.replace("/VistaCV/Index/" + id);
+    }
+
+    function editCv(id) {
+        window.location.replace("/Cvs/Edit/" + id);
+    }
+
+    function deleteCv(id) {
+        window.location.replace("/Cvs/Delete/" + id);
+    } 
+
+    form = document.getElementById("editModalForm");
+    document.getElementById("btnEditForm").addEventListener("click", function () {
+        form.submit();
+    });
+
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Cvs/Index");
+        }
+    }
+</script>
 
 
 
