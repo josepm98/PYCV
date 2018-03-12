@@ -11,6 +11,7 @@
 <h2>@titulo</h2>
 @{
     PlayYourCV.Models.Usuario usuario = (PlayYourCV.Models.Usuario)ViewData["usuario"];
+    List<PlayYourCV.Models.Contenido> listaDescartada = (List<PlayYourCV.Models.Contenido>)ViewData["NotContenido"];
     if (usuario != null)
     {
         string fecha;
@@ -22,40 +23,44 @@
         {
             fecha = String.Format("{0:yyyy-MM-dd}", usuario.FechaNacimiento);
         }
-        <div class="col-md-12">
-            <div class="jumbotron">
-                <h2>Seleciona los atributos que quieres mostrar en tu curriculum. </h2>
-            </div>
-        </div>
         <form action="/Cvs/Edit" method="post">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h2>Nombre del CV</h2>
+                    <input type="text" style="display:none" name="idCv" value="@cvs.Id" />
+                    <input type="text" name="cvName" value="@cvs.Nombre" />
+                </div>
+            </div>
             <div class="row">
-                <input type="text" style="display:none" name="idCv" value="@cvs.Id" />
                 <div class="col-md-12">
                     <div class="col-md-3">
                         <div class="jumbotron">
                             <h2>Datos Personales</h2>
                             <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Nombre
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Apellido1
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Apellido2
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Email
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Telefono
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> Foto perfil
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.FechaNacimiento.ToString("dd/MM/yyyy")
-                                </label>
+                                @if(usuario.Nombre!=null)
+                                {
+                                <label>@usuario.Nombre</label>
+                                }
+                                @if (usuario.Apellido1 != null)
+                                {
+                                <label>@usuario.Apellido1</label>
+                                }
+                                @if (usuario.Apellido2 != null)
+                                {
+                                <label>@usuario.Apellido2</label>
+                                }
+                                @if (usuario.Email != null)
+                                {
+                                <label>@usuario.Email</label>
+                                }
+                                @if (usuario.Telefono != null)
+                                {
+                                <label>@usuario.Telefono</label>
+                                }
+                                @if (!usuario.FechaNacimiento.Equals(default(DateTime)))
+                                {
+                                <label>@usuario.FechaNacimiento.ToString("dd/MM/yyyy")</label>
+                                }
                             </div>
                         </div>
                     </div>
@@ -72,9 +77,24 @@
                                             if (c.IdCategoria == 2)
                                             {
                                                 string aux = "input" + @c.Id, aux2 = "name" + @c.Id;
+                                                bool auxCheck = true;
                                                 <label>
-                                                    <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
                                                     <input type="text" style="display:none" name="@aux" value="@c.Id" />
+                                                    @foreach (PlayYourCV.Models.Contenido des in listaDescartada)
+                                                    {
+                                                        if(c.Id==des.Id)
+                                                        {
+                                                            auxCheck = false;
+                                                        }
+                                                    }
+                                                    @if(auxCheck)
+                                                    {
+                                                        <input type="checkbox" name="@aux2" value="True" checked="checked"/> @c.Nombre
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
+                                                    }
                                                 </label>
                                             }
                                         }
@@ -96,9 +116,24 @@
                                             if (c.IdCategoria == 3)
                                             {
                                                 string aux = "input" + @c.Id, aux2 = "name" + @c.Id;
+                                                bool auxCheck = true;
                                                 <label>
-                                                    <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
                                                     <input type="text" style="display:none" name="@aux" value="@c.Id" />
+                                                    @foreach (PlayYourCV.Models.Contenido des in listaDescartada)
+                                                    {
+                                                        if(c.Id==des.Id)
+                                                        {
+                                                            auxCheck = false;
+                                                        }
+                                                    }
+                                                    @if(auxCheck)
+                                                    {
+                                                        <input type="checkbox" name="@aux2" value="True" checked="checked"/> @c.Nombre
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
+                                                    }
                                                 </label>
                                             }
                                         }
@@ -121,9 +156,24 @@
                                             if (c.IdCategoria == 4)
                                             {
                                                 string aux = "input" + @c.Id, aux2 = "name" + @c.Id;
+                                                bool auxCheck = true;
                                                 <label>
-                                                    <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
                                                     <input type="text" style="display:none" name="@aux" value="@c.Id" />
+                                                    @foreach (PlayYourCV.Models.Contenido des in listaDescartada)
+                                                    {
+                                                        if(c.Id==des.Id)
+                                                        {
+                                                            auxCheck = false;
+                                                        }
+                                                    }
+                                                    @if(auxCheck)
+                                                    {
+                                                        <input type="checkbox" name="@aux2" value="True" checked="checked"/> @c.Nombre
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
+                                                    }
                                                 </label>
                                             }
                                         }
@@ -147,9 +197,24 @@
                                                     if (c.IdCategoria == 5)
                                                     {
                                                         string aux = "input" + @c.Id, aux2 = "name" + @c.Id;
+                                                        bool auxCheck = true;
                                                         <label>
-                                                            <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
                                                             <input type="text" style="display:none" name="@aux" value="@c.Id" />
+                                                            @foreach (PlayYourCV.Models.Contenido des in listaDescartada)
+                                                            {
+                                                                if(c.Id==des.Id)
+                                                                {
+                                                                    auxCheck = false;
+                                                                }
+                                                            }
+                                                            @if(auxCheck)
+                                                            {
+                                                                <input type="checkbox" name="@aux2" value="True" checked="checked"/> @c.Nombre
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
+                                                            }
                                                         </label>
                                                     }
                                                 }
@@ -171,9 +236,24 @@
                                                     if (c.IdCategoria == 6)
                                                     {
                                                         string aux = "input" + @c.Id, aux2 = "name" + @c.Id;
+                                                        bool auxCheck = true;
                                                         <label>
-                                                            <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
                                                             <input type="text" style="display:none" name="@aux" value="@c.Id" />
+                                                            @foreach (PlayYourCV.Models.Contenido des in listaDescartada)
+                                                            {
+                                                                if(c.Id==des.Id)
+                                                                {
+                                                                    auxCheck = false;
+                                                                }
+                                                            }
+                                                            @if(auxCheck)
+                                                            {
+                                                                <input type="checkbox" name="@aux2" value="True" checked="checked"/> @c.Nombre
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
+                                                            }
                                                         </label>
                                                     }
                                                 }
@@ -195,9 +275,24 @@
                                                     if (c.IdCategoria == 7)
                                                     {
                                                         string aux = "input" + @c.Id, aux2 = "name" + @c.Id;
+                                                        bool auxCheck = true;
                                                         <label>
-                                                            <input type="checkbox" name="@aux2" value="True" />@c.Posicion
                                                             <input type="text" style="display:none" name="@aux" value="@c.Id" />
+                                                            @foreach (PlayYourCV.Models.Contenido des in listaDescartada)
+                                                            {
+                                                                if(c.Id==des.Id)
+                                                                {
+                                                                    auxCheck = false;
+                                                                }
+                                                            }
+                                                            @if(auxCheck)
+                                                            {
+                                                                <input type="checkbox" name="@aux2" value="True" checked="checked"/> @c.Posicion
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="checkbox" name="@aux2" value="True" /> @c.Posicion
+                                                            }
                                                         </label>
                                                     }
                                                 }
@@ -219,9 +314,24 @@
                                                     if (c.IdCategoria == 8)
                                                     {
                                                         string aux = "input" + @c.Id, aux2 = "name" + @c.Id;
+                                                        bool auxCheck = true;
                                                         <label>
-                                                            <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
                                                             <input type="text" style="display:none" name="@aux" value="@c.Id" />
+                                                            @foreach (PlayYourCV.Models.Contenido des in listaDescartada)
+                                                            {
+                                                                if(c.Id==des.Id)
+                                                                {
+                                                                    auxCheck = false;
+                                                                }
+                                                            }
+                                                            @if(auxCheck)
+                                                            {
+                                                                <input type="checkbox" name="@aux2" value="True" checked="checked"/> @c.Nombre
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="checkbox" name="@aux2" value="True" /> @c.Nombre
+                                                            }
                                                         </label>
                                                     }
                                                 }

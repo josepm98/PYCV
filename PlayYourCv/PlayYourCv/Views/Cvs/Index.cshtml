@@ -17,7 +17,18 @@
                     {
 
                         <div class="col-md-3">
-                            <div class="jumbotron" onclick="editCv(@c.Id)">
+                            <div class="jumbotron">
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-danger" onclick="deleteCv(@c.Id)">Eliminar</button>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-success" onclick="editCv(@c.Id)">Editar</button>
+                                </div>
+
+                                <div class="col-sm-1">
+                                    <button type="button" class="btn btn-info" onclick="showCv(@c.Id)">Editar</button>
+                                </div>
                                 <h3>@c.Nombre</h3>
                             </div>
                         </div>
@@ -57,13 +68,24 @@
     </div>
 }
 <script>
+
+    function showCv(id) {
+        window.location.replace("/VistaCV/Index/" + id);
+    }
+
     function editCv(id) {
         window.location.replace("/Cvs/Edit/" + id);
     }
+
+    function deleteCv(id) {
+        window.location.replace("/Cvs/Delete/" + id);
+    } 
+
     form = document.getElementById("editModalForm");
     document.getElementById("btnEditForm").addEventListener("click", function () {
         form.submit();
     });
+
     window.onload = function () {
         if (
             window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"

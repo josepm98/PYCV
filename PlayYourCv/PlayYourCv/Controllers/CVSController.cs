@@ -72,10 +72,7 @@ namespace PlayYourCV.Controllers
             }
             return Create(cvs);
         }
-        public ActionResult prueba()
-        {
-            return View();
-        }
+        
         public ActionResult Create(Cv cvs)
         {
             int idAux = Convert.ToInt32(Session["loggedid"] as String);
@@ -90,26 +87,78 @@ namespace PlayYourCV.Controllers
         {
             List<Contenido> contenidos = GetContenidoUser();
             List<int> formChecks = new List<int>();
+            List<int> formCats = new List<int>();
+            //insert
+            string idCvs = collection["idCv"].ToString();
             foreach (Contenido c in contenidos)
             {
-                if(collection["name"+c.Id]==null)
+                if (collection["name" + c.Id] == null)
                 {
+                    //add id to hasNotContenido
                     formChecks.Add(Convert.ToInt32(collection["input" + c.Id].ToString()));
                 }
+                else
+                {
+                    if (formCats.Contains(c.IdCategoria))
+                    {
+                        //add id to hasCategorias
+                        formCats.Add(c.IdCategoria);
+                    }
+                }
             }
-            string idCvs = collection["idCv"].ToString();
+            //insert hasCategorias
+            string values = "";
+            for (int i = 0; i < formCats.Count; i++)
+            {
+                if (i == formChecks.Count - 1)
+                {
+                    values = string.Format("{0} ({1},{2})", values, idCvs, formCats[i]);
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            values = string.Format("({0},{1}),", idCvs, formCats[i]);
+                            break;
+                        default:
+                            values = string.Format("{0} ({1},{2}),", values, idCvs, formCats[i]);
+                            break;
+                    }
+                }
+
+            }
+            try
+            {
+                openConn();
+                string sql = string.Format("INSERT INTO cv_has_categorias VALUES {0}", values);
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            //insert hasNotContenido
             string vals = "";
-            for (int i=0;i<formChecks.Count;i++)
+            for (int i = 0; i < formChecks.Count; i++)
             {
                 int catCont = -1;
                 foreach (Contenido c in contenidos)
                 {
-                    if (c.Id== formChecks[i])
+                    if (c.Id == formChecks[i])
                     {
                         catCont = c.IdCategoria;
                     }
                 }
-                if (i==formChecks.Count-1)
+                if (i == formChecks.Count - 1)
                 {
                     vals = string.Format("{0} ({1},{2},{3})", vals, idCvs, formChecks[i], catCont);
                 }
@@ -118,14 +167,14 @@ namespace PlayYourCV.Controllers
                     switch (i)
                     {
                         case 0:
-                            vals = string.Format("({0},{1},{2}),",idCvs, formChecks[i] ,catCont);
+                            vals = string.Format("({0},{1},{2}),", idCvs, formChecks[i], catCont);
                             break;
                         default:
-                            vals = string.Format("{0} ({1},{2},{3}),", vals, idCvs, formChecks[i],catCont);
+                            vals = string.Format("{0} ({1},{2},{3}),", vals, idCvs, formChecks[i], catCont);
                             break;
                     }
                 }
-                
+
             }
             try
             {
@@ -148,12 +197,199 @@ namespace PlayYourCV.Controllers
             return View("Index");
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(int id)
         {
-            ViewData["Message"] = "Edicion form.";
-
+            int idAux = Convert.ToInt32(Session["loggedid"] as String);
+            ViewData["usuario"] = getUser(idAux);
+            ViewData["Contenido"] = GetContenidoUser();
+            ViewData["Cv"] = GetCvUser(id);
+            ViewData["NotContenido"] = GetHasNotContenidoUser(id);
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Edit(FormCollection collection)
+        {
+            List<Contenido> contenidos = GetContenidoUser();
+            List<int> formChecks = new List<int>();
+            List<int> formCats = new List<int>();
+            //delete
+            try
+            {
+                openConn();
+                string sql = string.Format("DELETE FROM cv_has_not_contenido WHERE {0}=@id", "CV_idCV");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@id", collection["idCv"].ToString());
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            //update
+            try
+            {
+                // TODO: Add update logic here
+                openConn();
+                MySqlCommand cmd = new MySqlCommand();
+                string sql = string.Format("UPDATE {0} SET Titulo=@nombre WHERE {1}=@id", "cv", "idCV");
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@nombre", collection["cvName"].ToString());
+                cmd.Parameters.AddWithValue("@id", collection["idCv"].ToString());
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                //TODO delete after succesfull update
+                int rowsAfected = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                closeConn();
+            }
+            //insert
+            string idCvs = collection["idCv"].ToString();
+            foreach (Contenido c in contenidos)
+            {
+                if (collection["name" + c.Id] == null)
+                {
+                    //add id to hasNotContenido
+                    formChecks.Add(Convert.ToInt32(collection["input" + c.Id].ToString()));
+                }
+                else
+                {
+                    if (formCats.Contains(c.IdCategoria))
+                    {
+                        //add id to hasCategorias
+                        formCats.Add(c.IdCategoria);
+                    }
+                }
+            }
+            //insert hasCategorias
+            string values = "";
+            for (int i = 0; i < formCats.Count; i++)
+            {
+                if (i == formChecks.Count - 1)
+                {
+                    values = string.Format("{0} ({1},{2})", values, idCvs, formCats[i]);
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            values = string.Format("({0},{1}),", idCvs, formCats[i]);
+                            break;
+                        default:
+                            values = string.Format("{0} ({1},{2}),", values, idCvs, formCats[i]);
+                            break;
+                    }
+                }
+
+            }
+            try
+            {
+                openConn();
+                string sql = string.Format("INSERT INTO cv_has_categorias VALUES {0}", values);
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            //insert hasNotContenido
+            string vals = "";
+            for (int i = 0; i < formChecks.Count; i++)
+            {
+                int catCont = -1;
+                foreach (Contenido c in contenidos)
+                {
+                    if (c.Id == formChecks[i])
+                    {
+                        catCont = c.IdCategoria;
+                    }
+                }
+                if (i == formChecks.Count - 1)
+                {
+                    vals = string.Format("{0} ({1},{2},{3})", vals, idCvs, formChecks[i], catCont);
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            vals = string.Format("({0},{1},{2}),", idCvs, formChecks[i], catCont);
+                            break;
+                        default:
+                            vals = string.Format("{0} ({1},{2},{3}),", vals, idCvs, formChecks[i], catCont);
+                            break;
+                    }
+                }
+
+            }
+            try
+            {
+                openConn();
+                string sql = string.Format("INSERT INTO cv_has_not_contenido VALUES {0}", vals);
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            return View("Index");
+        }
+
+        public ActionResult Delete(int id)
+        {
+            //delete
+            try
+            {
+                openConn();
+                string sql = string.Format("DELETE FROM cv WHERE {0}=@id", "idCV");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Prepare();
+                int filas = cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            return View("Index");
+        }
+
         public ActionResult Moduloscv()
         {
             ViewData["Message"] = "Edicion form.";
@@ -199,6 +435,32 @@ namespace PlayYourCV.Controllers
                 u.Telefono = rdr["Telefono"].ToString();
             }
             return u;
+        }
+
+        public Cv GetCvUser(int id)
+        {
+            Cv cv = new Cv();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT * FROM {0} WHERE {1} = @id", "cv", "idCV");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                cv = ToModelCv(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                closeConn();
+            }
+            return cv;
         }
 
         public List<Cv> GetCvsUser()
@@ -265,6 +527,32 @@ namespace PlayYourCV.Controllers
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                list = ToListModel(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                closeConn();
+            }
+            return list;
+        }
+
+        public List<Contenido> GetHasNotContenidoUser(int id)
+        {
+            List<Contenido> list = new List<Contenido>();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT * FROM {0} WHERE {1} IN (SELECT Contenido_idContenido FROM cv_has_not_contenido WHERE CV_idCV=@cvid)", "contenidos", "idContenido");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@cvid", id);
                 cmd.Connection = _conn;
                 cmd.Prepare();
                 MySqlDataReader rdr = cmd.ExecuteReader();
