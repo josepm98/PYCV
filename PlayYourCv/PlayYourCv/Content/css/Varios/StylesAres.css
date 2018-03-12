@@ -7,3 +7,27 @@
     resize: none;
     border-radius: 4px;
 }
+    .pretextarea:focus {
+        box-shadow: 0 0 5px #22aacc;
+        border: 1px solid #22aacc;
+    }
+
+.divsforms {
+    margin-top: 10px;
+}
+
+.modalfooter.{
+
+}
+
+
+.tablath {
+    padding:20px !important;
+    font-family:quicksand;
+}
+
+.tablatd {
+    padding: 20px;
+    font-family: quicksand;
+    text-align: center;
+}
