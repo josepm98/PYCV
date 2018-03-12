@@ -185,6 +185,7 @@
     <Compile Include="Controllers\ObjetivosController.cs" />
     <Compile Include="Controllers\PresentacionController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
+    <Compile Include="Controllers\VistaCVController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -354,6 +355,9 @@
     <Content Include="Views\Objetivos\Index.cshtml" />
     <Content Include="Views\Presentacion\Index.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
+    <Content Include="Views\vistaCV\LayoutCV.cshtml" />
+    <Content Include="Views\vistaCV\VistaCV.cshtml" />
+    <Content Include="Views\vistaCV\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
