@@ -35,27 +35,30 @@
                         <div class="jumbotron">
                             <h2>Datos Personales</h2>
                             <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Nombre
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Apellido1
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Apellido2
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Email
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.Telefono
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> Foto perfil
-                                </label>
-                                <label>
-                                    <input type="checkbox" checked="checked" /> @usuario.FechaNacimiento.ToString("dd/MM/yyyy")
-                                </label>
+                                @if(usuario.Nombre!=null)
+                                {
+                                <label>@usuario.Nombre</label>
+                                }
+                                @if (usuario.Apellido1 != null)
+                                {
+                                <label>@usuario.Apellido1</label>
+                                }
+                                @if (usuario.Apellido2 != null)
+                                {
+                                <label>@usuario.Apellido2</label>
+                                }
+                                @if (usuario.Email != null)
+                                {
+                                <label>@usuario.Email</label>
+                                }
+                                @if (usuario.Telefono != null)
+                                {
+                                <label>@usuario.Telefono</label>
+                                }
+                                @if (!usuario.FechaNacimiento.Equals(default(DateTime)))
+                                {
+                                <label>@usuario.FechaNacimiento.ToString("dd/MM/yyyy")</label>
+                                }
                             </div>
                         </div>
                     </div>
