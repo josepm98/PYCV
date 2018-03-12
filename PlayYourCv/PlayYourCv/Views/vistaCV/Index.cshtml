@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "VistaCV";
+    @model PlayYourCV.Models.Usuario
+}
+<style>
+    dt {
+        font-style: italic;
+        font-weight: bold;
+        font-size: 18px;
+        text-align: right;
+        padding: 0 26px 0 0;
+        width: 150px;
+        float: left;
+        height: 85%;
+        border-right: 1px solid #999;
+    }
+</style>
+<div id="page-wrap">
+    @{
+        PlayYourCV.Models.Usuario usuario = (PlayYourCV.Models.Usuario)ViewData["UsuarioContenido"];
+        if (usuario != null)
+        {
+            string fecha;
+            if (usuario.FechaNacimiento.Equals(default(DateTime)))
+            {
+                fecha = "";
+            }
+            else
+            {
+                fecha = String.Format("{0:yyyy-MM-dd}", usuario.FechaNacimiento);
+            }
+
+
+            <img src="@usuario.FotoURL" alt="Foto Perfil" id="pic" />
+
+            <div id="contact-info" class="vcard">
+
+                <!-- Microformats! -->
+
+                <h1 class="fn">@usuario.Nombre @usuario.Apellido1 @usuario.Apellido2 </h1>
+
+                <p>
+                    Telefono: <span class="tel">@usuario.Telefono</span><br />
+                    Email: <a class="email" href="mailto:@usuario.Email ">@usuario.Email </a><br />
+                    Fecha de Nacimiento <span class="Fecha">@usuario.FechaNacimiento.ToString("dd/MM/yyyy")</span><br />
+                </p>
+            </div>
+        }
+    }
+
+
+    <div id="objective">
+        <h2>Presentación</h2>
+        @{
+            List<PlayYourCV.Models.Contenido> listaPre = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+            if (listaPre != null)
+            {
+                foreach (PlayYourCV.Models.Contenido c in listaPre)
+                {
+                    if (c.IdCategoria == 5)
+                    {
+                        <p>
+                            @c.Descripcion
+                        </p>
+                    }
+                }
+            }
+        }
+
+    </div>
+
+    <div class="clear"></div>
+
+    <dl>
+        <dd class="clear"></dd>
+        <dt>Educación y Formación</dt>
+
+        @{
+            List<PlayYourCV.Models.Contenido> listaEducacion = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+            if (listaEducacion != null)
+            {
+                foreach (PlayYourCV.Models.Contenido c in listaEducacion)
+                {
+                    if (c.IdCategoria == 2)
+                    {
+
+                        <dd>
+                            <h2>@c.Nombre - @c.EmpresaEscuela - @c.Lugar</h2>
+                            <p>
+                                <strong>Posicion:</strong> @c.Posicion<br />
+                                <strong>Fecha de Inicio:</strong> @c.FechaInicio
+                                <strong>Fecha de Finalización:</strong> @c.FechaFin
+                                <strong>Descripción del puesto</strong>
+                            <p>@c.Descripcion</p>
+                            </p>
+                        </dd>
+
+                    }
+                }
+            }
+        }
+
+
+        <dd class="clear"></dd>
+
+        <dt>Skills</dt>
+        <dd>
+            <h2>Office skills</h2>
+            <p>Office and records management, database administration, event organization, customer support, travel coordination</p>
+
+            <h2>Computer skills</h2>
+            <p>Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows</p>
+        </dd>
+
+        <dd class="clear"></dd>
+
+        <dt>Experience</dt>
+        <dd>
+            <h2>Doomsday Cult <span>Leader/Overlord - Baton Rogue, LA - 1926-2010</span></h2>
+            <ul>
+                <li>Inspired and won highest peasant death competition among servants</li>
+                <li>Helped coordinate managers to grow cult following</li>
+                <li>Provided untimely deaths to all who opposed</li>
+            </ul>
+
+            <h2>The Watering Hole <span>Bartender/Server - Milwaukee, WI - 2009</span></h2>
+            <ul>
+                <li>Worked on grass-roots promotional campaigns</li>
+                <li>Reduced theft and property damage percentages</li>
+                <li>Janitorial work, Laundry</li>
+            </ul>
+        </dd>
+
+        <dd class="clear"></dd>
+
+        <dt>Hobbies</dt>
+        <dd>World Domination, Deep Sea Diving, Murder Most Foul</dd>
+
+        <dd class="clear"></dd>
+
+        <dt>References</dt>
+        <dd>Available on request</dd>
+
+        <dd class="clear"></dd>
+    </dl>
+
+    <div class="clear"></div>
+
+</div>
