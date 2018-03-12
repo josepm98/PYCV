@@ -18,7 +18,7 @@ namespace PlayYourCV.Controllers
         }
         public ActionResult Index()
         {
-
+            ViewData["listaCv"] =GetCvsUser();
             return View();
         }
 
@@ -48,12 +48,12 @@ namespace PlayYourCV.Controllers
             {
                 closeConn();
             }
-            //pass id cv created
+            //pass cv created
             Cv cvs = new Cv();
             try
             {
                 openConn();
-                string sql = string.Format("SELECT max(idCV) FROM cv WHERE {0}=@uid", "idUsuario");
+                string sql = string.Format("SELECT * FROM cv WHERE {0}=@uid order by idCV desc limit 1", "Usuario_idUsuario");
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = _conn;
@@ -82,8 +82,7 @@ namespace PlayYourCV.Controllers
             ViewData["usuario"] = getUser(idAux);
             ViewData["Contenido"] = GetContenidoUser();
             ViewData["Cv"]= cvs;
-            // Usuario u = getUser(idAux);
-            return View();
+            return View("Create");
         }
 
         [HttpPost]
@@ -98,25 +97,43 @@ namespace PlayYourCV.Controllers
                     formChecks.Add(Convert.ToInt32(collection["input" + c.Id].ToString()));
                 }
             }
-            string vals = "" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "" +
-                "";
-
+            string idCvs = collection["idCv"].ToString();
+            string vals = "";
+            for (int i=0;i<formChecks.Count;i++)
+            {
+                int catCont = -1;
+                foreach (Contenido c in contenidos)
+                {
+                    if (c.Id== formChecks[i])
+                    {
+                        catCont = c.IdCategoria;
+                    }
+                }
+                if (i==formChecks.Count-1)
+                {
+                    vals = string.Format("{0} ({1},{2},{3})", vals, idCvs, formChecks[i], catCont);
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            vals = string.Format("({0},{1},{2}),",idCvs, formChecks[i] ,catCont);
+                            break;
+                        default:
+                            vals = string.Format("{0} ({1},{2},{3}),", vals, idCvs, formChecks[i],catCont);
+                            break;
+                    }
+                }
+                
+            }
             try
             {
                 openConn();
-                string sql = string.Format("INSERT INTO cv_has_not_contenido ");
+                string sql = string.Format("INSERT INTO cv_has_not_contenido VALUES {0}", vals);
                 MySqlCommand cmd = new MySqlCommand();
                 cmd.CommandText = sql;
                 cmd.Connection = _conn;
-                //cmd.Parameters.AddWithValue("@userid", userid);
-                //cmd.Parameters.AddWithValue("@categoriaid", categoriaid);
-                //cmd.Parameters.AddWithValue("@nombre", nombre);
                 cmd.Prepare();
                 int filas = cmd.ExecuteNonQuery();
             }
@@ -128,7 +145,7 @@ namespace PlayYourCV.Controllers
             {
                 closeConn();
             }
-            return View("Index","CVS");
+            return View("Index");
         }
 
         public ActionResult Edit()
@@ -182,6 +199,60 @@ namespace PlayYourCV.Controllers
                 u.Telefono = rdr["Telefono"].ToString();
             }
             return u;
+        }
+
+        public List<Cv> GetCvsUser()
+        {
+            List<Cv> list = new List<Cv>();
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT * FROM {0} WHERE {1} = @uid", "cv", "Usuario_idUsuario");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Connection = _conn;
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                list = ToListModelCv(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                closeConn();
+            }
+            return list;
+        }
+
+        public Cv ToModelCv(MySqlDataReader rdr)
+        {
+            Cv cv = new Cv();
+            if (rdr.Read())
+            {
+                cv.Id = Convert.ToInt32(rdr["idCV"].ToString());
+                cv.IdUsuario = Convert.ToInt32(rdr["Usuario_idUsuario"].ToString());
+                cv.URL = rdr["URL"].ToString();
+                cv.Nombre = rdr["Titulo"].ToString();
+            } 
+            return cv;
+        }
+
+        public List<Cv> ToListModelCv(MySqlDataReader rdr)
+        {
+            List<Cv> list = new List<Cv>();
+            while (rdr.Read())
+            {
+                Cv aux = new Cv();
+                aux.Id = Convert.ToInt32(rdr["idCV"].ToString());
+                aux.IdUsuario = Convert.ToInt32(rdr["Usuario_idUsuario"].ToString());
+                aux.URL = rdr["URL"].ToString();
+                aux.Nombre = rdr["Titulo"].ToString();
+                list.Add(aux);
+            }
+            return list;
         }
 
         public List<Contenido> GetContenidoUser()
@@ -249,19 +320,6 @@ namespace PlayYourCV.Controllers
             c.Escrito = rdr["Escrito"].ToString();
             c.NivelGeneral = rdr["NivelGeneral"].ToString();
             return c;
-        }
-
-        public Cv ToModelCv(MySqlDataReader rdr)
-        {
-            Cv cv = new Cv();
-            if (rdr.Read())
-            {
-                cv.Id = Convert.ToInt32(rdr["idCV"].ToString());
-                cv.Nombre = rdr["Nombre"].ToString();
-                cv.IdUsuario = Convert.ToInt32(rdr["Usuario_idUsuario"].ToString());
-                cv.URL = rdr["URL"].ToString();
-            }
-            return cv;
         }
 
     }
