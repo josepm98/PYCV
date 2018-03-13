@@ -138,25 +138,10 @@ DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE IF NOT EXISTS `playyourcvdatabase`.`objetivos` (
   `idObjetivos` INT(11) NOT NULL AUTO_INCREMENT,
-  `Primaria` TINYINT(1) NULL DEFAULT NULL,
-  `Descripcion` VARCHAR(140) NULL DEFAULT NULL,
-  `Objetivos_idObjetivos` INT(11) NULL DEFAULT NULL,
+  `Descripcion` longtext NULL DEFAULT NULL,
   `Usuario_idUsuario` INT(11) NOT NULL,
-  `Categorias_idCategorias` INT(11) NOT NULL,
   PRIMARY KEY (`idObjetivos`),
-  INDEX `fk_Objetivos_Objetivos1_idx` (`Objetivos_idObjetivos` ASC),
   INDEX `fk_Objetivos_Usuario1_idx` (`Usuario_idUsuario` ASC),
-  INDEX `fk_Objetivos_Categorias1_idx` (`Categorias_idCategorias` ASC),
-  CONSTRAINT `fk_Objetivos_Categorias1`
-    FOREIGN KEY (`Categorias_idCategorias`)
-    REFERENCES `playyourcvdatabase`.`categorias` (`idCategorias`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_Objetivos_Objetivos1`
-    FOREIGN KEY (`Objetivos_idObjetivos`)
-    REFERENCES `playyourcvdatabase`.`objetivos` (`idObjetivos`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
   CONSTRAINT `fk_Objetivos_Usuario1`
     FOREIGN KEY (`Usuario_idUsuario`)
     REFERENCES `playyourcvdatabase`.`usuarios` (`idUsuario`)

@@ -12,7 +12,7 @@
             <h2>Presentación</h2>
         </div>
         <div class="col-xs-12 col-md-2">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myCreate">Añadir Presentación</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myCreate">Añadir Presentación</button>
         </div>
     </div>
 
@@ -37,8 +37,12 @@
 
 
                     <div class="col-sm-12" style="text-align:end">
-                        <button type="button" class="btn" onclick="deleteExp(@c.Id)">Eliminar</button>
-                        <button type="button" class="btn btn-info btn-lg mostraedit" data-toggle="modal" data-target="#myEdit">Editar</button>
+                        <div class="col-xs-2 col-lg-offset-10 col-lg-1">
+                            <i type="button" onclick="deleteExp(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
+                        </div>
+                        <div class="col-xs-2 col-lg-1" style="float:right; color:#7ECFE3;">
+                            <i type="button" data-toggle="modal" data-target="#myEdit" class="boton fas fa-edit fa-2x mostraedit"></i>
+                        </div>                      
                     </div>
 
                 </div>
