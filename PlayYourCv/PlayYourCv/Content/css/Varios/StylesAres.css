@@ -7,3 +7,38 @@
     resize: none;
     border-radius: 4px;
 }
+ .pretextarea:focus {
+        box-shadow: 0 0 5px #22aacc;
+        border: 1px solid #22aacc;
+    }
+
+.divsforms {
+    margin-top: 10px;
+}
+
+.tablath {
+    padding:20px !important;
+    font-family:quicksand;
+}
+
+.tablatd {
+    padding: 20px;
+    font-family: quicksand;
+    text-align: center;
+}
+
+.boton{
+    cursor:pointer;
+}
+
+.fa-edit:hover {
+    color: #0D6EAB;
+}
+
+.fa-trash-alt:hover {
+    color: #E17829;
+}
+
+fa-file-alt:hover {
+    color: darkslategrey;
+}

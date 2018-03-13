@@ -24,11 +24,16 @@
             fecha = String.Format("{0:yyyy-MM-dd}", usuario.FechaNacimiento);
         }
         <form action="/Cvs/Edit" method="post">
-            <div class="col-md-12">
-                <div class="jumbotron">
-                    <h2>Nombre del CV</h2>
-                    <input type="text" style="display:none" name="idCv" value="@cvs.Id" />
-                    <input type="text" name="cvName" value="@cvs.Nombre" />
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <h2>Nombre del CV</h2>
+                        <input type="text" style="display:none" name="idCv" value="@cvs.Id" />
+                        <input type="text" name="cvName" value="@cvs.Nombre" />
+                        <label>
+                            <button type="submit" class="btn btn-info">Actualizar CV</button>
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -340,9 +345,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <label>
-                                <button type="submit" class="btn btn-default">Crear CV</button>
-                            </label>
+
                         </div>
                     </div>
 

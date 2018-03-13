@@ -5,125 +5,131 @@
     List<PlayYourCV.Models.Contenido> listaSki = (List<PlayYourCV.Models.Contenido>)ViewData["lista"];
 }
 
-<div class="container">  </div>
-<div class="row">
-    <div class="col-md-6">
-        <h1>Skills</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-10">
+            <h2>Skills</h2>
+        </div>
+        <div class="col-xs-12 col-md-2">
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myCreate">Añadir nueva</button>
+        </div>
     </div>
-</div>
 
-@{
-    if (listaSki != null)
-    {
-        foreach (PlayYourCV.Models.Contenido c in listaSki)
+
+    @{
+        if (listaSki != null)
         {
-            <div class="jumbotron col-sm-12">
+            foreach (PlayYourCV.Models.Contenido c in listaSki)
+            {
+    <div class="jumbotron col-sm-12">
 
-                <div class="col-md-12">
-                    <h2 class="nomeditable"><strong>@c.Nombre</strong></h2>
-                    <input type="hidden" class="ideditable" value="@c.Id" />
-                </div>
+        <div class="col-md-10">
+            <h3>@c.Nombre</h3>
+            <input type="hidden" class="ideditable" value="@c.Id" />
+        </div>
 
-                <div class="col-sm-12" style="text-align:end">
-                    <button type="button" class="btn btn-default" onclick="deleteExp(@c.Id)">Eliminar</button>
-                    <button type="button" class="btn btn-info btn-lg mostraedit" data-toggle="modal" data-target="#myEdit">Editar</button>
-                </div>
+        <div class="col-sm-1" style="color:gray; padding:0px; padding-top:15px">
 
-            </div>
+            <i type="button" onclick="deleteExp(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
 
+        </div>
+        <div class="col-sm-1" style="color:#7ECFE3; padding:0px; padding-top:15px">
+
+            <i type="button" onclick="editHobbie(@c.Id,'@c.Nombre')" data-toggle="modal" data-target="#myEdit" class="boton fas fa-edit fa-2x mostraedit"></i>
+        </div>
+    </div>
+
+            }
         }
     }
-}
 
 
-<!-- Modal Edit -->
-<div id="myEdit" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <!-- Modal Edit -->
+    <div id="myEdit" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
-        <!-- Modal Edit content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edita tu habilidad</h4>
-            </div>
-            <div class="modal-body">
-
-                @using (Html.BeginForm("Edit", "Skills", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="form-horizontal">
-
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.Id, htmlAttributes: new { @id = "id_objectiu" })
-
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Skill</label>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @id = "nom_objectiu" } })
-                                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Guardar" class="btn btn-default" />
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Trigger the modal with a button-->
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myCreate">Añadir nueva</button>
-
-<!-- Modal Create -->
-<div id="myCreate" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal Create content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Nueva habilidad</h4>
-            </div>
-            <div class="modal-body">
-
-                @using (Html.BeginForm("Create", "Skills", FormMethod.Post))
-                {
-                     @Html.AntiForgeryToken()
-
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-                    <div class="form-group">
-                        <label class="control-label col-md-2">Skill</label>
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Crear" class="btn btn-default" />
-                        </div>
-                    </div>
+            <!-- Modal Edit content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edita esta habilidad</h4>
                 </div>
-                       
-                }
+                <div class="modal-body">
+
+                    @using (Html.BeginForm("Edit", "Skills", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id, htmlAttributes: new { @id = "id_objectiu" })
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Skill</label>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", @id = "nom_objectiu" } })
+                                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Guardar" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
 
             </div>
-
         </div>
     </div>
+
+
+    <!-- Modal Create -->
+    <div id="myCreate" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal Create content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Nueva habilidad</h4>
+                </div>
+                <div class="modal-body">
+
+                    @using (Html.BeginForm("Create", "Skills", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Skill</label>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Crear" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
-
-
 
 
 <script>

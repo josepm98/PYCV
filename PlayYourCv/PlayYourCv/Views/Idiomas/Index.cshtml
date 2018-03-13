@@ -9,7 +9,7 @@
         <h2>@titulo</h2>
     </div>
     <div class="col-md-2">
-        <button type="button" class="btn btn-default" onclick="add()" data-toggle="modal" data-target="#editModal">Agregar Idioma</button>
+        <button type="button" class="btn btn-info" onclick="add()" data-toggle="modal" data-target="#editModal">Agregar Idioma</button>
     </div>
 </div>
 @{
@@ -17,39 +17,43 @@
     {
         foreach (PlayYourCV.Models.Contenido c in listaIdiomas)
         {
-            <div class="jumbotron col-md-12">
-                <div class="col-sm-10">
-                    <h3>@c.Nombre</h3>
-                </div>
+<div class="jumbotron col-md-12">
+    <div class="col-sm-10">
+        <h3 style="font-family: quicksand;color: #58B9B3;">@c.Nombre</h3>
+    </div>
 
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-danger" onclick="deleteLanguage(@c.Id)">Eliminar</button>
-                </div>
+    <div class="col-sm-1" style="color:gray; padding:0px; padding-top:15px; text-align:center">
 
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-success" onclick="editLanguage(@c.Id,'@c.Nombre','@c.Hablado','@c.Escrito','@c.Leido','@c.NivelGeneral')" data-toggle="modal" data-target="#editModal">Editar</button>
-                </div>
-                <div>
-                    <table class="table-striped">
-                        <thead>
-                            <tr>
-                                <th>@Html.DisplayNameFor(model => model.Hablado)</th>
-                                <th>@Html.DisplayNameFor(model => model.Escrito)</th>
-                                <th>@Html.DisplayNameFor(model => model.Leido)</th>
-                                <th>@Html.DisplayNameFor(model => model.NivelGeneral)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>@c.Hablado</td>
-                                <td>@c.Escrito</td>
-                                <td>@c.Leido</td>
-                                <td>@c.NivelGeneral</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <i type="button" onclick="deleteLanguage(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
+
+    </div>
+
+    <div class="col-sm-1" style="color:#7ECFE3; padding:0px; padding-top:15px;">
+
+        <i type="button" onclick="editLanguage(@c.Id,'@c.Nombre','@c.Hablado','@c.Escrito','@c.Leido','@c.NivelGeneral')" data-toggle="modal" data-target="#editModal" class="boton fas fa-edit fa-2x"></i>
+    </div>
+
+    <div class="col-lg-12">
+        <table class="table-striped">
+            <thead style="background-color: #58B9B3;">
+                <tr>
+                    <th class="tablath">@Html.DisplayNameFor(model => model.Hablado)</th>
+                    <th class="tablath">@Html.DisplayNameFor(model => model.Escrito)</th>
+                    <th class="tablath">@Html.DisplayNameFor(model => model.Leido)</th>
+                    <th class="tablath">@Html.DisplayNameFor(model => model.NivelGeneral)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tablatd">@c.Hablado</td>
+                    <td class="tablatd">@c.Escrito</td>
+                    <td class="tablatd">@c.Leido</td>
+                    <td class="tablatd">@c.NivelGeneral</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
         }
     }
 }
@@ -62,37 +66,37 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edita tu habilidad</h4>
+                <h4 class="modal-title">Edita este idioma</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <form id="editModalForm" name="editForm" action="/Hobbies/Edit" method="post">
-                        <div>
+                        <div class="col-md-12 divsforms">
                             <input type="text" style="display:none" class="form-control" id="idInput" name="Id" value="" />
                             <label for="Nombre">Nombre:</label>
                             <input type="text" class="form-control" id="nombreInput" name="Nombre" value="" />
                         </div>
-                        <div>
+                        <div class="col-md-12 divsforms">
                             <label for="Hablado">Nivel Hablado:</label>
                             <input type="text" class="form-control" id="habladoInput" name="Hablado" value="" />
                         </div>
-                        <div>
+                        <div class="col-md-12 divsforms">
                             <label for="Escrito">Nivel Escrito:</label>
                             <input type="text" class="form-control" id="escritoInput" name="Escrito" value="" />
                         </div>
-                        <div>
+                        <div class="col-md-12 divsforms">
                             <label for="Leido">Nivel Leido:</label>
                             <input type="text" class="form-control" id="leidoInput" name="Leido" value="" />
                         </div>
-                        <div>
+                        <div class="col-md-12 divsforms">
                             <label for="NivelGeneral">Nivel General:</label>
                             <input type="text" class="form-control" id="generalInput" name="NivelGeneral" value="" />
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="modal-footer">
-                <div data-dismiss="modal">
+            <div class="form-group">
+                <div class="col-md-offset-8 col-md-3">
                     <input id="btnEditForm" type="submit" value="Guardar cambios" class="btn btn-default" />
                 </div>
             </div>
@@ -119,7 +123,7 @@
         document.getElementById("generalInput").value = "";
     }
 
-    function editLanguage(id,nombre,hablado,escrito,leido,general) {
+    function editLanguage(id, nombre, hablado, escrito, leido, general) {
         document.editForm.action = "/Idiomas/Edit";
         document.getElementById("idInput").value = id;
         document.getElementById("nombreInput").value = nombre;
@@ -143,3 +147,8 @@
     });
 
 </script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -301,3 +301,4 @@ PlayYourCv/PlayYourCv/Controllers/ObjetivosController.cs
 
 PlayYourCv/PlayYourCv/packages.config
 PlayYourCv/PlayYourCv/PlayYourCv.csproj
+PlayYourCv/PlayYourCv/Views/Shared/_Layout.cshtml

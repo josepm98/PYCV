@@ -20,12 +20,12 @@ $(function () {
     $('#slideshow > div:gt(0)').hide();
     setInterval(function () {
         $('#slideshow > div:first')
-            .fadeOut(1000)
+            .fadeOut(2000)
             .next()
-            .fadeIn(1000)
+            .fadeIn(2000)
             .end()
             .appendTo('#slideshow');
-    }, 3850);
+    }, 4850);
 });
 
 // CUSTOM JQUERY FUNCTION FOR SWAPPING CLASSES
@@ -88,7 +88,7 @@ $(function () {
             $('#toggle-terms').swapClass('open', 'closed');
             $('.tabs-content .fa').swapClass('active', 'inactive');
             $('.recovery .mssg').removeClass('animate');
-        }, 2500);
+        }, 8500);
     });
 });
 
