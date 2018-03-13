@@ -267,7 +267,7 @@ namespace PlayYourCV.Controllers
                 }
                 else
                 {
-                    if (formCats.Contains(c.IdCategoria))
+                    if (!formCats.Contains(c.IdCategoria))
                     {
                         //add id to hasCategorias
                         formCats.Add(c.IdCategoria);
@@ -278,7 +278,7 @@ namespace PlayYourCV.Controllers
             string values = "";
             for (int i = 0; i < formCats.Count; i++)
             {
-                if (i == formChecks.Count - 1)
+                if (i == formCats.Count - 1)
                 {
                     values = string.Format("{0} ({1},{2})", values, idCvs, formCats[i]);
                 }
