@@ -17,19 +17,26 @@
                     {
 
                         <div class="col-md-3">
-                            <div class="jumbotron">
-                                <div class="col-sm-1">
-                                    <button type="button" class="btn btn-danger" onclick="deleteCv(@c.Id)">Eliminar</button>
-                                </div>
+                            <div class="jumbotron" style="padding:20px;">
+                                <div class="row">
+                                    <div class="col-sm-12 text-center"> 
+                                        <h3>@c.Nombre</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4" style="color:gray; padding:0px; padding-top:15px; text-align:right">
+                                            <i type="button" onclick="deleteCv(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
+                                        </div>
+                                        <div class="col-sm-4" style="color:#7ECFE3; padding:0px; padding-top:15px; text-align:center">
+                                            <i type="button" onclick="editCv(@c.Id)" class="boton fas fa-edit fa-2x"></i>
+                                        </div>
+                                        <div class="col-sm-4" style="color:#7ECFE3; padding:0px; padding-top:15px; text-align:left">
 
-                                <div class="col-sm-1">
-                                    <button type="button" class="btn btn-success" onclick="editCv(@c.Id)">Editar</button>
-                                </div>
+                                            <i type="button" onclick="showCv(@c.Id)" style="color:black;" class="boton far fa-file-alt fa-2x"></i>
+                                        </div>
+                                    </div>
 
-                                <div class="col-sm-1">
-                                    <button type="button" class="btn btn-info" onclick="showCv(@c.Id)">Editar</button>
+
                                 </div>
-                                <h3>@c.Nombre</h3>
                             </div>
                         </div>
                     }
@@ -46,7 +53,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Edita tus datos</h4>
+                                <h4 class="modal-title">Añade un nuevo CV</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="form-group">
@@ -54,7 +61,7 @@
                                         <div>
                                             <input type="text" style="display:none" class="form-control" id="idInput" name="Id" value="" />
                                             <input type="text" class="form-control" id="nombreInput" name="Nombre" value="" />
-                                            <input id="btnEditForm" type="submit" value="Guardar cambios" class="btn btn-default" />
+                                            <input id="btnEditForm" type="submit" value="Guardar cambios" class="btn btn-default" style="margin-top:10px;"/>
                                         </div>
                                     </form>
                                 </div>
