@@ -1,7 +1,5 @@
 ﻿@model IEnumerable<PlayYourCV.Models.Cv>
 @{
-    /**/
-
     string titulo = (string)ViewData["Titulo"];
     List<PlayYourCV.Models.Cv> listaCv = (List<PlayYourCV.Models.Cv>)ViewData["listaCv"];
 }
@@ -21,11 +19,9 @@
                                 <div class="col-sm-1">
                                     <button type="button" class="btn btn-danger" onclick="deleteCv(@c.Id)">Eliminar</button>
                                 </div>
-
                                 <div class="col-sm-1">
                                     <button type="button" class="btn btn-success" onclick="editCv(@c.Id)">Editar</button>
                                 </div>
-
                                 <div class="col-sm-1">
                                     <button type="button" class="btn btn-info" onclick="showCv(@c.Id)">Mostrar</button>
                                 </div>
@@ -70,7 +66,7 @@
 <script>
 
     function showCv(id) {
-        window.open("/VistaCV/Index/" + id, '_blank');
+        window.location.replace("/VistaCV/Index/" + id, '_blank');
     }
 
     function editCv(id) {
