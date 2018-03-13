@@ -4,9 +4,7 @@
 @{
     PlayYourCV.Models.Objetivo objetivo = (PlayYourCV.Models.Objetivo)ViewData["listaObjetivos"];
 }
-<div class="container containerObjetivos">
-    <div class="row">
-        <div class="col-md-12">
+<div containerObjetivos">
 
             <form id="elform" action="/Objetivos/Editar" method="post">
                 <input name="__llista" type="hidden" id="ocult">
@@ -19,12 +17,7 @@
             <div class="buttom">
                 <button id="guardar" class="guardar btn btn-primary">Guardar</button>
             </div>
-        </div>
-    </div>
-</div>
 
-<div class="buttom">
-    <button id="guardar" class="guardar btn btn-primary">Guardar</button>
 </div>
 
 <!-- Modal añadir -->
