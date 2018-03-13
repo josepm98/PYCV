@@ -4,6 +4,9 @@
     @model PlayYourCV.Models.Usuario
 }
 <style>
+    .col-md-4{
+        float: right;
+    }
     dd.clear {
         float: none;
         margin: 0;
@@ -27,217 +30,255 @@
         border-right: none !important;
     }
 </style>
-<div id="page-wrap">
-    @{
-        PlayYourCV.Models.Usuario usuario = (PlayYourCV.Models.Usuario)ViewData["UsuarioContenido"];
-        if (usuario != null)
-        {
-            string fecha;
-            if (usuario.FechaNacimiento.Equals(default(DateTime)))
-            {
-                fecha = "";
-            }
-            else
-            {
-                fecha = String.Format("{0:yyyy-MM-dd}", usuario.FechaNacimiento);
-            }
 
+<div class="container">
+    <div id="page-wrap">
+        <div class="row">
 
-            <img src="@usuario.FotoURL" alt="Foto Perfil" id="pic" />
-
-            <div id="contact-info" class="vcard">
-
-                <!-- Microformats! -->
-
-                <h1 class="fn">@usuario.Nombre @usuario.Apellido1 @usuario.Apellido2 </h1>
-
-                <p>
-                    Telefono: <span class="tel">@usuario.Telefono</span><br />
-                    Email: <a class="email" href="mailto:@usuario.Email ">@usuario.Email </a><br />
-                    Fecha de Nacimiento <span class="Fecha">@usuario.FechaNacimiento.ToString("dd/MM/yyyy")</span><br />
-                </p>
-            </div>
-        }
-    }
-
-
-    <div id="objective">
-        <h2>Presentación</h2>
-        @{
-            List<PlayYourCV.Models.Contenido> listaPre = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
-            if (listaPre != null)
-            {
-                foreach (PlayYourCV.Models.Contenido c in listaPre)
-                {
-                    if (c.IdCategoria == 5)
+            <div class="col-md-12">
+                @{
+                    PlayYourCV.Models.Usuario usuario = (PlayYourCV.Models.Usuario)ViewData["UsuarioContenido"];
+                    if (usuario != null)
                     {
-                        <p>
-                            @c.Descripcion
-                        </p>
+                        string fecha;
+                        if (usuario.FechaNacimiento.Equals(default(DateTime)))
+                        {
+                            fecha = "";
+                        }
+                        else
+                        {
+                            fecha = String.Format("{0:yyyy-MM-dd}", usuario.FechaNacimiento);
+                        }
+
+
+
+                        <div class="col-md-9">
+                            <div id="contact-info" class="vcard">
+
+                                <!-- Microformats! -->
+
+                                <h1 class="fn">@usuario.Nombre @usuario.Apellido1 @usuario.Apellido2 </h1>
+
+                                <p>
+                                    Telefono: <span class="tel">@usuario.Telefono</span><br />
+                                    Email: <a class="email" href="mailto:@usuario.Email ">@usuario.Email </a><br />
+                                    Fecha de Nacimiento <span class="Fecha">@usuario.FechaNacimiento.ToString("dd/MM/yyyy")</span><br />
+                                    <a class='north' href="javascript:window.print()" title="Print"><img src="~/Content/images/icn-print.jpg" alt="" /></a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <img src="@usuario.FotoURL" alt="Foto Perfil" id="pic" />
+                        </div>
+
                     }
                 }
-            }
-        }
 
-    </div>
+            </div>
+            <div id="objective">
 
-    <div class="clear"></div>
-
-    <dl>
-        <dd class="clear"></dd>
-        <dt>Educación y Formación</dt>
-        <dd class="lineal">
-            @{
-            List<PlayYourCV.Models.Contenido> listaEducacion = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
-            if (listaEducacion != null)
-            {
-                foreach (PlayYourCV.Models.Contenido c in listaEducacion)
-                {
-                    string fecha1;
-                    string fecha2;
-                    fecha1 = String.Format("{0:yyyy-MM-dd}", c.FechaInicio);
-                    fecha2 = String.Format("{0:yyyy-MM-dd}", c.FechaFin);
-                    if (c.IdCategoria == 2)
+                @{
+                    List<PlayYourCV.Models.Contenido> listaPre = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+                    if (listaPre.Count > 0)
                     {
-                        <h2>@c.Nombre - @c.EmpresaEscuela - @c.Lugar</h2>
+                        <h2>Presentación</h2>
+                        foreach (PlayYourCV.Models.Contenido c in listaPre)
+                        {
+                            if (c.IdCategoria == 5)
+                            {
+                                <p>
+                                    @c.Descripcion
+                                </p>
+                            }
+                        }
+                    }
+                }
 
-                        <strong>Fecha de Inicio:</strong> @fecha1
+            </div>
+        </div>
+
+
+        <div class="clear"></div>
+        <div class="row">
+
+
+            <dl>
+                <dd class="clear"></dd>
+
+                @{
+                    List<PlayYourCV.Models.Contenido> listaEducacion = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+                    if (listaEducacion.Count > 0)
+                    {
+                        <dt>Educación y Formación</dt>
+                        <dd class="lineal">
+                            @foreach (PlayYourCV.Models.Contenido c in listaEducacion)
+                            {
+                                string fecha1;
+                                string fecha2;
+                                fecha1 = String.Format("{0:yyyy-MM-dd}", c.FechaInicio);
+                                fecha2 = String.Format("{0:yyyy-MM-dd}", c.FechaFin);
+                                if (c.IdCategoria == 2)
+                                {
+                                    <h2>@c.Nombre - @c.EmpresaEscuela - @c.Lugar</h2>
+
+                                    <strong>Fecha de Inicio:</strong> @fecha1<br />
+                                    <strong>Fecha de Finalización:</strong> @fecha2<br />
+                                    <strong>Descripción del curso:</strong>
+                                    <p>@c.Descripcion</p>
+                                    <hr />
+
+
+                                }
+                            }
+                        </dd>
+                    }
+                }
+
+
+                <dd class="clear"></dd>
+
+
+                @{
+                    List<PlayYourCV.Models.Contenido> listaSki = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+                    if (listaSki.Count > 0)
+                    {
+                        <dt>Skills</dt>
+                        <dd class="lineal">
+                            <ul>
+                                @foreach (PlayYourCV.Models.Contenido c in listaSki)
+                                {
+
+                                    if (c.IdCategoria == 6)
+                                    {
+
+                                        <li>@c.Nombre</li>
+
+                                    }
+                                }
+                            </ul>
+                        </dd>
+                    }
+                }
+
+                <dd class="clear"></dd>
+
+
+                @{
+                    List<PlayYourCV.Models.Contenido> listaExp = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+                    if (listaExp.Count > 0)
+                    {
+                        <dt>Experiencia</dt>
+                        <dd class="lineal">
+                            @foreach (PlayYourCV.Models.Contenido c in listaExp)
+    {
+        string fecha1;
+        string fecha2;
+        fecha1 = String.Format("{0:yyyy-MM-dd}", c.FechaInicio);
+        fecha2 = String.Format("{0:yyyy-MM-dd}", c.FechaFin);
+        if (c.IdCategoria == 7)
+        {
+                        <h2>@c.EmpresaEscuela - @c.Posicion - @c.Lugar</h2>
+
+                        <strong>Fecha de Inicio:</strong> @fecha1<br />
                         <strong>Fecha de Finalización:</strong> @fecha2<br />
-                        <strong>Descripción del puesto</strong>
+                        <strong>Descripción del curso:</strong>
                         <p>@c.Descripcion</p>
                         <hr />
-
-
+}
+}
+                        </dd>
+                    }
                 }
-            }
-        }
-            }
-        </dd>
 
-        <dd class="clear"></dd>
 
-        <dt>Skills</dt>
-        <dd class="lineal">
-            <ul>
+
+                <dd class="clear"></dd>
+
+
                 @{
-                List<PlayYourCV.Models.Contenido> listaSki = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
-                if (listaSki != null)
-                {
-                    foreach (PlayYourCV.Models.Contenido c in listaSki)
+
+                    List
+                    <PlayYourCV.Models.Contenido> listaHobbies = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+                    if (listaHobbies.Count > 0)
                     {
+                        <dt>Hobbies</dt>
+                        <dd class="lineal">
+                            <ul>
+                                @foreach (PlayYourCV.Models.Contenido c in listaHobbies)
+                                {
+                                    if (c.IdCategoria == 4)
+                                    {
 
-                        if (c.IdCategoria == 6)
-                        {
-
-                            <li>@c.Nombre</li>
+                                        <li>@c.Nombre</li>
+                                    }
+                                }
+                            </ul>
+                        </dd>
 
                     }
                 }
-            }
-                }
-            </ul>
-        </dd>
-        <dd class="clear"></dd>
 
-        <dt>Experiencia</dt>
-        <dd class="lineal">
-            @{
-            List<PlayYourCV.Models.Contenido> listaExp = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
-            if (listaExp != null)
-            {
-                foreach (PlayYourCV.Models.Contenido c in listaExp)
-                {
-                    string fecha1;
-                    string fecha2;
-                    fecha1 = String.Format("{0:yyyy-MM-dd}", c.FechaInicio);
-                    fecha2 = String.Format("{0:yyyy-MM-dd}", c.FechaFin);
-                    if (c.IdCategoria == 7)
-                    {
-                        <h2>@c.Nombre <span>@c.Posicion - @c.Lugar - @fecha1/@fecha2</span></h2>
-                        <p>@c.Descripcion</p>
-                }
-            }
-        }
-            }
+                <dd class="clear"></dd>
 
-        </dd>
-
-        <dd class="clear"></dd>
-
-        <dt>Hobbies</dt>
-        <dd class="lineal">
-            <ul>
                 @{
 
-                List
-                <PlayYourCV.Models.Contenido>
-                    listaHobbies = (List<PlayYourCV.Models.Contenido>
-                        )ViewData["listaContenidos"];
-                if (listaHobbies != null)
-                {
-                    foreach (PlayYourCV.Models.Contenido c in listaHobbies)
+                    List<PlayYourCV.Models.Contenido> listaIdiomas = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+                    if (listaIdiomas.Count > 0)
                     {
-                        if (c.IdCategoria == 4)
-                        {
-
-                            <li>@c.Nombre</li>
-                    }
-                }
-            }
-                }
-        </dd>
-        </ul>
-        <dd class="clear"></dd>
-        <dt>Idiomas</dt>
-        <dd class="lineal">
-            <ul>
-                @{
-
-                List<PlayYourCV.Models.Contenido> listaIdiomas = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
-                if (listaIdiomas != null)
-                {
-                    foreach (PlayYourCV.Models.Contenido c in listaIdiomas)
-                    {
-                        if (c.IdCategoria == 3)
-                        {
-                            <li>
-                                <strong>@c.Nombre</strong>
-                                <ul>
-                                    <li>Hablado: @c.Hablado</li>
-                                    <li>Leido: @c.Leido</li>
-                                    <li>Escrito: @c.Escrito</li>
-                                    <li>Nivel General: @c.NivelGeneral</li>
-                                </ul>
-                            </li>
+                        <dt>Idiomas</dt>
+                        <dd class="lineal">
+                            
+                                @foreach (PlayYourCV.Models.Contenido c in listaIdiomas)
+                                {
+                                    if (c.IdCategoria == 3)
+                                    {
+                                <div class="col-md-4">
+                                    <li>
+                                        <strong>@c.Nombre</strong>
+                                        <ul>
+                                            <li>Hablado: @c.Hablado</li>
+                                            <li>Leido: @c.Leido</li>
+                                            <li>Escrito: @c.Escrito</li>
+                                            <li>Nivel General: @c.NivelGeneral</li>
+                                        </ul>
+                                    </li>
+                                </div>
+                                        
+                                    }
+                                }
+                            
+                        </dd>
 
                     }
-                }
-            }
-                }
-        </dd>
-        </ul>
-        <dd class="clear"></dd>
 
-        <dt>Otros</dt>
-        <dd class="lineal">
-            <ul>
+                }
+
+                <dd class="clear"></dd>
+
+
                 @{
-            List<PlayYourCV.Models.Contenido> listaAdi = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
-            if (listaAdi != null)
-            {
-                foreach (PlayYourCV.Models.Contenido c in listaAdi)
-                {
-                    if (c.IdCategoria == 8)
+                    List<PlayYourCV.Models.Contenido> listaAdi = (List<PlayYourCV.Models.Contenido>)ViewData["listaContenidos"];
+                    if (listaAdi.Count > 0)
                     {
-                <li>@c.Nombre</li> 
-            }
-        }
-    }
+                        <dt>Otros</dt>
+                        <dd class="lineal">
+                            <ul>
+                                @foreach (PlayYourCV.Models.Contenido c in listaAdi)
+                                {
+                                    if (c.IdCategoria == 8)
+                                    {
+                                        <li>@c.Nombre</li>
+                                    }
+                                }
+                            </ul>
+                        </dd>
+                    }
                 }
-</ul>
-        </dd>
-    </dl>
 
-    <div class="clear"></div>
+            </dl>
 
+            <div class="clear"></div>
+        </div>
+    </div>
 </div>
+
