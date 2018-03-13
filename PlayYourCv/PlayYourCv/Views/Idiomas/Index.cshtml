@@ -9,7 +9,7 @@
         <h2>@titulo</h2>
     </div>
     <div class="col-md-2">
-        <button type="button" class="btn btn-default" onclick="add()" data-toggle="modal" data-target="#editModal">Agregar Idioma</button>
+        <button type="button" class="btn btn-info" onclick="add()" data-toggle="modal" data-target="#editModal">Agregar Idioma</button>
     </div>
 </div>
 @{
@@ -17,39 +17,43 @@
     {
         foreach (PlayYourCV.Models.Contenido c in listaIdiomas)
         {
-            <div class="jumbotron col-md-12">
-                <div class="col-sm-10">
-                    <h3 style="font-family: quicksand;color: #58B9B3;">@c.Nombre</h3>
-                </div>
+<div class="jumbotron col-md-12">
+    <div class="col-sm-10">
+        <h3 style="font-family: quicksand;color: #58B9B3;">@c.Nombre</h3>
+    </div>
 
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-danger" onclick="deleteLanguage(@c.Id)">Eliminar</button>
-                </div>
+    <div class="col-sm-1" style="color:gray; padding:0px; padding-top:15px; text-align:center">
 
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-success" onclick="editLanguage(@c.Id,'@c.Nombre','@c.Hablado','@c.Escrito','@c.Leido','@c.NivelGeneral')" data-toggle="modal" data-target="#editModal">Editar</button>
-                </div>
-                <div class="col-lg-12">
-                    <table class="table-striped">
-                        <thead style="background-color: #58B9B3;">
-                            <tr>
-                                <th class="tablath">@Html.DisplayNameFor(model => model.Hablado)</th>
-                                <th class="tablath">@Html.DisplayNameFor(model => model.Escrito)</th>
-                                <th class="tablath">@Html.DisplayNameFor(model => model.Leido)</th>
-                                <th class="tablath">@Html.DisplayNameFor(model => model.NivelGeneral)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="tablatd">@c.Hablado</td>
-                                <td class="tablatd">@c.Escrito</td>
-                                <td class="tablatd">@c.Leido</td>
-                                <td class="tablatd">@c.NivelGeneral</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <i type="button" onclick="deleteLanguage(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
+
+    </div>
+
+    <div class="col-sm-1" style="color:#7ECFE3; padding:0px; padding-top:15px;">
+
+        <i type="button" onclick="editLanguage(@c.Id,'@c.Nombre','@c.Hablado','@c.Escrito','@c.Leido','@c.NivelGeneral')" data-toggle="modal" data-target="#editModal" class="boton fas fa-edit fa-2x"></i>
+    </div>
+
+    <div class="col-lg-12">
+        <table class="table-striped">
+            <thead style="background-color: #58B9B3;">
+                <tr>
+                    <th class="tablath">@Html.DisplayNameFor(model => model.Hablado)</th>
+                    <th class="tablath">@Html.DisplayNameFor(model => model.Escrito)</th>
+                    <th class="tablath">@Html.DisplayNameFor(model => model.Leido)</th>
+                    <th class="tablath">@Html.DisplayNameFor(model => model.NivelGeneral)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tablatd">@c.Hablado</td>
+                    <td class="tablatd">@c.Escrito</td>
+                    <td class="tablatd">@c.Leido</td>
+                    <td class="tablatd">@c.NivelGeneral</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
         }
     }
 }

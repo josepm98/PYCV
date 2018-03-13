@@ -11,7 +11,7 @@
             <h2>Skills</h2>
         </div>
         <div class="col-xs-12 col-md-2">
-            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myCreate">Añadir nueva</button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myCreate">Añadir nueva</button>
         </div>
     </div>
 
@@ -21,19 +21,23 @@
         {
             foreach (PlayYourCV.Models.Contenido c in listaSki)
             {
-                <div class="jumbotron col-sm-12">
+    <div class="jumbotron col-sm-12">
 
-                    <div class="col-md-12">
-                        <h2 class="nomeditable"><strong>@c.Nombre</strong></h2>
-                        <input type="hidden" class="ideditable" value="@c.Id" />
-                    </div>
+        <div class="col-md-10">
+            <h3>@c.Nombre</h3>
+            <input type="hidden" class="ideditable" value="@c.Id" />
+        </div>
 
-                    <div class="col-sm-12" style="text-align:end">
-                        <button type="button" class="btn btn-default" onclick="deleteExp(@c.Id)">Eliminar</button>
-                        <button type="button" class="btn btn-info btn-lg mostraedit" data-toggle="modal" data-target="#myEdit">Editar</button>
-                    </div>
+        <div class="col-sm-1" style="color:gray; padding:0px; padding-top:15px">
 
-                </div>
+            <i type="button" onclick="deleteExp(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
+
+        </div>
+        <div class="col-sm-1" style="color:#7ECFE3; padding:0px; padding-top:15px">
+
+            <i type="button" onclick="editHobbie(@c.Id,'@c.Nombre')" data-toggle="modal" data-target="#myEdit" class="boton fas fa-edit fa-2x mostraedit"></i>
+        </div>
+    </div>
 
             }
         }

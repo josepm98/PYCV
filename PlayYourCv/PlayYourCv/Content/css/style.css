@@ -32,14 +32,9 @@
 
 */
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
-
-html {
-
-	-ms-text-size-adjust: 100%;
-
-	-webkit-text-size-adjust: 100%;
-
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic); html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
 *, *:before, *:after {
@@ -153,7 +148,17 @@ a {
 	transition-timing-function: ease;
 
 }
+/*Menu Home*/
+.navhome {
+    style ="padding-top:30px"
+}
 
+@media only screen and (max-width: 300px) {
+    .navhome{
+    style ="padding-top:0px"
+    }
+
+}
 a:focus, img:focus, button:focus, .btn:focus {outline: none;}
 
 ::-moz-selection {background-color:#fb5353;color:#fff;text-shadow:none;}
@@ -274,7 +279,10 @@ main[role="main-inner-wrapper"] .thumbnails-pan section figure figcaption h3{ fo
 
 main[role="main-inner-wrapper"] .thumbnails-pan section figure figcaption h5{ text-transform:uppercase; font-size:13px; line-height:14px; font-weight:bold}
 
-main[role="main-inner-wrapper"] .thumbnails-pan section figure:hover,section.blog-content:hover article{ background-color:#fb5353; color:#FFF}
+    main[role="main-inner-wrapper"] .thumbnails-pan section figure:hover, section.blog-content:hover article {
+        background-color: #3085a3;
+        color: #FFF
+    }
 
 main[role="main-inner-wrapper"] .thumbnails-pan section figure:hover img,section.blog-content:hover figure img{-webkit-transform: scale3d(1.08,1.08,2);transform: scale3d(1.08,1.08,2); opacity:0.5}
 

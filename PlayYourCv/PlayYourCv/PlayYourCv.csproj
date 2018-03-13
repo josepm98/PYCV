@@ -214,6 +214,9 @@
     <Content Include="Content\css\site.css" />
     <Content Include="Content\css\site.min.css" />
     <Content Include="Content\css\style.css" />
+    <Content Include="Content\images\home-images\agenda.jpg" />
+    <Content Include="Content\images\home-images\conocete.jpg" />
+    <Content Include="Content\images\home-images\entrevista.jpg" />
     <Content Include="Content\images\home-images\image-1.jpg" />
     <Content Include="Content\images\home-images\image-2.jpg" />
     <Content Include="Content\images\home-images\image-3.jpg" />
@@ -223,6 +226,8 @@
     <Content Include="Content\images\home-images\logros.jpg" />
     <Content Include="Content\images\home-images\miscvs-ss.jpg" />
     <Content Include="Content\images\home-images\Objetivos_1.jpg" />
+    <Content Include="Content\images\home-images\video.jpg" />
+    <Content Include="Content\images\Logros\Iniciandoaventura-01.png" />
     <Content Include="Content\images\lvl.jfif" />
     <Content Include="Content\images\lvl.png" />
     <Content Include="Content\images\mascota\Robot_1.png" />

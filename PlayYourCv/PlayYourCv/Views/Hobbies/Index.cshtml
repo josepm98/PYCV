@@ -12,7 +12,7 @@
                 <h2>@titulo</h2>
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-default" onclick="add()" data-toggle="modal" data-target="#editModal">Añadir Hobbie</button>
+                <button type="button" class="btn btn-info" onclick="add()" data-toggle="modal" data-target="#editModal">Añadir Hobbie</button>
             </div>
         </div>
     </div>
@@ -26,14 +26,11 @@
             <h3>@c.Nombre</h3>
         </div>
 
-        <div class="col-sm-1" style="color:gray; padding:0px; padding-top:15px">
-
-            <i type="button" onclick="deleteHobbie(@c.Id)" class="far fa-trash-alt fa-2x"></i>
-
+        <div class="col-sm-1" style="color:gray; padding:0px; padding-top:15px; text-align:center">
+            <i type="button" onclick="deleteHobbie(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
         </div>
         <div class="col-sm-1" style="color:#7ECFE3; padding:0px; padding-top:15px">
-
-            <i type="button" onclick="editHobbie(@c.Id,'@c.Nombre')" data-toggle="modal" data-target="#editModal" class="fas fa-edit fa-2x" ></i>
+            <i type="button" onclick="editHobbie(@c.Id,'@c.Nombre')" data-toggle="modal" data-target="#editModal" class="boton fas fa-edit fa-2x" ></i>
         </div>
     </div>
             }
