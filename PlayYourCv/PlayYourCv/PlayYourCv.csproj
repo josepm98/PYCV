@@ -226,6 +226,10 @@
     <Content Include="Content\images\home-images\Objetivos_1.jpg" />
     <Content Include="Content\images\home-images\video.jpg" />
     <Content Include="Content\images\icn-print.jpg" />
+    <Content Include="Content\images\iconosLvl\Nivel1.png" />
+    <Content Include="Content\images\iconosLvl\Nivel2.png" />
+    <Content Include="Content\images\iconosLvl\Nivel3.png" />
+    <Content Include="Content\images\iconosLvl\Nivel4.png" />
     <Content Include="Content\images\Logros\Iniciandoaventura-01.png" />
     <Content Include="Content\images\lvl.jfif" />
     <Content Include="Content\images\lvl.png" />

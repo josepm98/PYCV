@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "   Moduloscv";
     string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
 }
 
 <div class="container">
@@ -63,5 +64,7 @@
 </div><!--.container-->
 
 <script>
-    document.getElementById("progressBarLvl").style.width = @lvlProgress+"%";
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
 </script>
