@@ -19,6 +19,8 @@ namespace PlayYourCV.Controllers
         public ActionResult Index()
         {
             ViewData["listaCv"] =GetCvsUser();
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -393,7 +395,8 @@ namespace PlayYourCV.Controllers
         public ActionResult Moduloscv()
         {
             ViewData["Message"] = "Edicion form.";
-
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 

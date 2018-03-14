@@ -13,26 +13,34 @@
 
                     foreach (PlayYourCV.Models.Cv c in listaCv)
                     {
-
                         <div class="col-md-3">
-                            <div class="jumbotron">
-                                <div class="col-sm-1">
-                                    <button type="button" class="btn btn-danger" onclick="deleteCv(@c.Id)">Eliminar</button>
+                            <div class="jumbotron" style="padding:20px;">
+                                <div class="row">
+                                    <div class="col-sm-12 text-center"> 
+                                        <h3>@c.Nombre</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4" style="color:gray; padding:0px; padding-top:15px; text-align:right">
+                                            <i type="button" onclick="deleteCv(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
+                                        </div>
+                                        <div class="col-sm-4" style="color:#7ECFE3; padding:0px; padding-top:15px; text-align:center">
+                                            <i type="button" onclick="editCv(@c.Id)" class="boton fas fa-edit fa-2x"></i>
+                                        </div>
+                                        <div class="col-sm-4" style="color:black; padding:0px; padding-top:15px; text-align:left">
+
+                                            <i type="button" onclick="showCv(@c.Id)" class="boton far fa-file-alt fa-2x"></i>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-sm-1">
-                                    <button type="button" class="btn btn-success" onclick="editCv(@c.Id)">Editar</button>
-                                </div>
-                                <div class="col-sm-1">
-                                    <button type="button" class="btn btn-info" onclick="showCv(@c.Id)">Mostrar</button>
-                                </div>
-                                <h3>@c.Nombre</h3>
                             </div>
                         </div>
                     }
                 }
+
+
                 <div class="col-md-3">
                     <div class="jumbotron"data-toggle="modal" data-target="#myEdit" >
-                        <h2 >+</h2>
+                        <h2>+</h2>
                     </div>
                 </div>
                 <div id="myEdit" class="modal fade" role="dialog">

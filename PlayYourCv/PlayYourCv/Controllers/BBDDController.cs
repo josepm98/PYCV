@@ -106,7 +106,7 @@ namespace PlayYourCV.Controllers
             }
         }
 
-        public double getUserExp(int idUser)
+        public void getUserExp(int idUser)
         {
             int exp = 0;
             List<int> list = new List<int>();
@@ -158,7 +158,7 @@ namespace PlayYourCV.Controllers
             {
                 lvlExp=(exp/1000)*100;
             }
-            return lvlExp;
+            ViewData["lvlProgress"]= lvlExp;
         }
 
         public List<int> ToIntList(MySqlDataReader rdr)
