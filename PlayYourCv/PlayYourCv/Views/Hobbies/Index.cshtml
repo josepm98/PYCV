@@ -2,6 +2,8 @@
 
 @{
     string titulo = (string)ViewData["Titulo"];
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
     List<PlayYourCV.Models.Contenido> listaHobbies = (List<PlayYourCV.Models.Contenido>)ViewData["listaHobbies"];
 }
 <div class="container">
@@ -101,6 +103,10 @@
     document.getElementById("btnEditForm").addEventListener("click", function () {
         form.submit();
     });
+
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
 
 </script>
 

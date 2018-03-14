@@ -2,6 +2,8 @@
 @{
     string titulo = (string)ViewData["Titulo"];
     List<PlayYourCV.Models.Cv> listaCv = (List<PlayYourCV.Models.Cv>)ViewData["listaCv"];
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
 }
 <h2>@titulo</h2>
 @{
@@ -71,7 +73,7 @@
         </div>
     </div>
 }
-<script>
+    <script>
 
     function showCv(id) {
         window.location.replace("/VistaCV/Index/" + id, '_blank');
@@ -83,7 +85,7 @@
 
     function deleteCv(id) {
         window.location.replace("/Cvs/Delete/" + id);
-    } 
+    }
 
     form = document.getElementById("editModalForm");
     document.getElementById("btnEditForm").addEventListener("click", function () {
@@ -97,7 +99,12 @@
             window.location.replace("/Cvs/Index");
         }
     }
-</script>
+
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
+
+ </script>
 
 
 

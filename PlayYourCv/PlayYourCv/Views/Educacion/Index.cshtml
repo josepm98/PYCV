@@ -2,6 +2,8 @@
 
 @{
     string titulo = (string)ViewData["Titulo"];
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
     List<PlayYourCV.Models.Contenido> listaEducacion = (List<PlayYourCV.Models.Contenido>)ViewData["listaEducacion"];
 }
 <div class="container">
@@ -163,51 +165,56 @@
         </div>
     </div>
 </div>
-    <script>
+<script>
 
-        function deleteCourse(i) {
-            res = confirm('¿Estás seguro de querer eliminar esta formación?');
-            if (res) {
-                window.location.replace("/Educacion/Delete/" + i);
-            }
+    function deleteCourse(i) {
+        res = confirm('¿Estás seguro de querer eliminar esta formación?');
+        if (res) {
+            window.location.replace("/Educacion/Delete/" + i);
         }
+    }
 
-        function add() {
-            document.editForm.action = "/Educacion/Create";
-            document.getElementById("idInput").value = "";
-            document.getElementById("nombreInput").value = "";
-            document.getElementById("descripcionInput").value = "";
-            document.getElementById("escuelaInput").value = "";
-            document.getElementById("lugarInput").value = "";
-            document.getElementById("fechaIniInput").value = "";
-            document.getElementById("fechaFinInput").value = "";
+    function add() {
+        document.editForm.action = "/Educacion/Create";
+        document.getElementById("idInput").value = "";
+        document.getElementById("nombreInput").value = "";
+        document.getElementById("descripcionInput").value = "";
+        document.getElementById("escuelaInput").value = "";
+        document.getElementById("lugarInput").value = "";
+        document.getElementById("fechaIniInput").value = "";
+        document.getElementById("fechaFinInput").value = "";
+    }
+
+    function editCourse(id, nombre, des, escuela, lugar, fechai, fechaf) {
+        document.editForm.action = "/Educacion/Edit";
+        document.getElementById("idInput").value = id;
+        document.getElementById("nombreInput").value = nombre;
+        document.getElementById("descripcionInput").value = des;
+        document.getElementById("escuelaInput").value = escuela;
+        document.getElementById("lugarInput").value = lugar;
+        document.getElementById("fechaIniInput").value = fechai;
+        document.getElementById("fechaFinInput").value = fechaf;
+    }
+
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Educacion/Index");
         }
+    }
 
-        function editCourse(id, nombre, des, escuela, lugar, fechai, fechaf) {
-            document.editForm.action = "/Educacion/Edit";
-            document.getElementById("idInput").value = id;
-            document.getElementById("nombreInput").value = nombre;
-            document.getElementById("descripcionInput").value = des;
-            document.getElementById("escuelaInput").value = escuela;
-            document.getElementById("lugarInput").value = lugar;
-            document.getElementById("fechaIniInput").value = fechai;
-            document.getElementById("fechaFinInput").value = fechaf;
-        }
+    form = document.getElementById("editModalForm");
+    document.getElementById("btnEditForm").addEventListener("click", function () {
+        form.submit();
+    });
 
-        window.onload = function () {
-            if (
-                window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
-            ) {
-                window.location.replace("/Educacion/Index");
-            }
-        }
 
-        form = document.getElementById("editModalForm");
-        document.getElementById("btnEditForm").addEventListener("click", function () {
-            form.submit();
-        });
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
 
-    </script>
+</script>
 
 
     @section Scripts {

@@ -30,6 +30,8 @@ namespace PlayYourCV.Controllers
 
                 ViewData["listaEducacion"] = GetUserCourses(Convert.ToInt32(Session["loggedid"] as String));
                 ViewData["Titulo"] = "Educacion";
+                //update progress bar
+                getUserExp(Convert.ToInt32(Session["loggedid"] as String));
                 return View();
             }
             else
@@ -41,6 +43,8 @@ namespace PlayYourCV.Controllers
         public ActionResult Create()
         {
             ViewData["Titulo"] = "Agregar Estudio";
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -83,6 +87,8 @@ namespace PlayYourCV.Controllers
         {
             ViewData["Titulo"] = "Editar Estudio";
             ViewData["Educacion"] = getId(id);
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -145,6 +151,8 @@ namespace PlayYourCV.Controllers
             {
                 closeConn();
             }
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return RedirectToAction("Index");
         }
 

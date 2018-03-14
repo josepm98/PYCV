@@ -81,6 +81,8 @@ namespace PlayYourCV.Controllers
             ViewData["usuario"] = getUser(idAux);
             ViewData["Contenido"] = GetContenidoUser();
             ViewData["Cv"]= cvs;
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View("Create");
         }
 
@@ -206,6 +208,8 @@ namespace PlayYourCV.Controllers
             ViewData["Contenido"] = GetContenidoUser();
             ViewData["Cv"] = GetCvUser(id);
             ViewData["NotContenido"] = GetHasNotContenidoUser(id);
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -389,6 +393,8 @@ namespace PlayYourCV.Controllers
             {
                 closeConn();
             }
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View("Index");
         }
 

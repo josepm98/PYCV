@@ -6,6 +6,8 @@
 @{
     string titulo = (string)ViewData["Titulo"];
     PlayYourCV.Models.Cv cvs = (PlayYourCV.Models.Cv)ViewData["Cv"];
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
 }
 
 <h2>@titulo</h2>
@@ -354,3 +356,8 @@
         </form>
     }
 }
+<script>
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
+</script>

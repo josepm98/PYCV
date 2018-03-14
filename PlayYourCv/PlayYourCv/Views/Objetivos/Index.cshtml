@@ -2,6 +2,8 @@
 
 @{
     PlayYourCV.Models.Objetivo objetivo = (PlayYourCV.Models.Objetivo)ViewData["listaObjetivos"];
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
 }
 <style>
 
@@ -186,5 +188,10 @@
 
         return idPropio;
     }
+
+    //progress bar
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
 
 </script>

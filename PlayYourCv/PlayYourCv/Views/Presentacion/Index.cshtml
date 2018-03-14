@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Index";
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
     List<PlayYourCV.Models.Contenido> listaPre = (List<PlayYourCV.Models.Contenido>)ViewData["lista"];
 }
 
@@ -207,6 +209,9 @@
         $("#id_target").val($(this).closest(".jumbotron").find(".idedit").val());
     });
 
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
 </script>
 
 

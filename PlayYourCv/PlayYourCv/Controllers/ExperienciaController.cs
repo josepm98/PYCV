@@ -27,12 +27,16 @@ namespace PlayYourCV.Controllers
         {
             //TODO select all
             ViewData["Lista"] = GetExp(Convert.ToInt32(Session["loggedid"] as String));
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
         // GET: Login/Details/5
         public ActionResult Details(int id)
         {
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -61,12 +65,16 @@ namespace PlayYourCV.Controllers
                 string s = ex.Message;
                 closeConn(); //método propio que cierra conexión si está abierta
             }
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View("Index");
         }
 
         // GET: Login/Create
         public ActionResult Create()
         {
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -130,13 +138,11 @@ namespace PlayYourCV.Controllers
             return View();
         }
 
-
-
-
-
         public ActionResult Edit(int id)
         {
             Contenido model = this.getId(id);
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View(model);
         }
 

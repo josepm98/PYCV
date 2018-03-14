@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
     List<PlayYourCV.Models.Contenido> listaExp = (List<PlayYourCV.Models.Contenido>)ViewData["lista"];
 }
 
@@ -306,39 +308,42 @@
 </div>
 
 
-            <script>
-                function deleteExp(i) {
-                    res = confirm('¿Estás segura de querer eliminar esta experiencia?');
-                    if (res) {
-                        window.location.replace("/Experiencia/Delete/" + i);
-                    }
-                }
-                function add(i) {
-                    window.location.replace("/Experiencia/Create/");
-                }
-                function editExp(i) {
-                    window.location.replace("/Experiencia/Edit/" + i);
-                }
-                window.onload = function () {
-                    if (
-                        window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
-                    ) {
-                        window.location.replace("/Experiencia/Index");
-                    }
-                }
+<script>
+    function deleteExp(i) {
+        res = confirm('¿Estás segura de querer eliminar esta experiencia?');
+        if (res) {
+            window.location.replace("/Experiencia/Delete/" + i);
+        }
+    }
+    function add(i) {
+        window.location.replace("/Experiencia/Create/");
+    }
+    function editExp(i) {
+        window.location.replace("/Experiencia/Edit/" + i);
+    }
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Experiencia/Index");
+        }
+    }
 
-                $(document).on("click", ".mostraedit", function () {
-                    $("#idtarget").val($(this).closest(".jumbotron").find(".idedit").val());
-                    $("#pos_target").val($(this).closest(".jumbotron").find(".pos_edit").text());
-                    $("#emp_target").val($(this).closest(".jumbotron").find(".emp_edit").text());
-                    $("#lug_target").val($(this).closest(".jumbotron").find(".lug_edit").text());
-                    $("#fin_target").val($(this).closest(".jumbotron").find(".fin_edit").text());
-                    $("#ffi_target").val($(this).closest(".jumbotron").find(".ffi_edit").text());
-                    $("#des_target").val($(this).closest(".jumbotron").find(".des_edit").text());
+    $(document).on("click", ".mostraedit", function () {
+        $("#idtarget").val($(this).closest(".jumbotron").find(".idedit").val());
+        $("#pos_target").val($(this).closest(".jumbotron").find(".pos_edit").text());
+        $("#emp_target").val($(this).closest(".jumbotron").find(".emp_edit").text());
+        $("#lug_target").val($(this).closest(".jumbotron").find(".lug_edit").text());
+        $("#fin_target").val($(this).closest(".jumbotron").find(".fin_edit").text());
+        $("#ffi_target").val($(this).closest(".jumbotron").find(".ffi_edit").text());
+        $("#des_target").val($(this).closest(".jumbotron").find(".des_edit").text());
 
-                });
+    });
 
-            </script>
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
+</script>
 
 
 
