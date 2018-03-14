@@ -231,8 +231,11 @@
     <Content Include="Content\images\Logros\Iniciandoaventura-01.png" />
     <Content Include="Content\images\lvl.jfif" />
     <Content Include="Content\images\lvl.png" />
+    <Content Include="Content\images\mascota\Bityhelp_ani.gif" />
     <Content Include="Content\images\mascota\Robot_1.png" />
+    <Content Include="Content\images\mascota\Robot_1ani.gif" />
     <Content Include="Content\images\mascota\Robot_2.png" />
+    <Content Include="Content\images\mascota\Robot_2ani.gif" />
     <Content Include="Content\images\mascota\Robot_3_1.png" />
     <Content Include="Content\images\mascota\Robot_3_3.png" />
     <Content Include="Content\images\mascota\Robot_4.png" />

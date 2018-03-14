@@ -39,6 +39,18 @@
     color: #E17829;
 }
 
-fa-file-alt:hover {
+.fa-file-alt:hover {
     color: darkslategrey;
+}
+
+.Bityicon {
+    width: 80%;
+    cursor: pointer;
+}
+.btn-info{
+    float:right;
+}
+
+.BityAnimado {
+    width: 250px;
 }
