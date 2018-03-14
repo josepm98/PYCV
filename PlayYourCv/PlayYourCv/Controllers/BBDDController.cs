@@ -161,6 +161,7 @@ namespace PlayYourCV.Controllers
             else
             {
                 lvlExp=(exp/10);
+                imgRoute += "/Content/images/iconosLvl/NoLvl.png";
             }
             ViewData["lvlProgress"]= lvlExp;
             ViewData["imgLvlRoute"] = imgRoute;

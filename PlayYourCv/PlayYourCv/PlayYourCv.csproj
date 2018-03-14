@@ -230,6 +230,7 @@
     <Content Include="Content\images\iconosLvl\Nivel2.png" />
     <Content Include="Content\images\iconosLvl\Nivel3.png" />
     <Content Include="Content\images\iconosLvl\Nivel4.png" />
+    <Content Include="Content\images\iconosLvl\NoLvl.png" />
     <Content Include="Content\images\Logros\Iniciandoaventura-01.png" />
     <Content Include="Content\images\lvl.jfif" />
     <Content Include="Content\images\lvl.png" />
