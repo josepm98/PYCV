@@ -30,6 +30,8 @@ namespace PlayYourCV.Controllers
 
                 ViewData["listaIdiomas"] = GetUserLanguages(Convert.ToInt32(Session["loggedid"] as String));
                 ViewData["Titulo"] = "Idiomas";
+                //update progress bar
+                getUserExp(Convert.ToInt32(Session["loggedid"] as String));
                 return View();
             }
             else
@@ -41,6 +43,8 @@ namespace PlayYourCV.Controllers
         public ActionResult Create()
         {
             ViewData["Titulo"] = "Agregar Idioma";
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -82,6 +86,8 @@ namespace PlayYourCV.Controllers
         {
             ViewData["Titulo"] = "Editar Idioma";
             ViewData["Idioma"]= getId(id);
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -142,6 +148,8 @@ namespace PlayYourCV.Controllers
             {
                 closeConn();
             }
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return RedirectToAction("Index");
         }
 

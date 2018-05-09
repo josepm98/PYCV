@@ -1,24 +1,85 @@
-﻿
-@model PlayYourCV.Models.Objetivo
-
-@{
-    ViewData["Title"] = "Index";
-}
-
-<h2>Index</h2>
+﻿@model PlayYourCV.Models.Objetivo
 
 @{
     PlayYourCV.Models.Objetivo objetivo = (PlayYourCV.Models.Objetivo)ViewData["listaObjetivos"];
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
 }
+<style>
 
-<form id="elform" action="/Objetivos/Editar" method="post">
-    <input name="__llista" type="hidden" id="ocult">
-</form>
+    /*Estilo Objetivos*/
 
-<div id="lista">
-    @Html.Raw(objetivo.Descripcion)
+    .editar {
+        margin: 10px 5px 10px 10px;
+        cursor: pointer;
+    }
+
+    .eliminar {
+        margin: 10px 10px 10px 5px;
+    }
+
+    .grupo2 .add {
+        color: white;
+        font-size: 15px;
+    }
+
+    .guardar {
+        margin: 20px 0px 20px 40px !important;
+    }
+
+    .containerObjetivos {
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: 20px;
+        background-color: beige;
+    }
+
+    .grupo {
+        background: whitesmoke;
+        padding: 1%;
+        border-radius: 5%;
+        max-width: 500px;
+        text-align: justify;
+        float: left;
+        margin-right: 40px;
+    }
+
+    .tit {
+        font-size: 1.3em;
+        list-style: none;
+    }
+
+    .grupo2 {
+        list-style: none;
+        text-align: center;
+        float: left;
+        margin-left: 5%;
+        margin: 20px 40px;
+    }
+
+    #lista {
+        text-align: center;
+    }
+
+    .buttom {
+        bottom: 0;
+        position: fixed;
+    }
+</style>
+<div containerObjetivos">
+
+    <form id="elform" action="/Objetivos/Editar" method="post">
+        <input name="__llista" type="hidden" id="ocult">
+    </form>
+
+    <div id="lista">
+        @Html.Raw(objetivo.Descripcion)
+    </div>
+
+    <div class="buttom">
+        <button id="guardar" class="guardar btn btn-primary">Guardar</button>
+    </div>
+
 </div>
-<button id="guardar" class="btn btn-primary">Guardar</button>
 
 <!-- Modal añadir -->
 <div class="modal fade" id="myModal" role="dialog">
@@ -56,7 +117,10 @@
             <div class="modal-body">
                 <p>Edita tú objetivo</p>
                 <input placeholder="Edita tú objetivo" class="form-control" id="textoEditado">
-                <button id="botonOKEdit" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+                <span>
+                    <button id="botonOKEdit" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+                    <button class="eliminar btn btn-danger"><i class="fa fa-trash" data-dismiss="modal"></i></button>
+                </span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -82,30 +146,26 @@
     //Click en el botó aceptar i s'afageix l'element a la llista
     $(document).on("click", "#botonOK", function () {
         valorEntrada = document.getElementById('textoEntrado').value;
-        $('#' + idPadre + ' li:eq(' + index + ')').before('<li id=' + RandomID() + '>' + '<span>' + valorEntrada + '</span>' + '<button class="editar btn btn-warning" data-toggle="modal" data-target="#editModal">Editar</button><button class="eliminar btn btn-danger">Eliminar</button> <ul id=' + RandomID() + '> <li> <button class="add btn btn-success" data-toggle="modal" data-target="#myModal"> +Añadir </button></li> </ul> </li>');
+        $('#' + idPadre + ' li:eq(' + index + ')').before('<li id=' + RandomID() + ' class="grupo">' + '<span data-toggle="modal" data-target="#editModal" class="editar">' + valorEntrada + ' <i class="fa fa-edit" style="font-size:17px;"></i> </span> <ol id=' + RandomID() + '> <li> <button class="add btn btn-success" data-toggle="modal" data-target="#myModal"> + </button></li> </ol> </li>');
     });
 
     //Registra el click en el botó editar per saber quin element editar
     $(document).on("click", ".editar", function () {
         //posició on està el botó
         index = $(this).index();
+        $('#textoEditado').val($(this).text());
         //Posició
         idPadre = $(this).parent().attr('id');
-        console.log(idPadre);
     });
 
     //Registra els canvis y els escriu en el HTML
     $(document).on("click", "#botonOKEdit", function () {
         valorEntrada = document.getElementById('textoEditado').value;
-        $('#' + idPadre + '>span').text(valorEntrada);
+        $('#' + idPadre + '>span').html(valorEntrada + ' <i class="fa fa-edit" style="font-size:17px;"></i>');
     });
 
     //Registra el click en el botó editar per saber quin element editar
     $(document).on("click", ".eliminar", function () {
-        //posició on està el botó
-        index = $(this).index();
-        //Posició
-        idPadre = $(this).parent().attr('id');
         $('#' + idPadre).remove();
     });
 
@@ -128,5 +188,11 @@
 
         return idPropio;
     }
+
+    //progress bar
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
+    document.getElementById("imgLvl").src ='@lvlImg';
 
 </script>

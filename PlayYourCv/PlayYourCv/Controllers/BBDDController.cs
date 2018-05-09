@@ -106,6 +106,75 @@ namespace PlayYourCV.Controllers
             }
         }
 
-        
+        public void getUserExp(int idUser)
+        {
+            double exp = 0;
+            List<double> list = new List<double>();
+            //getExp
+            try
+            {
+                openConn();
+                string sql = string.Format("SELECT Experiencia FROM categorias ca join contenidos co WHERE ca.idCategorias=co.Categorias_idCategorias AND co.idUsuario=@uid");
+                MySqlCommand cmd = new MySqlCommand();
+                cmd.CommandText = sql;
+                cmd.Connection = _conn;
+                cmd.Parameters.AddWithValue("@uid", Convert.ToInt32(Session["loggedid"] as String));
+                cmd.Prepare();
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                list = ToIntList(rdr);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.GetBaseException().ToString());
+            }
+            finally
+            {
+                closeConn();
+            }
+            foreach (double i in list)
+            {
+                exp += i;
+            }
+            //getLvlExp and Image
+            double lvlExp = 0;
+            string imgRoute = "";
+            if (exp >= 15000)
+            {
+                lvlExp=100;
+                imgRoute += "/Content/images/iconosLvl/Nivel4.png";
+            }
+            else if (exp >= 7000)
+            {
+                lvlExp = ((exp-7000)/80);
+                imgRoute += "/Content/images/iconosLvl/Nivel3.png";
+            }
+            else if (exp >= 3000)
+            {
+                lvlExp = ((exp - 3000)/40);
+                imgRoute += "/Content/images/iconosLvl/Nivel2.png";
+            }
+            else if (exp >= 1000)
+            {
+                lvlExp=((exp-1000)/20);
+                imgRoute += "/Content/images/iconosLvl/Nivel1.png";
+            }
+            else
+            {
+                lvlExp=(exp/10);
+                imgRoute += "/Content/images/iconosLvl/NoLvl.png";
+            }
+            ViewData["lvlProgress"]= lvlExp;
+            ViewData["imgLvlRoute"] = imgRoute;
+        }
+
+        public List<double> ToIntList(MySqlDataReader rdr)
+        {
+            List<double> list =new List<double>();
+            while (rdr.Read())
+            {
+                list.Add(Convert.ToDouble(rdr["Experiencia"].ToString()));
+            }
+            return list;
+        }
     }
 }

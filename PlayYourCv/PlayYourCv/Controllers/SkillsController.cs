@@ -26,16 +26,22 @@ namespace PlayYourCV.Controllers
         {
             //TODO select all
             ViewData["lista"] = GetSki(Convert.ToInt32(Session["loggedid"] as String));
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
         public ActionResult Details(int id)
         {
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
         public ActionResult Create()
         {
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -158,6 +164,8 @@ namespace PlayYourCV.Controllers
                 string s = ex.Message;
                 closeConn(); //método propio que cierra conexión si está abierta
             }
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View("Index");
         }
 

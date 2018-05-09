@@ -24,18 +24,24 @@ namespace PlayYourCV.Controllers
         {
             //TODO select all
             ViewData["lista"] = GetPre(Convert.ToInt32(Session["loggedid"] as String));
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
         // GET: Presentacion/Details/5
         public ActionResult Details(int id)
         {
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
         // GET: Presentacion/Create
         public ActionResult Create()
         {
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -93,6 +99,8 @@ namespace PlayYourCV.Controllers
         public ActionResult Edit(int id)
         {
             Contenido model = this.getId(id);
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View(model);
         }
 
@@ -165,11 +173,11 @@ namespace PlayYourCV.Controllers
                 string s = ex.Message;
                 closeConn(); //método propio que cierra conexión si está abierta
             }
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View("Index");
         }
-
-
-
+        
         public override Contenido ToModel(MySqlDataReader rdr)
         {
             Contenido c = new Contenido();

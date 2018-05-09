@@ -32,12 +32,15 @@ namespace PlayYourCV.Controllers
 
             }
             ViewData["usuario"] = getId(idAux);
-            Usuario u = getId(idAux);
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
         public ActionResult Perfil()
         {
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 
@@ -131,10 +134,7 @@ namespace PlayYourCV.Controllers
                 closeConn();
             }
         }
-
-
-
-       
+        
         public override List<Usuario> ToListModel(MySqlDataReader rdr)
         {
             throw new NotImplementedException();

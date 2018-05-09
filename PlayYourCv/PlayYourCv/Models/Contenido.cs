@@ -11,6 +11,8 @@ namespace PlayYourCV.Models
         public int Id { get; set; }
         public int IdUsuario { get; set; }
         public int IdCategoria { get; set; }
+        [Required]
+        [Display(Name = "")]
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         [Required]
@@ -32,6 +34,7 @@ namespace PlayYourCV.Models
         public string Hablado { get; set; }
         public string Escrito { get; set; }
         public string Leido { get; set; }
+        [Display(Name = "Nivel General")]
         public string NivelGeneral { get; set; }
 }
 }

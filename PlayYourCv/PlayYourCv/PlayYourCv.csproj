@@ -185,6 +185,7 @@
     <Compile Include="Controllers\ObjetivosController.cs" />
     <Compile Include="Controllers\PresentacionController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
+    <Compile Include="Controllers\VistaCVController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,10 +224,21 @@
     <Content Include="Content\images\home-images\logros.jpg" />
     <Content Include="Content\images\home-images\miscvs-ss.jpg" />
     <Content Include="Content\images\home-images\Objetivos_1.jpg" />
+    <Content Include="Content\images\home-images\video.jpg" />
+    <Content Include="Content\images\icn-print.jpg" />
+    <Content Include="Content\images\iconosLvl\Nivel1.png" />
+    <Content Include="Content\images\iconosLvl\Nivel2.png" />
+    <Content Include="Content\images\iconosLvl\Nivel3.png" />
+    <Content Include="Content\images\iconosLvl\Nivel4.png" />
+    <Content Include="Content\images\iconosLvl\NoLvl.png" />
+    <Content Include="Content\images\Logros\Iniciandoaventura-01.png" />
     <Content Include="Content\images\lvl.jfif" />
     <Content Include="Content\images\lvl.png" />
+    <Content Include="Content\images\mascota\Bityhelp_ani.gif" />
     <Content Include="Content\images\mascota\Robot_1.png" />
+    <Content Include="Content\images\mascota\Robot_1ani.gif" />
     <Content Include="Content\images\mascota\Robot_2.png" />
+    <Content Include="Content\images\mascota\Robot_2ani.gif" />
     <Content Include="Content\images\mascota\Robot_3_1.png" />
     <Content Include="Content\images\mascota\Robot_3_3.png" />
     <Content Include="Content\images\mascota\Robot_4.png" />
@@ -354,11 +366,13 @@
     <Content Include="Views\Objetivos\Index.cshtml" />
     <Content Include="Views\Presentacion\Index.cshtml" />
     <Content Include="Views\Skills\Index.cshtml" />
+    <Content Include="Views\vistaCV\Index.cshtml" />
+    <Content Include="Views\vistaCV\LayoutCV.cshtml" />
+    <Content Include="Views\vistaCV\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Fotoperfil\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<PlayYourCV.Models.Cv>
 @{
-    /**/
-
     string titulo = (string)ViewData["Titulo"];
     List<PlayYourCV.Models.Cv> listaCv = (List<PlayYourCV.Models.Cv>)ViewData["listaCv"];
+    string lvlProgress = ViewData["lvlProgress"].ToString();
+    string lvlImg = ViewData["imgLvlRoute"].ToString();
 }
 <h2>@titulo</h2>
 @{
@@ -15,27 +15,97 @@
 
                     foreach (PlayYourCV.Models.Cv c in listaCv)
                     {
-
                         <div class="col-md-3">
-                            <div class="jumbotron">
-                                <h3>@c.Nombre</h3>
+                            <div class="jumbotron" style="padding:20px;">
+                                <div class="row">
+                                    <div class="col-sm-12 text-center"> 
+                                        <h3>@c.Nombre</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4" style="color:gray; padding:0px; padding-top:15px; text-align:right">
+                                            <i type="button" onclick="deleteCv(@c.Id)" class="boton far fa-trash-alt fa-2x"></i>
+                                        </div>
+                                        <div class="col-sm-4" style="color:#7ECFE3; padding:0px; padding-top:15px; text-align:center">
+                                            <i type="button" onclick="editCv(@c.Id)" class="boton fas fa-edit fa-2x"></i>
+                                        </div>
+                                        <div class="col-sm-4" style="color:black; padding:0px; padding-top:15px; text-align:left">
+
+                                            <i type="button" onclick="showCv(@c.Id)" class="boton far fa-file-alt fa-2x"></i>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     }
-
                 }
+
+
                 <div class="col-md-3">
-                    <a href="~/Cvs/Create">
-                        <div class="jumbotron">
-                            <h2>+</h2>
+                    <div class="jumbotron"data-toggle="modal" data-target="#myEdit" >
+                        <h2>+</h2>
+                    </div>
+                </div>
+                <div id="myEdit" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                        <!-- Modal Edit content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Edita tus datos</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <form id="editModalForm" name="editForm" action="/Cvs/Index" method="post">
+                                        <div>
+                                            <input type="text" style="display:none" class="form-control" id="idInput" name="Id" value="" />
+                                            <input type="text" class="form-control" id="nombreInput" name="Nombre" value="" />
+                                            <input id="btnEditForm" type="submit" value="Guardar cambios" class="btn btn-default" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
                         </div>
-                    </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 }
+    <script>
+
+    function showCv(id) {
+        window.location.replace("/VistaCV/Index/" + id, '_blank');
+    }
+
+    function editCv(id) {
+        window.location.replace("/Cvs/Edit/" + id);
+    }
+
+    function deleteCv(id) {
+        window.location.replace("/Cvs/Delete/" + id);
+    }
+
+    form = document.getElementById("editModalForm");
+    document.getElementById("btnEditForm").addEventListener("click", function () {
+        form.submit();
+    });
+
+    window.onload = function () {
+        if (
+            window.location.href.split("/")[window.location.href.split("/").length - 1] != "Index"
+        ) {
+            window.location.replace("/Cvs/Index");
+        }
+    }
+
+    progBar = document.getElementById("progressBarLvl");
+    progBar.style.width = @lvlProgress+"%";
+    progBar.innerHTML +=@lvlProgress+"%";
+    document.getElementById("imgLvl").src ='@lvlImg';
+
+ </script>
 
 
 

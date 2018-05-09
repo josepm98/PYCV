@@ -28,6 +28,8 @@ namespace PlayYourCV.Controllers
             userid = Convert.ToInt32(Session["loggedid"] as String);
 
             ViewData["listaObjetivos"] = GetObj(userid);
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
 

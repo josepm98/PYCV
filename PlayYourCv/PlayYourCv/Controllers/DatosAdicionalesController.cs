@@ -26,15 +26,10 @@ namespace PlayYourCV.Controllers
         {
             //TODO select all
             ViewData["lista"] = GetAdi(Convert.ToInt32(Session["loggedid"] as String));
+            //update progress bar
+            getUserExp(Convert.ToInt32(Session["loggedid"] as String));
             return View();
         }
-
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-
 
         // POST
         [HttpPost]
